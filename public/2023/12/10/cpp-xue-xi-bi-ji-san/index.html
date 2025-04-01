@@ -358,12 +358,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/C/">
-                                <span class="chip bg-color">C++</span>
-                            </a>
-                        
                             <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
                                 <span class="chip bg-color">《C++ primer》</span>
+                            </a>
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
                             </a>
                         
                     </div>
@@ -463,66 +463,7 @@ IteratorType
     cout<span class="token operator">&lt;&lt;</span>t<span class="token operator">&lt;&lt;</span><span class="token char">''</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="1-3泛型指针"><a href="#1-3泛型指针" class="headerlink" title="1.3泛型指针"></a>1.3泛型指针</h4><p><strong>①引言</strong></p>
-<blockquote>
-<p><strong>概述</strong>：<strong>泛型指针</strong>本质上是一个<strong>某个类的friend类</strong>，对多种<strong>操作符</strong>进行<strong>重载</strong>，<strong>性质和用法</strong>类似于<strong>指针</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如下为一个数列类以及其泛型指针</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 使用typedef关键字将iterator_to_special_vector改为统一的iterator</div>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//泛型指针相关联的类</span>
-<span class="token keyword">class</span> <span class="token class-name">special_vector</span><span class="token punctuation">{</span>
-  <span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token comment">//一些成员函数</span>
-  <span class="token keyword">friend</span> <span class="token keyword">class</span> <span class="token class-name">iterator_to_special_vector</span><span class="token punctuation">;</span>
-  <span class="token keyword">typedef</span> iterator_to_special_vector iterator<span class="token punctuation">;</span>
 
-  iterator <span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">iterator</span><span class="token punctuation">(</span>_begin_pos<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-
-  iterator <span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token function">iterator</span><span class="token punctuation">(</span>_begin_pos<span class="token operator">+</span>_len<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-  <span class="token keyword">private</span><span class="token operator">:</span>
-      <span class="token keyword">int</span> _begin_pos<span class="token punctuation">;</span>
-      <span class="token keyword">int</span> _len<span class="token punctuation">;</span>
-      <span class="token keyword">static</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">&gt;</span> _elems<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">//泛型指针类定义</span>
-<span class="token keyword">class</span> <span class="token class-name">iterator_to_special_vector</span><span class="token punctuation">{</span>
-  <span class="token keyword">public</span><span class="token operator">:</span>
-      <span class="token function">iterator_to_special_vector</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token operator">:</span><span class="token function">_index</span><span class="token punctuation">(</span>index<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-      <span class="token keyword">bool</span> <span class="token keyword">operator</span><span class="token operator">==</span> <span class="token punctuation">(</span><span class="token keyword">const</span> special_vector<span class="token operator">&amp;</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token keyword">int</span> <span class="token keyword">operator</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
-      <span class="token comment">//...一系列操作符函数的重载</span>
-  <span class="token keyword">private</span><span class="token operator">:</span>
-      <span class="token keyword">int</span> _index<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>②格式</strong></p>
-<blockquote>
-<p><code>[类名]::iterator [泛型指针名]</code>：定义了一个<strong>对应类</strong>的泛型指针，其<strong>常量指针</strong>形式为<code>const_iterator</code></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个标准容器都有对应的泛型指针类，统一为iterator，需要使用[类名]::限定</div>
-
-<blockquote>
-<p><code>begin()</code>：返回指向该容器对象<strong>第一个元素</strong>的<code>iterator</code>，如<code>my_vec.begin()</code></p>
-</blockquote>
-<blockquote>
-<p><code>end()</code>：返回指向该容器对象<strong>最后一个元素下一个位置</strong>的<code>iterator</code>，如<code>my_vec.end()</code></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> begin/end()根据容器对象返回iterator/const_iterator，如果需要专门返回const_iterator，可以使用cbegin/cend()</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 所有容器为泛型指针定义了==和!=操作符，有些容器没有定义比较操作符，所以使用first != last而不是first &lt; last</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 使用模板，使得函数既能接收指针，也能接收泛型指针</div>
-<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">Iterator_Type</span><span class="token punctuation">,</span><span class="token keyword">typename</span> <span class="token class-name">Elem_Type</span><span class="token operator">&gt;</span>
-Iterator_Type
-<span class="token function">find</span><span class="token punctuation">(</span>Iterator_Type first<span class="token punctuation">,</span>Iterator_Type last<span class="token punctuation">,</span><span class="token keyword">const</span> Elem_Type <span class="token operator">&amp;</span>value<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">;</span>first<span class="token operator">!=</span>last<span class="token punctuation">;</span><span class="token operator">++</span>first<span class="token punctuation">)</span>
-      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">*</span>first<span class="token operator">!=</span>value<span class="token punctuation">)</span>
-      <span class="token keyword">return</span> first<span class="token punctuation">;</span>
-  
-  <span class="token keyword">return</span> last<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="1-4function-object"><a href="#1-4function-object" class="headerlink" title="1.4function object"></a>1.4function object</h4><p><strong>①引言</strong></p>
 <blockquote>
 <p><strong>概述</strong>：本质上是提供<strong>function call操作符</strong><code>()</code><strong>重载函数</strong>的类的<strong>实例对象</strong></p>
@@ -623,26 +564,10 @@ Iterator_Type
 </blockquote>
 <p><strong>②初始化</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以int类型vector为例</div>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec</code>：构建一个<strong>空的</strong><code>vector</code></p>
-</blockquote>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec(10)</code>：<code>vector</code><strong>元素个数</strong>为<code>10</code>，且<strong>所有元素</strong>被<strong>初始化</strong>为<code>0</code></p>
-</blockquote>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec(10，10)</code>：<code>vector</code><strong>元素个数</strong>为<code>10</code>，且<strong>所有元素</strong>被<strong>初始化</strong>为<code>10</code></p>
-</blockquote>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec(first，last)</code>：使用<strong>一对泛型指针/指针</strong>给其赋值</p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 常常使用数组对其进行复制，如vector<int> my_vec(nums，nums+num_size)</int></div>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec(my_vec2)</code>/<code>vector&lt;int&gt; my_vec = my_vec2</code>：<strong>复制一份</strong>传入的动态数组</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 同样还可以通过my_vec == my_vec2/my_vec != my_vec2判断两者是否相同</div>
-<blockquote>
-<p><code>vector&lt;int&gt; my_vec{1,2,3}/vector&lt;int&gt; my_vec = {1,2,3}</code>：类似于<strong>C语言数组</strong>的初始化</p>
-</blockquote>
+
+
+
+
 <p><strong>③常用方法</strong></p>
 <blockquote>
 <p><strong><code>push_back()</code><strong>：在</strong>末端插入</strong>元素</p>
@@ -688,39 +613,26 @@ Iterator_Type
 <p><strong><code>cctype</code>头文件</strong>：继承自<strong>C语言</strong>的<code>ctype.h</code>，用与判断<strong>字符类型</strong>，如<code>isalnum()</code>判断字符是否为<strong>字母/数字</strong></p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> Cpp继承了C语言的标准库，但是将对应name.h改写为cname</div>
-<h4 id="2-4线性容器"><a href="#2-4线性容器" class="headerlink" title="2.4线性容器"></a>2.4线性容器</h4><p><strong>①栈</strong></p>
-<blockquote>
-<p><strong>定义</strong>：<code>stack&lt;type&gt; [栈名]</code>，创建一个<strong>空栈</strong>，如<code>stack&lt;int&gt; my_stack</code></p>
-</blockquote>
-<blockquote>
-<p><code>pop/push()</code>：元素<strong>出/入栈</strong>，如<code>my_stack.push(1)</code>/<code>int val = my_stack.pop();</code></p>
-</blockquote>
-<blockquote>
-<p><code>top()</code>：<strong>访问</strong>栈顶元素，如<code>int top = my_stack.top();</code></p>
-</blockquote>
-<p><strong>②队列</strong></p>
-<blockquote>
-<p><strong>定义</strong>：<code>queue&lt;type&gt; [栈名]</code>，创建一个<strong>空队列</strong>，如<code>queue&lt;int&gt; my_queue</code></p>
-</blockquote>
-<blockquote>
-<p><code>pop/push()</code>：元素<strong>出/入队</strong>，如<code>my_queue.push(1)</code>/<code>int val = my_queue.pop();</code></p>
-</blockquote>
-<blockquote>
-<p><code>front()</code>：访问<strong>队首元素</strong>，如<code>int front = my_queue.front();</code></p>
-</blockquote>
-<p><strong>③双向队列</strong></p>
-<blockquote>
-<p><strong>定义</strong>：<code>deque&lt;type&gt; [双向队列名]</code>，创建一个<strong>空双向队列</strong>，如<code>deuqe&lt;int&gt; my_deque</code></p>
-</blockquote>
-<blockquote>
-<p><code>push_back/push_front()</code>：将元素<strong>添加</strong>至<strong>队尾/队首</strong>，如<code>my_deque.push_back(1)</code></p>
-</blockquote>
-<blockquote>
-<p><code>pop_back/pop_front()</code>：将<strong>队尾/队首</strong>元素<strong>弹出</strong>，如<code>my_deque.pop_back(1)</code></p>
-</blockquote>
-<blockquote>
-<p><code>front/back()</code>：<strong>访问队首/尾</strong>元素，如<code>int front = my_deque.front();</code></p>
-</blockquote>
+
+
+<h3 id="2-泛型算法"><a href="#2-泛型算法" class="headerlink" title="2.泛型算法"></a>2.泛型算法</h3><h4 id="2-1引言-1"><a href="#2-1引言-1" class="headerlink" title="2.1引言"></a>2.1引言</h4><p>大部分定义在algorithm中，一部分数值泛型算法定义在numeric中<br>遍历两个迭代器的范围<br>要求元素支持==和&lt;操作符算法不会改变容器的大小<br>第一个元素和为尾后元素<br>只读算法<br>find count<br>accumulate(first,last,val)求和，val为初值，决定了该函数使用哪个加法运算符以及返回值的类型<br>accumulate(vec.cbegin(),vec.cend(),””);””缺省为一字符数组指针，没有定义对应的加法，是错误的<br>equal(afirst,alast,bfirst)：确定两个序列是否具有相同的值，b序列至少和a序列一样长</p>
+<p>写容器操作<br>fill(first,last,val)将对应范围内的元素全部改为val<br>fill_n(first,n,val)：将first，first+n范围内的元素改写为val<br>注意算法不会改变容器大小所以保证容器大小足够是程序员自己的责任<br>保证输出空间足够的一个方法是采用插入迭代器<br>通常情况下，通过迭代器向容器元素赋值时，值被赋予迭代器指向的元素，<br>当通过插入迭代器赋值时，对应值的元素被插入到容器中<br>back_inserter接收一个容器的引用，返回一个插入迭代器，向该迭代器赋值时，会调用该容器的push_back()。常常作为目的容器使用，fill_n(back_inserter(vec),10,0)</p>
+<p>copy(afirst,alast,bfirst)将a范围的元素复制到bfirst开始处，返回其目的容器目的位置后的迭代器</p>
+<p>replace(first,last,val1,val2)：将序列中所有的val1替换为val2<br>replace_copy(afirst,alast,bfirst,val1,val2)不在原本容器上改变，将结果存储在b容器中<br>sort(first,last)将对应序列从小到大排序<br>unique(first,last)接收一个有序序列，消除重复元素，将其移动到容器末尾，返回不重复值范围末尾的迭代器<br>想要真正删除容器元素，还是需要调用erase<br>sort(words.begin(),words.end(),is_shorter);<br>stable_sort()会维持相等元素的原有顺序<br>使用自己的操作替代默认运算符<br>谓词：一个可调用的表达式，返回结果是一个可以作为条件的值<br>函数、函数指针、lambda表达式和function object<br>find_if(first,last,func)对序列的每个元素调用func，返回使得func返回非0值元素的迭代器，否则返回尾迭代器，但是func必须为一元谓词</p>
+<p>lambda表达式<br>一个可调用的代码单元，类似于未命名的内联函数</p>
+<p>捕捉列表为lambda表达式所在函数的局部变量的列表<br>必须采用尾置返回<br>可以省略参数列表和返回类型<br>auto f = <a href="%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8">捕捉列表</a> -&gt; 返回类型{函数体}<br>f()即可调用lambda表达式</p>
+<p>如果忽略返回类型，则自动从返回的表达式类型推断出来<br>不能有默认参数<br>捕获列表只会使用明确指明的变量，逗号分隔<br><code>[sz](const string &amp;s){return s.size()&lt;sz}</code><br>可以直接使用定义在当前函数之外的名字和局部static变量<br>for_each(first，last，a_func)：对序列的每个对象调用a_func</p>
+<p>当定义一个lambda表达式时，编译器会生成一个对应的未命名的类，该lambda表达式对象就是该类的实例<br>包含捕获变量的数据成员</p>
+<p>采用引用方式捕获<code>[&amp;sz](const string &amp;s){return s.size()&lt;sz}</code>可以修改sz的值<br>保证lambda表达式执行时，指向对象依旧存在</p>
+<p>还可以让编译器从lambda表达式函数体中的代码推断我们需要捕获哪些变量，详细见C++ primer p351</p>
+<p>一般情况下，对于一个值被拷贝的变量，lambda表达式不会改变其值，如果想要改变该变量，则需要使用<br><code>[sz](const string &amp;s) mutable {return s.size()&lt;sz++}</code></p>
+<p>如果lambda表达式除了return语句还有其他语句，且省略了尾置返回，编译器默认其返回void</p>
+<p>bind()<br>functional头文件中<br>auto new_func = bind(func,arg_list);<br>调用new_func时，会调用func并将arg_list传递给他</p>
+<p>其中arg_list可能包含_n，为一占位符，标识传递给new_func的参数的位置<br>auto new_func = bind(func,_1,sz)标识将func的第二个参数绑定为sz<br>new_func(a) = func(a,sz)<br>using namespace std::placeholders<br>还可以重新安排参数顺序详细见《C++ Primer》p356</p>
+<p>对一个插入迭代器赋值时，在指定位置插入一个元素</p>
+<p>对插入迭代器进行*，递增和递减都只会返回插入迭代器，不会做任何事情<br>back_inserter 调用push_back<br>front_inserter 调用push_front<br>inserter 调用insert(c,p)调用inset在p之前插入元素，且之后该插入迭代器会指向原来的元素，而非插入元素<br>注意front_inserter会导致元素顺序颠倒</p>
+<p>反向迭代器<br>尾元素向首元素反向移动的迭代器，++/–操作的含义会颠倒过来<br>rebegin()：返回指向尾元素的反向迭代器<br>rend()：返回指向首前元素的反向迭代器<br>sort(a.begin(),a.end())：从小到大排列<br>sort(a.rbegin(),a.rend())从大到小排列<br>不能再forward_list和流创建反向迭代器<br>可以将反向迭代器转化为正常的迭代器，但是转化过后指向元素不同了，详细见《C++ primer》p364<br>forward_list的迭代器不支持–运算<br>关联容器的迭代器都是双向的</p>
+<p>iostream迭代器<br>将对应的流作为一种特殊的元素序列<code>istream_iterator</code>,<code>ostream_iterator</code><br>需要指明该迭代器的类型</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
             </div>
@@ -785,12 +697,12 @@ Iterator_Type
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/C/">
-                                    <span class="chip bg-color">C++</span>
-                                </a>
-                            
                                 <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
                                     <span class="chip bg-color">《C++ primer》</span>
+                                </a>
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
                                 </a>
                             
                         </div>
@@ -838,76 +750,24 @@ Iterator_Type
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/cpp-xue-xi-bi-ji-yi/">
+                <a href="/2023/12/10/cmake-ying-yong-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（一）">
+                        <img src="/medias/featureimages/23.webp" class="responsive-img" alt="Cmake应用（二）">
                         
-                        <span class="card-title">Cpp学习笔记（一）</span>
+                        <span class="card-title">Cmake应用（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Cpp基础
+                            Cmake代码构建工具
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
-                        <span class="chip bg-color">《C++primer》</span>
-                    </a>
-                    
-                    <a href="/tags/C/">
-                        <span class="chip bg-color">C++</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/12/10/git-ji-qi-ying-yong/">
-                    <div class="card-image">
-                        
-                        <img src="/medias/featureimages/22.webp" class="responsive-img" alt="Git及其应用">
-                        
-                        <span class="card-title">Git及其应用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            git和github
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -927,8 +787,60 @@ Iterator_Type
                         <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/tags/Cmake/">
+                        <span class="chip bg-color">Cmake</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/12/10/cpp-xue-xi-bi-ji-yi/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Cpp学习笔记（一）">
+                        
+                        <span class="card-title">Cpp学习笔记（一）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Cpp基础
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-12-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
+                                    编程语言
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E3%80%8AC-primer%E3%80%8B/">
+                        <span class="chip bg-color">《C++ primer》</span>
+                    </a>
+                    
+                    <a href="/tags/C/">
+                        <span class="chip bg-color">C++</span>
                     </a>
                     
                 </div>
@@ -1077,7 +989,7 @@ Iterator_Type
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2023</span>
+                <span id="year">2023-2024</span>
             
             <span id="year">2023</span>
             <a href="/about" target="_blank">Paopaozi</a>

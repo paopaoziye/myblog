@@ -358,12 +358,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">操作系统</span>
-                            </a>
-                        
                             <a href="/tags/MIT6-1810/">
                                 <span class="chip bg-color">MIT6.1810</span>
+                            </a>
+                        
+                            <a href="/tags/xv6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">xv6操作系统</span>
                             </a>
                         
                     </div>
@@ -416,234 +416,287 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="项目实战"><a href="#项目实战" class="headerlink" title="项目实战"></a>项目实战</h1><h2 id="MIT6-1810（一）"><a href="#MIT6-1810（一）" class="headerlink" title="MIT6.1810（一）"></a>MIT6.1810（一）</h2><h3 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1.环境配置"></a>1.环境配置</h3><h4 id="1-1工具链安装"><a href="#1-1工具链安装" class="headerlink" title="1.1工具链安装"></a>1.1工具链安装</h4><div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 以Ubuntu20.04.1为例</div>
+                <h1 id="MIT6-1810"><a href="#MIT6-1810" class="headerlink" title="MIT6.1810"></a>MIT6.1810</h1><h2 id="xv6源码阅读"><a href="#xv6源码阅读" class="headerlink" title="xv6源码阅读"></a>xv6源码阅读</h2><h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1启动"><a href="#1-1启动" class="headerlink" title="1.1启动"></a>1.1启动</h4><p><strong>①引言</strong></p>
 <blockquote>
-<p>在<strong>命令行</strong>输入<strong>以下代码</strong></p>
+<p><strong>概述</strong>：当计算机上电时，<strong>引导加载器</strong>将xv6内核代码装载到内存<code>0x8000000</code>处，并<strong>跳转到该位置</strong>执行</p>
 </blockquote>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update  //更新软件包来源
-<span class="token function">sudo</span> <span class="token function">apt-get</span> upgrade //更新所有能更新的软件
-<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">git</span> build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 此时处理器处于机器模式，分页也是禁用的，所以虚拟内存地址直接映射到物理内存地址</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 内存的0x000000-0x8000000为I/O设备</div>
+<p><strong>②<code>entry.s</code></strong></p>
 <blockquote>
-<p><code>git</code>：<strong>版本控制</strong>工具，并且可以将<strong>Lab文件夹</strong>保存到<strong>github</strong></p>
+<p><strong>概述</strong>：为<strong>每个CPU</strong>设置了对应的<strong>栈寄存器</strong><code>sp</code>，并跳转到<code>start.c</code>执行</p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> kernel.ld将entry.s装载到0x80000000处，所以每个CPU执行的第一段代码就是该文件</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> N号CPU的栈起始位置为stack0+N*4k，stack0预先定义在start.c中，每个CPU栈的大小为4k</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> j spin表示当start返回，会陷入死循环</div>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm">#定义代码段，.text为代码段的标识
+.section .text
+#定义了全局符号_entry，从而可以被其他文件访问和使用
+.<span class="token keyword">global _entry</span>
+<span class="token label function">_entry:</span>
+        la <span class="token register variable">sp</span>, stack0
+        li a0, <span class="token number">1024</span><span class="token operator">*</span><span class="token number">4</span>
+        #mhartid寄存器包含了当前<span class="token keyword">CPU的ID</span>
+        csrr a1, mhartid
+        addi a1, a1, <span class="token number">1</span>
+        mul a0, a0, a1
+        add <span class="token register variable">sp</span>, <span class="token register variable">sp</span>, a0
+        # jump to start() in start.c
+        call start
+<span class="token label function">spin:</span>
+        j spin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③<code>start.c</code></strong></p>
 <blockquote>
-<p><code>build-essential</code>：编译<code>c/c++</code>所需要的<strong>所有工具</strong>的<strong>软件包</strong>，如<code>gdb</code>、<code>gcc</code>和<code>make</code>等</p>
+<p><strong>概述</strong>：将<strong>处理器的特权级</strong>修改为<code>supervisor mode</code>，开启<strong>时钟中断</strong>，最后跳转到<code>main.c</code></p>
 </blockquote>
-<blockquote>
-<p><code>gdb-multiarch</code>：为<code>gdb</code>的<strong>多架构版本</strong>，支持<strong>多种CPU架构</strong></p>
-</blockquote>
-<blockquote>
-<p><code>qemu</code>：一个支持<strong>跨平台虚拟化</strong>的虚拟机，如在<strong>x86架构</strong>平台上虚拟出一个<strong>ARM架构</strong>平台</p>
-</blockquote>
-<blockquote>
-<p><code>gcc-riscv64-linux-gnu</code>:是<strong>基于GCC</strong>的<strong>跨平台编译工具</strong>，可以在<strong>某架构</strong>如X86，平台上将<strong>C/C++代码</strong>编译成<strong>RISC-V指令集</strong>的<strong>汇编码</strong>、<strong>机器码</strong>，并做出相应的<strong>程序分析</strong></p>
-</blockquote>
-<blockquote>
-<p><code>binutils-riscv64-linux-gnu</code>：针对<strong>RISC-V架构</strong>的<strong>GNU Binutils工具集</strong>的特定变体</p>
-</blockquote>
-<h4 id="1-2课程源码编译"><a href="#1-2课程源码编译" class="headerlink" title="1.2课程源码编译"></a>1.2课程源码编译</h4><blockquote>
-<p>在<strong>命令行</strong>输入<strong>以下代码</strong>，<code>ctrl-a x</code>，即<strong>先同时</strong>按住<code>ctrl</code>和<code>a</code>,<strong>随后</strong>按下<code>x</code>即可<strong>退出</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 第一次需要输入以下三行代码，以后只需要在对应目录下输入make qemu即可</div>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> clone git://g.csail.mit.edu/xv6-labs-2023
-<span class="token builtin class-name">cd</span> xv6-labs-2023
-<span class="token function">make</span> qemu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-XV6操作系统"><a href="#2-XV6操作系统" class="headerlink" title="2.XV6操作系统"></a>2.XV6操作系统</h3><h4 id="2-1引言"><a href="#2-1引言" class="headerlink" title="2.1引言"></a>2.1引言</h4><p><strong>①简介</strong></p>
-<blockquote>
-<p><strong>概述</strong>：以<strong>ANSI C</strong>重新编写的<strong>Unix第六版</strong>，基于<code>Sv39 RISC-V</code>运行</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> RISC-V有三种CPU可以执行指令的模式，机器模式、用户模式和管理模式，特权级不同</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 还有一些其他辅助操作，如暂时禁用分页、配置物理内存访问权限和设置中断和异常等</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 通过读写特定寄存器设置处理器的状态</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"types.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"param.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"memlayout.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"riscv.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"defs.h"</span></span>
 
-<p><strong>②启动概述</strong></p>
-<blockquote>
-<p><strong>通电</strong>时，<strong>初始化</strong>自己并运行存储在<strong>ROM</strong>的<strong>引导加载程序</strong>,将<strong>xv6内核</strong>加载到<strong>内存</strong>中，随后执行<code>entry.s</code></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> XV6内核起始位置为0x80000000，之前的内存用于存放I/O设备</div>
-<blockquote>
-<p><code>entry.s</code>设置了一个<strong>栈区</strong>，这样xv6就可以<strong>运行C代码</strong>，即<code>start.c</code></p>
-</blockquote>
-<blockquote>
-<p><code>start.c</code>执行一些仅在<strong>机器模式</strong>下允许的配置，并开启<strong>时钟中断</strong>，随后切换到<strong>管理模式</strong>并跳转到<code>main.c</code></p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> start.c设置了一些寄存器，如将main函数的地址写入寄存器mepc，随后使用mret“返回”到main并进入管理模式</div>
-<blockquote>
-<p><code>main.c</code>先进行<strong>初始化</strong>，随后执行<code>userinit()</code>调用<code>initcode.s</code>，<code>initcode.s</code>通过<code>exec()</code>调用<code>init.c</code>启动<code>shell</code></p>
-</blockquote>
-<h4 id="2-2内存管理"><a href="#2-2内存管理" class="headerlink" title="2.2内存管理"></a>2.2内存管理</h4><p><strong>①页表</strong></p>
-<blockquote>
-<p><strong>概述</strong>：<strong>一级结构</strong>的原理<strong>如下图</strong>所示，可见总共有<code>2^44</code>页，<strong>每一页的大小</strong>为<code>2^12</code>位</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 由硬件实现，实际上xv6采用的是三级结构，即27位的页表索引分为三个9位的页表索引，可以用于节省空间</div>
-<blockquote>
-<p>如果采用<strong>一级结构</strong>，需要<code>2^27</code>条<strong>页表项</strong>，而<strong>三级结构</strong>，只需要<code>3*2^9</code>条<strong>页表项</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 每个CPU都有一个satp寄存器指向根页表页的物理地址以及指向的页表转换后续指令生成的所有地址</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 易知虚拟地址大小为2^39位，而物理地址大小位2^56位，其中多余的物理地址用于存放I/O 设备和 DRAM 芯片</div>
-<blockquote>
-<p><strong>标志位</strong>：每个<strong>页表项</strong>都有其<strong>标志位</strong>，告诉<strong>分页硬件</strong>允许<strong>如何使用</strong>关联的虚拟地址</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如是否存在和允许读写等，详细可查看riscv.h头文件</div>
+<span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">timerinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<p><strong>②地址空间</strong></p>
-<blockquote>
-<p><strong>进程地址空间</strong>：<strong>每个进程</strong>都有一个<strong>单独的页表</strong>，从<strong>虚拟地址零</strong>开始增长到<strong>MAXVA（256G）</strong></p>
-</blockquote>
-<blockquote>
-<p><strong>内核地址空间</strong>：可以将<strong>内核</strong>看作为一个<strong>特殊的进程</strong>，XV6有一个<strong>单独描述内核地址空间</strong>的页表</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> kernel/memlayout.h中声明了描述内核分布的常量，其中0x80000000:0x86400000为内核代码</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> XV6内核地址空间大部分采用的是直接映射，可以简化内核代码，省去虚拟地址的转化</div>
-<p><strong>③源码概述</strong></p>
-<blockquote>
-<p><code>main()</code>调用<code>kvminit()</code>,<code>kvminit()</code>调用<code>kvmmake()</code>创建<strong>内核页表</strong>，此时<strong>还没有分页</strong>，使用<strong>物理地址</strong></p>
-</blockquote>
-<blockquote>
-</blockquote>
-<p>pagetable_t为指向根页表页的指针，可以是一个内核页表，也可以是一个进程页表</p>
-<p>为了减少从物理内存加载 PTE 的开销，RISC-V CPU 将页表条目缓存在 Translation Look-aside Buffer<br>为了减少从物理内存加载 PTE 的开销，RISC-V CPU 将页表条目缓存在 Translation Look-aside Buffer (TLB) 中。</p>
-<p>RISC-V上的指针有64位宽；硬件在页表中查找虚拟地址时只使用低39位；xv6只使用这39位中的38位<br>每个进程有一个单独的页表，映射其地址空间，进程最大地址空间受到限制，MAXVA，kernel/riscv.h:348</p>
-<p>xv6为trampoline（用于在用户和内核之间切换）和映射进程切换到内核的trapframe分别保留了一个页面，正如我们将在第4章中解释的那样。</p>
-<p>proc结构保存了每个进程的状态，页表、内核栈区和运行状态</p>
-<p>进程都有一个或者多个线程，用于执行进程的指令，线程的大部分状态保存在线程的栈中</p>
-<p>每个进程有一个用户栈和内核栈，进程执行用户指令时，只有它的用户栈在使用，它的内核栈是空的。当进程进入内核（由于系统调用或中断）时，内核代码在进程的内核堆栈上执行；当一个进程在内核中时，它的用户堆栈仍然包含保存的数据，只是不处于活动状态。进程的线程在主动使用它的用户栈和内核栈之间交替</p>
-<p>RISC-V的ecall指令允许应用程序从指定点陷入内核，提升硬件特权级别，并将程序计数器（PC）更改为内核定义的入口点，入口点的代码切换到内核栈，执行实现系统调用的内核指令，当系统调用完成时，内核切换回用户栈，并通过调用sret指令返回用户空间，该指令降低了硬件特权级别，并在系统调用指令刚结束时恢复执行用户指令。进程的线程可以在内核中“阻塞”等待I/O，并在I/O完成后恢复到中断的位置。</p>
-<p>用户和内核指令使用的是虚拟地址，RISC-V页表硬件通过将每个虚拟地址映射到物理地址来为这两种地址建立联系</p>
-<h3 id="3-操作系统接口"><a href="#3-操作系统接口" class="headerlink" title="3.操作系统接口"></a>3.操作系统接口</h3><h4 id="3-1进程"><a href="#3-1进程" class="headerlink" title="3.1进程"></a>3.1进程</h4><p><strong>①创建</strong></p>
-<blockquote>
-<p><code>int fork()</code>：创建一个<strong>内存内容</strong>与其<strong>完全相同</strong>的<strong>子进程</strong>，即<strong>指令</strong>、<strong>数据</strong>和<strong>堆栈</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 在父进程中，返回值为子进程的PID，在子进程中，返回值为0</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 创建的是进程，子进程被创建后不久就执行了，通常使用fork的返回值以及if语句区别父子进程</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 子进程运行时有自己独立的内存空间的，父子进程相互不影响</div>
-<p><strong>②销毁</strong></p>
-<blockquote>
-<p><code>void exit(int status)</code>：<strong>销毁</strong>当前进程并<strong>释放资源</strong>，<code>status</code>表示进程<strong>结束状态</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 主动结束进程，当status为0时，表示正常结束，1表示发生错误并结束</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 主动结束进程并给出提示信息，即是正常结束还是非正常结束</div>
-<p><strong>③等待</strong></p>
-<blockquote>
-<p><code>int wait(int *)</code>：进程<strong>立刻阻塞</strong>，若其有<strong>子进程主动退出或者被杀死</strong>，返回<strong>子进程PID</strong>，如果<strong>没有子进程</strong>，返回<code>-1</code>，反之则<strong>一直等待</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 传入参数为一返回地址，用于接受子进程退出状态，如果不关心该信息，传入一个0地址（int*）0</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 对于父子进程共享的信息，可以先让父进程wait，让子进程先访问</div>
-<p><strong>④调用</strong></p>
-<blockquote>
-<p><code>void exec(char* filename，char* argv)</code>：在<strong>进程内部</strong>执行一个<strong>可执行文件</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> filename用于提供文件路径，对应文件必须有特定的格式，argv用于提供字符串参数数组，第一个参数为程序名</div>
+<span class="token comment">// entry.S needs one stack per CPU.每个CPU都有自己的栈</span>
+<span class="token comment">// __attribute__ ((aligned (16)))要求stack0按照16字节对齐</span>
+<span class="token keyword">__attribute__</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token function">aligned</span> <span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">char</span> stack0<span class="token punctuation">[</span><span class="token number">4096</span> <span class="token operator">*</span> NCPU<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<h4 id="3-2I-x2F-O操作"><a href="#3-2I-x2F-O操作" class="headerlink" title="3.2I/O操作"></a>3.2I/O操作</h4><p><strong>①文件描述符</strong></p>
-<blockquote>
-<p><strong>概述</strong>：本质上是一个<strong>小整型</strong>，一个<strong>可以读写</strong>的由<strong>内核管理</strong>的对象，将<strong>文件</strong>、<strong>目录</strong>和<strong>设备</strong>等抽象为<strong>字节流</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 各个进程的文件描述符是相互隔离的，每个进程都至少有一个标准输入0，标准输出1和标准错误2</div>
-<p><strong>②读取与写入</strong></p>
-<blockquote>
-<p><code>int read(int fd,char* buf,int n)</code>：从<code>fd</code>处<strong>最多读取n字节</strong>，并复<strong>制到缓冲区</strong><code>buf</code>中，返回<strong>读取的字节数</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个文件描述符都会记录其字节流所在位置信息，且随着读写等操作向前/后推移</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 读取字节数为0表示到达文件末尾</div>
-<blockquote>
-<p><code>write(fd，buf，n)</code>：将<strong>缓冲区</strong><code>buf</code>中的<strong>n个字节</strong>写入<code>fd</code>处，返回<strong>写入的字节数</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若写入字节小于n，则表示发生了错误</div>
-<p><strong>③打开与关闭</strong></p>
-<blockquote>
-<p><code>close(int fd)</code>：<strong>释放</strong>文件描述符，使其可以被<strong>重新分配</strong></p>
-</blockquote>
-<blockquote>
-<p><code>int open(char* filename,MACRO)</code>：为文件<strong>分配文件描述符</strong>，并指定<strong>字节流特性</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 新分配的文件描述符号，总是当前进程最小的</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 常用的宏有O_RDONLY只读、O_WRONLY	只写、O_RDWR可读可写</div>
-<blockquote>
-<p>还有<code>O_CREAT</code>若文件<strong>不存在</strong>则<strong>创建该文件</strong>、<code>O_TRUNC</code>将文件<strong>截断为零长度</strong></p>
-</blockquote>
-<blockquote>
-<p><code>int dup(int fd)</code>:接受一个<strong>文件描述符</strong>，返回一个<strong>新文件描述符</strong>，<strong>一同</strong>指向<strong>对应文件</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 父进程和子进程，以及dup得到的文件描述符和原文件描述符的字节流位置偏移一开始是一样的</div>
-<p><strong>④管道</strong></p>
-<blockquote>
-<p><strong>概述</strong>：本质上是<strong>一对文件描述符</strong>，指向<strong>全局的内核缓冲区</strong>，用于在<strong>两个进程</strong>之间<strong>传递数据</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 两个文件描述符分别传递给两个进程，一个用于一个进程写数据，另一个用于另一个进程读书据</div>
-<blockquote>
-<p><code>void pipe(int* p)</code>：创建一个<strong>管道</strong>，<code>p</code>为一个<strong>长度为2</strong>的<strong>文件描述符数组</strong>，<code>pipe</code>会<strong>在其中记录</strong>管道所需的<strong>读写文件描述符</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 若一直没有写入数据，管道的读取操作会进入等待，直到有新数据写入或所有指向写入端的文件描述符都被关闭</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 及时关闭指向管道写入端的文件描述符，因为对于管道来说所有的写入端都被关闭才是结束，否则会一直等待</div>
-<blockquote>
-<p>如下例，<strong>子进程</strong>必须在<strong>调用wc之前</strong>关闭<strong>管道写入端的文件描述符</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 对于cat|echo，shell对|的左端和右端，均调用fork和runcmd，并创建一个管道连接两者传递信息即可</div>
-<blockquote>
-<p>还可通过<strong>临时文件</strong>在<strong>进程间</strong>传递信息，但管道会<strong>自动清理自己</strong>，且允许<strong>两程序并行</strong>，且管道的<strong>阻塞式读写</strong>更高效</p>
-</blockquote>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> p<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-argv<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"wc"</span><span class="token punctuation">;</span>
-argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token comment">//创建管道所需要的文件描述符</span>
-<span class="token function">pipe</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//创建子进程，这样父子进程都有指向同一个管道的文件描述符了</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">//子进程关闭标准读取，并将其指向管道的读取端</span>
-    <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">dup</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//关闭所有指向管道的文件描述符</span>
-    <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//exec调用wc，wc从标准读取，也就是管道读取端读入数据</span>
-    <span class="token function">exec</span><span class="token punctuation">(</span><span class="token string">"/bin/wc"</span><span class="token punctuation">,</span> argv<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-    <span class="token comment">//关闭管道读取端</span>
-    <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//将"hello world\n"写入管道</span>
-    <span class="token function">write</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"hello world\n"</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">//关闭管道写入端</span>
-    <span class="token function">close</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="3-3文件系统"><a href="#3-3文件系统" class="headerlink" title="3.3文件系统"></a>3.3文件系统</h4><p><strong>①引言</strong></p>
-<blockquote>
-<p><strong>绝对路径</strong>：以<code>/</code>开头，从<strong>根目录</strong>开始<strong>层层向下</strong>寻找对应文件</p>
-</blockquote>
-<blockquote>
-<p><strong>相对路径</strong>：不以<code>/</code>开头，相对于<strong>调用进程的当前工作目录</strong>进行计算</p>
-</blockquote>
-<blockquote>
-<p><strong>inode</strong>：<strong>文件</strong>在操作系统中的<strong>抽象</strong>，保存了文件的<strong>元数据</strong>、<strong>长度</strong>、<strong>磁盘位置</strong>等<strong>描述信息</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个inode文件可以对应多个链接（名字）</div>
-<p><strong>②修改路径</strong></p>
-<blockquote>
-<p><code>void chdir(char* path)</code>：修改<strong>当前工作目录</strong>，可以传入<strong>相对路径</strong>也可以传入<strong>绝对路径</strong></p>
-</blockquote>
-<p><strong>③创建</strong></p>
-<blockquote>
-<p><code>void mkdir(char* path)</code>：创建<strong>目录</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 可以通过open创建文件，fd = open("/dir/file", O_CREATE | O_WRONLY);</div>
-<blockquote>
-<p><code>mknod(char* path,int device_number1,int device_number2)</code>：创建一个<strong>设备文件</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 后两个参数分别为设备的主设备号和次设备号，唯一地标识了一个内核设备</div>
-<p><strong>④链接</strong></p>
-<blockquote>
-<p><code>link(char* file1,char* file2)</code>：给<strong>链接</strong><code>file1</code>创建一个<strong>新的链接</strong><code>file2</code>，两者指向<strong>同一个inode</strong>文件</p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 从file1读取或写入与从file2读取或写入是相同的操作</div>
+<span class="token comment">// a scratch area per CPU for machine-mode timer interrupts.</span>
+uint64 timer_scratch<span class="token punctuation">[</span>NCPU<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-<blockquote>
-<p><code>unlink(char* file1)</code>：从<strong>文件系统</strong>中删除一个<strong>链接</strong></p>
-</blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当文件的链接数为零且没有文件描述符引用时，文件的inode和包含其内容的磁盘空间会被释放</div>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 可以利用unlink创建临时文件</div>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">fd <span class="token operator">=</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"/tmp/xyz"</span><span class="token punctuation">,</span> O_CREATE <span class="token operator">|</span> O_RDWR<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">unlink</span><span class="token punctuation">(</span><span class="token string">"/tmp/xyz"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token comment">// assembly code in kernelvec.S for machine-mode timer interrupt.</span>
+<span class="token keyword">extern</span> <span class="token keyword">void</span> <span class="token function">timervec</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<span class="token comment">// entry.S jumps here in machine mode on stack0.</span>
+<span class="token keyword">void</span>
+<span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">// set M Previous Privilege mode to Supervisor, for mret.</span>
+  <span class="token keyword">unsigned</span> <span class="token keyword">long</span> x <span class="token operator">=</span> <span class="token function">r_mstatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  x <span class="token operator">&amp;=</span> <span class="token operator">~</span>MSTATUS_MPP_MASK<span class="token punctuation">;</span>
+  x <span class="token operator">|=</span> MSTATUS_MPP_S<span class="token punctuation">;</span>
+  <span class="token function">w_mstatus</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// set M Exception Program Counter to main, for mret.</span>
+  <span class="token comment">// requires gcc -mcmodel=medany</span>
+  <span class="token comment">//将main函数地址压入pc寄存器，返回时就跳转到main中</span>
+  <span class="token function">w_mepc</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// disable paging for now，确保不会发生分页，虚拟地址就是物理地址</span>
+  <span class="token function">w_satp</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// delegate all interrupts and exceptions to supervisor mode.</span>
+  <span class="token comment">// 设置中断和异常委托，将其处理权限交给超级用户模式</span>
+  <span class="token function">w_medeleg</span><span class="token punctuation">(</span><span class="token number">0xffff</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">w_mideleg</span><span class="token punctuation">(</span><span class="token number">0xffff</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">w_sie</span><span class="token punctuation">(</span><span class="token function">r_sie</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">|</span> SIE_SEIE <span class="token operator">|</span> SIE_STIE <span class="token operator">|</span> SIE_SSIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// configure Physical Memory Protection to give supervisor mode</span>
+  <span class="token comment">// access to all of physical memory.</span>
+  <span class="token function">w_pmpaddr0</span><span class="token punctuation">(</span><span class="token number">0x3fffffffffffffull</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">w_pmpcfg0</span><span class="token punctuation">(</span><span class="token number">0xf</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// ask for clock interrupts.</span>
+  <span class="token function">timerinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// keep each CPU's hartid in its tp register, for cpuid().</span>
+  <span class="token keyword">int</span> id <span class="token operator">=</span> <span class="token function">r_mhartid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">w_tp</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// switch to supervisor mode and jump to main().</span>
+  <span class="token comment">//volatile防止编译器优化或者重新排列汇编代码</span>
+  <span class="token keyword">asm</span> <span class="token keyword">volatile</span><span class="token punctuation">(</span><span class="token string">"mret"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1-2时钟中断"><a href="#1-2时钟中断" class="headerlink" title="1.2时钟中断"></a>1.2时钟中断</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p><strong>概述</strong>：设置了<strong>时钟中断的间隔</strong><code>interval</code>，开启了<strong>机器模式</strong>下的中断，并设置了<strong>处理函数</strong><code>timervec</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 时钟中断被委托给机器模式，所以时钟中断发生时，处理器从超级用户模式进入机器模式</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> start.c中为每个CPU设置了对应的时钟中断的暂存区timer_scratch，并将其地址保存在mscratch寄存器中</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// arrange to receive timer interrupts.</span>
+<span class="token comment">// they will arrive in machine mode at</span>
+<span class="token comment">// at timervec in kernelvec.S,</span>
+<span class="token comment">// which turns them into software interrupts for</span>
+<span class="token comment">// devintr() in trap.c.</span>
+<span class="token keyword">void</span>
+<span class="token function">timerinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token comment">// each CPU has a separate source of timer interrupts.</span>
+  <span class="token keyword">int</span> id <span class="token operator">=</span> <span class="token function">r_mhartid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// ask the CLINT for a timer interrupt.</span>
+  <span class="token comment">//CLINT_MTIME获取保存当前时间寄存器的地址</span>
+  <span class="token comment">//CLINT_MTIMECMP保存了时钟中断发生时间寄存器的地址</span>
+  <span class="token keyword">int</span> interval <span class="token operator">=</span> <span class="token number">1000000</span><span class="token punctuation">;</span> <span class="token comment">// cycles; about 1/10th second in qemu.</span>
+  <span class="token operator">*</span><span class="token punctuation">(</span>uint64<span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">CLINT_MTIMECMP</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token operator">*</span><span class="token punctuation">(</span>uint64<span class="token operator">*</span><span class="token punctuation">)</span>CLINT_MTIME <span class="token operator">+</span> interval<span class="token punctuation">;</span>
+
+  <span class="token comment">// prepare information in scratch[] for timervec.</span>
+  <span class="token comment">// scratch[0..2] : space for timervec to save registers.</span>
+  <span class="token comment">// scratch[3] : address of CLINT MTIMECMP register.</span>
+  <span class="token comment">// scratch[4] : desired interval (in cycles) between timer interrupts.</span>
+  uint64 <span class="token operator">*</span>scratch <span class="token operator">=</span> <span class="token operator">&amp;</span>timer_scratch<span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  scratch<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">CLINT_MTIMECMP</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  scratch<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> interval<span class="token punctuation">;</span>
+  <span class="token function">w_mscratch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>scratch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// set the machine-mode trap handler.</span>
+  <span class="token function">w_mtvec</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>timervec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// enable machine-mode interrupts.</span>
+  <span class="token function">w_mstatus</span><span class="token punctuation">(</span><span class="token function">r_mstatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">|</span> MSTATUS_MIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// enable machine-mode timer interrupts.</span>
+  <span class="token function">w_mie</span><span class="token punctuation">(</span><span class="token function">r_mie</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">|</span> MIE_MTIE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>②中断处理函数</strong></p>
+<blockquote>
+<p><strong>概述</strong>：通过和<code>timer_scratch</code>交互，设置了<strong>下一次时钟中断的时间</strong>并触发了一个<strong>超级用户中断</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 触发的中断不会立即处理，而是等到mret超级用户模式时再作处理</div>
+<pre class="line-numbers language-nasm" data-language="nasm"><code class="language-nasm">.globl timervec
+.align <span class="token number">4</span>
+<span class="token label function">timervec:</span>
+        # start.c has set up the memory that mscratch points to:
+        # scratch<span class="token operator">[</span><span class="token number">0</span>,<span class="token number">8</span>,<span class="token number">16</span><span class="token operator">]</span> : register save area.
+        # scratch<span class="token operator">[</span><span class="token number">24</span><span class="token operator">]</span> : address of CLINT's MTIMECMP register.
+        # scratch<span class="token operator">[</span><span class="token number">32</span><span class="token operator">]</span> : desired interval between interrupts.
+        
+        csrrw a0, mscratch, a0
+        sd a1, <span class="token number">0</span>(a0)
+        sd a2, <span class="token number">8</span>(a0)
+        sd a3, <span class="token number">16</span>(a0)
+
+        # schedule the next timer interrupt
+        # by adding interval to mtimecmp.
+        ld a1, <span class="token number">24</span>(a0) # CLINT_MTIMECMP(hart)
+        ld a2, <span class="token number">32</span>(a0) # interval
+        ld a3, <span class="token number">0</span>(a1)
+        add a3, a3, a2
+        sd a3, <span class="token number">0</span>(a1)
+
+        # arrange for a supervisor software interrupt
+        # after this handler returns.
+        li a1, <span class="token number">2</span>
+        csrw sip, a1
+
+        ld a3, <span class="token number">16</span>(a0)
+        ld a2, <span class="token number">8</span>(a0)
+        ld a1, <span class="token number">0</span>(a0)
+        csrrw a0, mscratch, a0
+
+        mret
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="1-3Linux0-11的启动"><a href="#1-3Linux0-11的启动" class="headerlink" title="1.3Linux0.11的启动"></a>1.3Linux0.11的启动</h4><p><strong>①引导程序</strong></p>
+<blockquote>
+<p><strong>概述</strong>：计算机上电时，<strong>BIOS程序</strong>将<strong>启动扇区</strong>搬运到内存<code>0x7c00</code>位置并<strong>跳转（设置pc寄存器）</strong>到该位置<strong>执行</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 启动扇区即0盘0道1扇区，其中为bootsect.s编译后得到的bootsect</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> BIOS提前写死在ROM上，将启动扇区移动到0x7c00为起规定，此外还会检查计算机的各个硬件是否能正常工作</div>
+<p><strong>②<code>bootsect.s</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：将<code>0x7c00</code>位置代码<strong>移动</strong>到<code>0x90000</code>处，并设置好了<code>cs</code>、<code>ds</code>、<code>ss</code>、<code>sp</code><strong>寄存器</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 设置以上寄存器即设置了CPU的代码段、数据段和栈段，做好了初步的内存规划</div>
+<blockquote>
+<p>调用<strong>BIOS中断</strong>加载<strong>第二个到第五个扇区</strong>到<code>0x90200</code>处，如果<strong>失败</strong>则一直<strong>循环</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 这四个扇区存放了setup.s编译后的文件</div>
+<blockquote>
+<p>最后将<strong>操作系统代码</strong>读取到内存<code>0x10000</code>处，随后<strong>跳转</strong>到<code>0x90200</code>即<code>setup.s</code>处</p>
+</blockquote>
+<p><strong>③<code>setup.s</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：调用<strong>BIOS中断程序</strong>将一系列<strong>硬件信息</strong>存储到<strong>内存指定位置</strong>，随后<strong>关闭中断</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 后续需要重写BIOS的中断向量表，所以需要关闭中断</div>
+<blockquote>
+<p>将内存<code>0x10000</code>至<code>0x90000</code>的代码移动到<strong>0地址</strong>处</p>
+</blockquote>
+<blockquote>
+<p>将<strong>全局描述符表（GDT）</strong>的地址存储在<code>gdtr</code><strong>寄存器</strong>中，<strong>中断描述符表（IDT）</strong>的地址存储在<code>idtr</code><strong>寄存器</strong>中</p>
+</blockquote>
+<blockquote>
+<p>打开<code>A20</code><strong>地址线</strong>，将<code>cr0</code><strong>寄存器</strong>的<strong>位0置1</strong>，从<strong>实模式</strong>切换<strong>保护模式</strong>，并跳转到<strong>0地址</strong>处，即<code>head.s</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 保护模式下，段寄存器中不再为段地址，而是段选择子，根据段选择子，从全局描述符表找到段描述符</div>
+<blockquote>
+<p><strong>段描述符</strong>包含的<strong>段基址</strong>加上<strong>偏移地址</strong>为<strong>物理地址</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其中代码段描述符和数据段描述符都是0，所以物理地址等于程序员给出的逻辑地址</div>
+<p><strong>④<code>head.s</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：重新设置<strong>各个段寄存器</strong>和<code>esp</code><strong>寄存器</strong>，<strong>段寄存器</strong>指向<strong>数据段描述符</strong>，<code>esp</code>指向<code>use_stack</code><strong>尾后元素地址</strong></p>
+</blockquote>
+<blockquote>
+<p>重新设置<strong>IDT</strong>和<strong>GDT</strong>，其中<strong>IDT</strong>所有的<strong>中断描述符</strong>都被<strong>默认初始化</strong>，<strong>GDT</strong>也只有<strong>代码段</strong>、<strong>数据段</strong>和<strong>系统段</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 中断描述符后续会被逐步被对应的初始化函数改写，段描述符还有252个空余用于放置TSS和LDT</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 重新设置是因为之前的IDT和GDT位于setup中，而setup对应位置后续要被作为缓冲区</div>
+<blockquote>
+<p>将<strong>页目录表</strong>和<strong>页表</strong>写到<strong>0地址</strong>处，并将<strong>0地址</strong>存储到<code>cr3</code><strong>寄存器</strong>中将<code>cr0</code><strong>寄存器</strong>的<strong>31位置1</strong>，开启<strong>分页机制</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> Linux0.11采用的是二级目录，32位被分为10位的页目录项、10位的页表项和12位的偏移地址</div>
+<blockquote>
+<p>最后将<code>main</code><strong>函数地址</strong>入栈，在通过<code>iret</code>跳转到<code>main</code>函数中</p>
+</blockquote>
+<h4 id="1-3main-c函数"><a href="#1-3main-c函数" class="headerlink" title="1.3main.c函数"></a>1.3<code>main.c</code>函数</h4><p><strong>①工作原理</strong></p>
+<blockquote>
+<p><strong>概述</strong>：<strong>0号CPU</strong>进行一系列<strong>初始化</strong>活动，<strong>初始化结束</strong>时，<strong>其他CPU</strong>才开始初始化</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 其他内核需要开启分页、安装内核的中断和异常处理程序、初始化中断控制器</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> __sync_synchronize()为GCC内置函数，保证在其之前的操作一定比在其之后的操作早完成</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> volatile告诉编译器变量是不稳定的，每次使用变量时都从内存中重新读取</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"types.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"param.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"memlayout.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"riscv.h"</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">"defs.h"</span></span>
+
+<span class="token keyword">volatile</span> <span class="token keyword">static</span> <span class="token keyword">int</span> started <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+<span class="token comment">// start() jumps here in supervisor mode on all CPUs.</span>
+<span class="token keyword">void</span>
+<span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">cpuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">consoleinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printfinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"xv6 kernel is booting\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">kinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// physical page allocator</span>
+    <span class="token function">kvminit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">// create kernel page table</span>
+    <span class="token function">kvminithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// turn on paging</span>
+    <span class="token function">procinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// process table</span>
+    <span class="token function">trapinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// trap vectors</span>
+    <span class="token function">trapinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// install kernel trap vector</span>
+    <span class="token function">plicinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// set up interrupt controller</span>
+    <span class="token function">plicinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// ask PLIC for device interrupts</span>
+    <span class="token function">binit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// buffer cache</span>
+    <span class="token function">iinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// inode table</span>
+    <span class="token function">fileinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// file table</span>
+    <span class="token function">virtio_disk_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// emulated hard disk</span>
+    <span class="token function">userinit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// first user process</span>
+    <span class="token function">__sync_synchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    started <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>started <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token punctuation">;</span>
+    <span class="token function">__sync_synchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"hart %d starting\n"</span><span class="token punctuation">,</span> <span class="token function">cpuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">kvminithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// turn on paging</span>
+    <span class="token function">trapinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// install kernel trap vector</span>
+    <span class="token function">plicinithart</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// ask PLIC for device interrupts</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">scheduler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
             </div>
             <hr/>
@@ -707,12 +760,12 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">操作系统</span>
-                                </a>
-                            
                                 <a href="/tags/MIT6-1810/">
                                     <span class="chip bg-color">MIT6.1810</span>
+                                </a>
+                            
+                                <a href="/tags/xv6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">xv6操作系统</span>
                                 </a>
                             
                         </div>
@@ -760,18 +813,18 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/linux-gong-zuo-liu-san/">
+                <a href="/2023/12/10/linux-gong-zuo-liu-er/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（三）">
+                        <img src="/medias/featureimages/41.webp" class="responsive-img" alt="Linux工作流（二）">
                         
-                        <span class="card-title">Linux工作流（三）</span>
+                        <span class="card-title">Linux工作流（二）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Linux常见命令
+                            实用工具
                         
                     </div>
                     <div class="publish-info">
@@ -812,18 +865,18 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/10/neovim-gong-zuo-liu/">
+                <a href="/2023/12/10/ppt-zhi-zuo-ji-chu-pian/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/15.webp" class="responsive-img" alt="NeoVim工作流">
+                        <img src="/medias/featureimages/12.webp" class="responsive-img" alt="PPT制作（基础篇）">
                         
-                        <span class="card-title">NeoVim工作流</span>
+                        <span class="card-title">PPT制作（基础篇）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            NeoVim编辑器使用
+                            PPT风格确定
                         
                     </div>
                     <div class="publish-info">
@@ -834,8 +887,8 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
-                                    工具链
+                            <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="post-category">
+                                    工作流
                                 </a>
                             
                             
@@ -845,8 +898,8 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/NeoVim%E7%BC%96%E8%BE%91%E5%99%A8/">
-                        <span class="chip bg-color">NeoVim编辑器</span>
+                    <a href="/tags/PPT/">
+                        <span class="chip bg-color">PPT</span>
                     </a>
                     
                 </div>
@@ -995,7 +1048,7 @@ argv<span class="token punctuation">[</span><span class="token number">1</span><
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2023</span>
+                <span id="year">2023-2024</span>
             
             <span id="year">2023</span>
             <a href="/about" target="_blank">Paopaozi</a>

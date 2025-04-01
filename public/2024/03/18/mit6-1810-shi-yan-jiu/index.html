@@ -1,0 +1,1883 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="文章关键词">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>归档 | Zfk&#39;s Study Notes</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link href="https://cdn.bootcss.com/font-awesome/5.13.0/css/all.css" rel="stylesheet">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+    <style type="text/css">
+        .uk-alert {
+            margin-bottom: 5px;
+            padding: 5px;
+            background: #ebf7fd;
+            color: #2d7091;
+            border: 0px solid #ffffff;
+            border-radius: 4px;
+            text-shadow: 0 1px 0 #ffffff;
+        }
+        .uk-alert-success {
+            background: rgba(120, 199, 9, 0.1);
+            color: rgba(120, 199, 9);
+            border-left: 6px solid rgba(120, 199, 9);
+            font-weight: 600;
+        }
+        .uk-alert-warning {
+            background: #FFF8E9;
+            color: #FFB91F;
+            border-left: 6px solid #FFB91F;
+            font-weight: 600;
+        }
+        .uk-alert-danger {
+            background: #FFE6E6;
+            color: #FF7979;
+            border-left: 6px solid#FF7979;
+            font-weight: 600;
+        }
+        .uk-alert-list {
+            background: #ECF7FE;
+            color: #3CACF4;
+            border-left: 6px solid#3CACF4;
+            font-weight: 600;
+        }
+ </style>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/my_logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Zfk&#39;s Study Notes</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/my_logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Zfk&#39;s Study Notes</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/40.webp')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">MIT6.1810实验（九）</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                <span class="chip bg-color">操作系统</span>
+                            </a>
+                        
+                            <a href="/tags/MIT6-1810/">
+                                <span class="chip bg-color">MIT6.1810</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="post-category">
+                                项目实战
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-03-18
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="MIT6-1810实验（九）"><a href="#MIT6-1810实验（九）" class="headerlink" title="MIT6.1810实验（九）"></a>MIT6.1810实验（九）</h1><h2 id="MIT6-1810-Lab9"><a href="#MIT6-1810-Lab9" class="headerlink" title="MIT6.1810 Lab9"></a>MIT6.1810 Lab9</h2><h3 id="1-引言"><a href="#1-引言" class="headerlink" title="1.引言"></a>1.引言</h3><h4 id="1-1实验要求"><a href="#1-1实验要求" class="headerlink" title="1.1实验要求"></a>1.1实验要求</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p><strong>概述</strong>：修改Xv6文件系统，使其支持<strong>更大的文件</strong>，并实现<strong>符号链接</strong>功能</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 做之前记得切换到对应分支git checkout fs</div>
+
+<p><strong>②大文件</strong></p>
+<blockquote>
+<p><strong>概述</strong>：通过<strong>二级间接区块索引</strong>提高Xv6所能支持的<strong>最大文件大小</strong>，需要从<code>268</code>块提升到<code>65803</code>块</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> Xv6有12块直接索引和1块一级间接索引，一级简介索引可以指向256块，所以最大文件大小为256+12块</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 65803即256x256+256+11，只需要将一块直接索引修改为二级索引块即可</div>
+
+<p><strong>③符号链接</strong></p>
+<blockquote>
+<p><strong>概述</strong>：实现<strong>系统调用</strong><code>symlink</code>，在<strong>指定路径</strong>创建一个新的<strong>符号链接</strong>指向<strong>目标文件</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 符号链接类似于硬链接，但是硬链接只仅限于指向同一磁盘的文件，而符号链接可以跨越磁盘</div>
+<p><strong>④实验结果</strong></p>
+<blockquote>
+<p><strong>测试准备</strong>：<strong>主目录</strong>添加<code>time.txt</code>，随后<code>make qemu</code>，退出<code>make grade</code>即可</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> time.txt填写实验花费的时间</div>
+<p><img src="/images/loading.gif# eg ./images/loading.gif" data-original="/image/MIT.6.1810_Lab8.png" alt="测试结果"></p>
+<h4 id="1-2Xv6文件系统"><a href="#1-2Xv6文件系统" class="headerlink" title="1.2Xv6文件系统"></a>1.2Xv6文件系统</h4><p><strong>①硬件抽象</strong></p>
+<blockquote>
+<p><strong>概述</strong>：文件系统将<strong>存储设备</strong>看作是一个巨大的<code>block</code>数组，<code>block</code>大小通常为<strong>扇区大小整数倍</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 扇区为磁盘的读写最小单元，通常为512字节，Xv6的一个block为两个扇区，也就是1024字节</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 文件系统对磁盘做了一定的规划，Xv6中有启动区、超级区、log区、inode区、bitmap区和数据区</div>
+<blockquote>
+<p><strong>启动区</strong>：<code>block0</code>，通常存放足以<strong>启动操作系统</strong>的代码</p>
+</blockquote>
+<blockquote>
+<p><strong>超级区</strong>：<code>block1</code>，存放<strong>文件系统的描述信息</strong>，如磁盘的<code>block</code><strong>分布</strong>等</p>
+</blockquote>
+<blockquote>
+<p><strong><code>log</code>区</strong>：<code>block2</code>至<code>block31</code></p>
+</blockquote>
+<blockquote>
+<p><strong><code>inode</code>区</strong>：<code>block32</code>至<code>block44</code>，用于存放<strong>所有目录和文件</strong>的<code>inode</code>结构</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> Xv6中inode大小为64字节，所以一个block中包含16个inode</div>
+<blockquote>
+<p><strong><code>bitmap</code>区</strong>：<code>block45</code>，用于描述各个<code>block</code>是否<strong>空闲</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>数据区</strong>：其余<code>block</code>，<strong>真正存放数据</strong>的地方</p>
+</blockquote>
+<p><strong>②<code>inode</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：每个<code>inode</code>代表<strong>一个文件</strong>，文件系统通过<strong>其编号</strong>找到对应<code>inode</code>，其结构代码位于<code>kernel/file.c</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每个inode包含一个block编号，指向了文件所在block，分为直接索引和间接索引</div>
+<blockquote>
+<p><code>direct block number</code>：指向<code>block</code>即为<strong>文件所在处</strong></p>
+</blockquote>
+<blockquote>
+<p><code>indirect block number</code>：指向<code>block</code>包含<strong>256个</strong><code>direct block number</code>，其中<strong>有效</strong>的<code>block</code>为<strong>文件所在处</strong></p>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// in-memory copy of an inode</span>
+<span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token punctuation">{</span>
+  uint dev<span class="token punctuation">;</span>           <span class="token comment">// Device number</span>
+  uint inum<span class="token punctuation">;</span>          <span class="token comment">// Inode number</span>
+  <span class="token keyword">int</span> ref<span class="token punctuation">;</span>            <span class="token comment">// Reference count</span>
+  <span class="token keyword">struct</span> <span class="token class-name">sleeplock</span> lock<span class="token punctuation">;</span> <span class="token comment">// protects everything below here</span>
+  <span class="token keyword">int</span> valid<span class="token punctuation">;</span>          <span class="token comment">// inode has been read from disk?</span>
+
+  <span class="token keyword">short</span> type<span class="token punctuation">;</span>         <span class="token comment">// 标识是否被使用/是否是目录</span>
+  <span class="token keyword">short</span> major<span class="token punctuation">;</span>
+  <span class="token keyword">short</span> minor<span class="token punctuation">;</span>
+  <span class="token keyword">short</span> nlink<span class="token punctuation">;</span>        <span class="token comment">//link 计数器</span>
+  uint size<span class="token punctuation">;</span>          <span class="token comment">//描述文件大小</span>
+  uint addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NDIRECT</span> <span class="token expression"><span class="token number">12</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NINDIRECT</span> <span class="token expression"><span class="token punctuation">(</span>BSIZE <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>uint<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MAXFILE</span> <span class="token expression"><span class="token punctuation">(</span>NDIRECT <span class="token operator">+</span> NINDIRECT<span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// On-disk inode structure</span>
+<span class="token keyword">struct</span> <span class="token class-name">dinode</span> <span class="token punctuation">{</span>
+  <span class="token keyword">short</span> type<span class="token punctuation">;</span>           <span class="token comment">// File type</span>
+  <span class="token keyword">short</span> major<span class="token punctuation">;</span>          <span class="token comment">// Major device number (T_DEVICE only)</span>
+  <span class="token keyword">short</span> minor<span class="token punctuation">;</span>          <span class="token comment">// Minor device number (T_DEVICE only)</span>
+  <span class="token keyword">short</span> nlink<span class="token punctuation">;</span>          <span class="token comment">// Number of links to inode in file system</span>
+  uint size<span class="token punctuation">;</span>            <span class="token comment">// Size of file (bytes)</span>
+  uint addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">// Data block addresses</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③目录</strong></p>
+<blockquote>
+<p><strong>概述</strong>：大部分<code>Unix</code>文件系统中，目录的本质是<strong>文件</strong>，包含多条<code>directory entry</code>，即<strong>包含的文件的信息</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> Xv6下entry为16字节，前2个字节包含了文件/子目录的inode编号，后14个字节包含了文件/子目录名</div>
+<blockquote>
+<p>查找文件通常从<strong>根目录</strong>的<code>inode</code>开始，随后扫描其<code>directory entry</code>找到<strong>下一级目录</strong>，直到找到<strong>底层文件</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 根目录的inode编号通常是固定的，在Xv6中其编号为1</div>
+<p><strong>④<code>sleeplock</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：Xv6中每个<code>block</code>都有一个<code>sleeplock</code>，当其<strong>被持有时</strong>，就进入<code>sleep</code>状态</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> sleeplock基于spinlock实现，但是不同于自旋锁，其被获取时不会关闭中断，从而允许该COU进行I/O操作</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">void</span>
+<span class="token function">initsleeplock</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">sleeplock</span> <span class="token operator">*</span>lk<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">initlock</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lk<span class="token operator">-&gt;</span>lk<span class="token punctuation">,</span> <span class="token string">"sleep lock"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  lk<span class="token operator">-&gt;</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+  lk<span class="token operator">-&gt;</span>locked <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  lk<span class="token operator">-&gt;</span>pid <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span>
+<span class="token function">acquiresleep</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">sleeplock</span> <span class="token operator">*</span>lk<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lk<span class="token operator">-&gt;</span>lk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>lk<span class="token operator">-&gt;</span>locked<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">sleep</span><span class="token punctuation">(</span>lk<span class="token punctuation">,</span> <span class="token operator">&amp;</span>lk<span class="token operator">-&gt;</span>lk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  lk<span class="token operator">-&gt;</span>locked <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  lk<span class="token operator">-&gt;</span>pid <span class="token operator">=</span> <span class="token function">myproc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-&gt;</span>pid<span class="token punctuation">;</span>
+  <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>lk<span class="token operator">-&gt;</span>lk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="1-3logging"><a href="#1-3logging" class="headerlink" title="1.3logging"></a>1.3logging</h4><p><strong>①引言</strong></p>
+<blockquote>
+<p><strong>概述</strong>：先将对文件系统的<strong>更新行为</strong>写入<code>log</code>，随后执行<code>log</code><strong>记录的操作</strong>，最后<strong>清除</strong><code>log</code>即可</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 一个文件系统的操作通常包含多个步骤，如果在期间出现故障，会损坏文件系统，所以需要保证其是原子的</div>
+<blockquote>
+<p>将<strong>对文件系统的操作</strong>称为事务，每个<strong>相关系统调用</strong>使用<code>begin_op</code>和<code>end_op</code>分别表示事务的<strong>开始和结束</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 事务中所有写block操作具备原子性，且只会调用log_write进行写操作</div>
+<blockquote>
+<p><code>log_write</code>：会先获取<code>log header</code>的锁，<strong>记录该区块号</strong>若其没被记录，并将该区块<strong>添加到缓存</strong>中</p>
+</blockquote>
+<blockquote>
+<p><strong>Xv6的log</strong>：<code>log</code>区域有<code>header block</code>和<code>log block</code>，会先更新<code>log block</code>，再更新<strong>对应的</strong><code>block</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> header block包含一数字n和每个log block与其对应的block的映射</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Caller has modified b-&gt;data and is done with the buffer.</span>
+<span class="token comment">// Record the block number and pin in the cache by increasing refcnt.</span>
+<span class="token comment">// commit()/write_log() will do the disk write.</span>
+<span class="token comment">//</span>
+<span class="token comment">// log_write() replaces bwrite(); a typical use is:</span>
+<span class="token comment">//   bp = bread(...)</span>
+<span class="token comment">//   modify bp-&gt;data[]</span>
+<span class="token comment">//   log_write(bp)</span>
+<span class="token comment">//   brelse(bp)</span>
+<span class="token keyword">void</span>
+<span class="token function">log_write</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">buf</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+
+  <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n <span class="token operator">&gt;=</span> LOGSIZE <span class="token operator">||</span> log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n <span class="token operator">&gt;=</span> log<span class="token punctuation">.</span>size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"too big a transaction"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span>outstanding <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"log_write outside of trans"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>block<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> b<span class="token operator">-&gt;</span>blockno<span class="token punctuation">)</span>   <span class="token comment">// log absorption</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>block<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> b<span class="token operator">-&gt;</span>blockno<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">// Add new block to log?</span>
+    <span class="token function">bpin</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>②数据写入</strong></p>
+<blockquote>
+<p><strong><code>end_op()</code><strong>：调用<code>commit()</code>将对文件系统<code>log</code>区域的修改</strong>从缓存写回磁盘</strong>，再调用<code>install_trans</code>落实修改</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 只有将缓存中的log header和log blocks全部写回磁盘，才能完成正确的修改</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> commit中先将log blocks写回，否则先将log header写回而log blocks未写回会导致错误修改</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// called at the end of each FS system call.</span>
+<span class="token comment">// commits if this was the last outstanding operation.</span>
+<span class="token keyword">void</span>
+<span class="token function">end_op</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> do_commit <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+  <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  log<span class="token punctuation">.</span>outstanding <span class="token operator">-=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>log<span class="token punctuation">.</span>committing<span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"log.committing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>log<span class="token punctuation">.</span>outstanding <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    do_commit <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span>committing <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// begin_op() may be waiting for log space,</span>
+    <span class="token comment">// and decrementing log.outstanding has decreased</span>
+    <span class="token comment">// the amount of reserved space.</span>
+    <span class="token function">wakeup</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>do_commit<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// call commit w/o holding locks, since not allowed</span>
+    <span class="token comment">// to sleep with locks.</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span>committing <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">wakeup</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">release</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>log<span class="token punctuation">.</span>lock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">void</span>
+<span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">write_log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">// Write modified blocks from cache to log</span>
+    <span class="token function">write_head</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// Write header to disk -- the real commit</span>
+    <span class="token function">install_trans</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Now install writes to home locations</span>
+    log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">write_head</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// Erase the transaction from the log</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Copy committed blocks from log to their home location</span>
+<span class="token keyword">static</span> <span class="token keyword">void</span>
+<span class="token function">install_trans</span><span class="token punctuation">(</span><span class="token keyword">int</span> recovering<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> tail<span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>tail <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> tail <span class="token operator">&lt;</span> log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n<span class="token punctuation">;</span> tail<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">struct</span> <span class="token class-name">buf</span> <span class="token operator">*</span>lbuf <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>log<span class="token punctuation">.</span>dev<span class="token punctuation">,</span> log<span class="token punctuation">.</span>start<span class="token operator">+</span>tail<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// read log block</span>
+    <span class="token keyword">struct</span> <span class="token class-name">buf</span> <span class="token operator">*</span>dbuf <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>log<span class="token punctuation">.</span>dev<span class="token punctuation">,</span> log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>block<span class="token punctuation">[</span>tail<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// read dst</span>
+    <span class="token function">memmove</span><span class="token punctuation">(</span>dbuf<span class="token operator">-&gt;</span>data<span class="token punctuation">,</span> lbuf<span class="token operator">-&gt;</span>data<span class="token punctuation">,</span> BSIZE<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// copy block to dst</span>
+    <span class="token function">bwrite</span><span class="token punctuation">(</span>dbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// write dst to disk</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>recovering <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token function">bunpin</span><span class="token punctuation">(</span>dbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>lbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>dbuf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③数据恢复</strong></p>
+<blockquote>
+<p><strong><code>recover_from_log()</code><strong>：读取<code>log header</code>，随后调用<code>install_trans</code>落实修改，最后</strong>清空</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> Xv6启动过程中会调用initlog()，该函数会调用recover_from_log()，以修复文件系统</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">static</span> <span class="token keyword">void</span>
+<span class="token function">recover_from_log</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token function">read_head</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">install_trans</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// if committed, copy from log to disk</span>
+  log<span class="token punctuation">.</span>lh<span class="token punctuation">.</span>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">write_head</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// clear the log</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-具体实现"><a href="#2-具体实现" class="headerlink" title="2.具体实现"></a>2.具体实现</h3><h4 id="2-1大文件"><a href="#2-1大文件" class="headerlink" title="2.1大文件"></a>2.1大文件</h4><p><strong>①相关定义修改</strong></p>
+<blockquote>
+<p><strong>概述</strong>：对<code>kernel/fs.h</code>和<code>kernel/file.h</code>中的<code>dinode</code>和<code>inode</code>结构进行对应的修改</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 本质上就是将一个直接块修改为二级间接块</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">//将直接块的数目从12修改为11，因为要一个直接块修改为二级间接块</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NDIRECT</span> <span class="token expression"><span class="token number">11</span> </span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NINDIRECT</span> <span class="token expression"><span class="token punctuation">(</span>BSIZE <span class="token operator">/</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>uint<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token comment">//修改MAXFILE，将其从NDIRECT + NINDIRECT修改为NDIRECT + NINDIRECT + NINDIRECT * NINDIRECT</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">MAXFILE</span> <span class="token expression"><span class="token punctuation">(</span>NDIRECT <span class="token operator">+</span> NINDIRECT <span class="token operator">+</span> NINDIRECT <span class="token operator">*</span> NINDIRECT<span class="token punctuation">)</span></span></span>
+
+<span class="token comment">// On-disk inode structure</span>
+<span class="token keyword">struct</span> <span class="token class-name">dinode</span> <span class="token punctuation">{</span>
+  <span class="token keyword">short</span> type<span class="token punctuation">;</span>           <span class="token comment">// File type</span>
+  <span class="token keyword">short</span> major<span class="token punctuation">;</span>          <span class="token comment">// Major device number (T_DEVICE only)</span>
+  <span class="token keyword">short</span> minor<span class="token punctuation">;</span>          <span class="token comment">// Minor device number (T_DEVICE only)</span>
+  <span class="token keyword">short</span> nlink<span class="token punctuation">;</span>          <span class="token comment">// Number of links to inode in file system</span>
+  uint size<span class="token punctuation">;</span>            <span class="token comment">// Size of file (bytes)</span>
+  <span class="token comment">//相应的，NDIRECT减少了1，需要给其加上1</span>
+  uint addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment">// Data block addresses</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// in-memory copy of an inode</span>
+<span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token punctuation">{</span>
+  uint dev<span class="token punctuation">;</span>           <span class="token comment">// Device number</span>
+  uint inum<span class="token punctuation">;</span>          <span class="token comment">// Inode number</span>
+  <span class="token keyword">int</span> ref<span class="token punctuation">;</span>            <span class="token comment">// Reference count</span>
+  <span class="token keyword">struct</span> <span class="token class-name">sleeplock</span> lock<span class="token punctuation">;</span> <span class="token comment">// protects everything below here</span>
+  <span class="token keyword">int</span> valid<span class="token punctuation">;</span>          <span class="token comment">// inode has been read from disk?</span>
+
+  <span class="token keyword">short</span> type<span class="token punctuation">;</span>         <span class="token comment">// copy of disk inode</span>
+  <span class="token keyword">short</span> major<span class="token punctuation">;</span>
+  <span class="token keyword">short</span> minor<span class="token punctuation">;</span>
+  <span class="token keyword">short</span> nlink<span class="token punctuation">;</span>
+  uint size<span class="token punctuation">;</span>
+  <span class="token comment">//相应的，NDIRECT减少了1，需要给其加上1</span>
+  uint addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>②<code>bmap</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：<code>kernel/fs.c</code>中的<code>bmp()</code>会根据需要<strong>分配新的块</strong>来保存文件</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 该函数会先尝试使用直接块满足需求，如果不能满足需求则使用间接块，在此基础上添加二级块的逻辑即可</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 给文件分配数据块，主要是填充其addrs数组以及其中索引块的内容</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 对于每个文件块，在 bread()之后不要忘记进行brelse()</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Inode content</span>
+<span class="token comment">//</span>
+<span class="token comment">// The content (data) associated with each inode is stored</span>
+<span class="token comment">// in blocks on the disk. The first NDIRECT block numbers</span>
+<span class="token comment">// are listed in ip-&gt;addrs[].  The next NINDIRECT blocks are</span>
+<span class="token comment">// listed in block ip-&gt;addrs[NDIRECT].</span>
+
+<span class="token comment">// Return the disk block address of the nth block in inode ip.</span>
+<span class="token comment">// If there is no such block, bmap allocates one.</span>
+<span class="token comment">// returns 0 if out of disk space.</span>
+<span class="token keyword">static</span> uint
+<span class="token function">bmap</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token operator">*</span>ip<span class="token punctuation">,</span> uint bn<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  uint addr<span class="token punctuation">,</span> <span class="token operator">*</span>a<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">buf</span> <span class="token operator">*</span>bp<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>bn <span class="token operator">&lt;</span> NDIRECT<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>bn<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>bn<span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> addr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  bn <span class="token operator">-=</span> NDIRECT<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>bn <span class="token operator">&lt;</span> NINDIRECT<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// Load indirect block, allocating if necessary.</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    bp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>bp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> a<span class="token punctuation">[</span>bn<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        a<span class="token punctuation">[</span>bn<span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+        <span class="token function">log_write</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> addr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">//二级块逻辑，减去分配的一级逻辑块，剩余的为二级逻辑块所需要的</span>
+  bn <span class="token operator">-=</span> NINDIRECT<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>bn <span class="token operator">&lt;</span> NINDIRECT<span class="token operator">*</span>NINDIRECT<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">//计算对应逻辑块在二级块逻辑下哪一个一级块中</span>
+    <span class="token keyword">int</span> index <span class="token operator">=</span> bn<span class="token operator">/</span>NINDIRECT<span class="token punctuation">;</span>
+    <span class="token comment">//进一步计算其在对应一级块逻辑下哪一个直接快</span>
+    <span class="token keyword">int</span> offset <span class="token operator">=</span> bn<span class="token operator">%</span>NINDIRECT<span class="token punctuation">;</span>
+    <span class="token comment">//查看其是否有二级块</span>
+    <span class="token comment">//如果不存在则分配</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//从磁盘中读取二级块以及其数据</span>
+    <span class="token comment">//其中二级块以缓存的形式返回</span>
+    bp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span>addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>bp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token comment">//查看其</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> a<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        a<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+        <span class="token comment">//将缓存写回磁盘</span>
+        <span class="token function">log_write</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//释放缓存块</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//通上读取一级块</span>
+    bp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> addr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>bp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>addr <span class="token operator">=</span> a<span class="token punctuation">[</span>offset<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      addr <span class="token operator">=</span> <span class="token function">balloc</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>addr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        a<span class="token punctuation">[</span>offset<span class="token punctuation">]</span> <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+        <span class="token function">log_write</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> addr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"bmap: out of range"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③<code>itruc</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：<code>kernel/fs.c</code>中的<code>itruc()</code>会<strong>释放</strong>文件<strong>占据的块</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 类似地添加释放二级索引的逻辑即可，注意释放的顺序，从底至上释放</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// Truncate inode (discard contents).</span>
+<span class="token comment">// Caller must hold ip-&gt;lock.</span>
+<span class="token keyword">void</span>
+<span class="token function">itrunc</span><span class="token punctuation">(</span><span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token operator">*</span>ip<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">int</span> i<span class="token punctuation">,</span> j <span class="token punctuation">,</span>k<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">buf</span> <span class="token operator">*</span>bp<span class="token punctuation">,</span> <span class="token operator">*</span>ibp<span class="token punctuation">;</span>
+  uint <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token operator">*</span>b<span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> NDIRECT<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    bp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>bp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> NINDIRECT<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 如果其有二级索引块，需要对其进行释放</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">//读取对应索引块</span>
+    bp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>bp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+    <span class="token comment">// 释放其下一级索引块</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> NINDIRECT<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">//读取一级索引块</span>
+        ibp <span class="token operator">=</span> <span class="token function">bread</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        b <span class="token operator">=</span> <span class="token punctuation">(</span>uint<span class="token operator">*</span><span class="token punctuation">)</span>ibp<span class="token operator">-&gt;</span>data<span class="token punctuation">;</span>
+        <span class="token comment">// 同上释放直接索引块</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> NINDIRECT<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> b<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">brelse</span><span class="token punctuation">(</span>ibp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> a<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">brelse</span><span class="token punctuation">(</span>bp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">bfree</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>dev<span class="token punctuation">,</span> ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">//清空二级索引块的地址</span>
+    ip<span class="token operator">-&gt;</span>addrs<span class="token punctuation">[</span>NDIRECT <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  ip<span class="token operator">-&gt;</span>size <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token function">iupdate</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-2符号链接"><a href="#2-2符号链接" class="headerlink" title="2.2符号链接"></a>2.2符号链接</h4><p><strong>①准备工作</strong></p>
+<blockquote>
+<p><strong>概述</strong>：在<code>kernel/stat.h</code>中添加一个新的文件类型<code>T_SYMLINK</code>，并在<code>makefile</code>中添加<code>symlinktest</code></p>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">T_DIR</span>     <span class="token expression"><span class="token number">1</span>   </span><span class="token comment">// Directory</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">T_FILE</span>    <span class="token expression"><span class="token number">2</span>   </span><span class="token comment">// File</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">T_DEVICE</span>  <span class="token expression"><span class="token number">3</span>   </span><span class="token comment">// Device</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">T_SYMLINK</span> <span class="token expression"><span class="token number">4</span>   </span><span class="token comment">//符号链接</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">UPROGS<span class="token operator">=</span>\
+	<span class="token variable">$U/_cat\</span>
+	<span class="token variable">$U/_echo\</span>
+	<span class="token variable">$U/_forktest\</span>
+	<span class="token variable">$U/_grep\</span>
+	<span class="token variable">$U/_init\</span>
+	<span class="token variable">$U/_kill\</span>
+	<span class="token variable">$U/_ln\</span>
+	<span class="token variable">$U/_ls\</span>
+	<span class="token variable">$U/_mkdir\</span>
+	<span class="token variable">$U/_rm\</span>
+	<span class="token variable">$U/_sh\</span>
+	<span class="token variable">$U/_stressfs\</span>
+	<span class="token variable">$U/_usertests\</span>
+	<span class="token variable">$U/_grind\</span>
+	<span class="token variable">$U/_wc\</span>
+	<span class="token variable">$U/_zombie\</span>
+	<span class="token variable">$U/_symlinktest\</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>②系统调用添加</strong></p>
+<blockquote>
+<p><strong>概述</strong>：添加<code>symlink</code>的<strong>声明</strong>、<strong>编号</strong>、<strong>入口</strong>和<strong>映射关系</strong></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 详细可查看lab2</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// user/user.h</span>
+<span class="token comment">// system calls</span>
+<span class="token keyword">int</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">exit</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token keyword">__attribute__</span><span class="token punctuation">(</span><span class="token punctuation">(</span>noreturn<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">wait</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">pipe</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">write</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">read</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">close</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">kill</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">exec</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">open</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">mknod</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">short</span><span class="token punctuation">,</span> <span class="token keyword">short</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">unlink</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">fstat</span><span class="token punctuation">(</span><span class="token keyword">int</span> fd<span class="token punctuation">,</span> <span class="token keyword">struct</span> <span class="token class-name">stat</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">link</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">mkdir</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">chdir</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">dup</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">sbrk</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">uptime</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">symlink</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">,</span> <span class="token keyword">char</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// kernel/syscall.h</span>
+<span class="token comment">// System call numbers</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_fork</span>    <span class="token expression"><span class="token number">1</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_exit</span>    <span class="token expression"><span class="token number">2</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_wait</span>    <span class="token expression"><span class="token number">3</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_pipe</span>    <span class="token expression"><span class="token number">4</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_read</span>    <span class="token expression"><span class="token number">5</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_kill</span>    <span class="token expression"><span class="token number">6</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_exec</span>    <span class="token expression"><span class="token number">7</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_fstat</span>   <span class="token expression"><span class="token number">8</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_chdir</span>   <span class="token expression"><span class="token number">9</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_dup</span>    <span class="token expression"><span class="token number">10</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_getpid</span> <span class="token expression"><span class="token number">11</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_sbrk</span>   <span class="token expression"><span class="token number">12</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_sleep</span>  <span class="token expression"><span class="token number">13</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_uptime</span> <span class="token expression"><span class="token number">14</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_open</span>   <span class="token expression"><span class="token number">15</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_write</span>  <span class="token expression"><span class="token number">16</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_mknod</span>  <span class="token expression"><span class="token number">17</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_unlink</span> <span class="token expression"><span class="token number">18</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_link</span>   <span class="token expression"><span class="token number">19</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_mkdir</span>  <span class="token expression"><span class="token number">20</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_close</span>  <span class="token expression"><span class="token number">21</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SYS_symlink</span> <span class="token expression"><span class="token number">22</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-perl" data-language="perl"><code class="language-perl"><span class="token comment">#user/usys.pl</span>
+entry<span class="token punctuation">(</span><span class="token string">"fork"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"exit"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"wait"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"pipe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"read"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"write"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"close"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"kill"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"exec"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"open"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"mknod"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"unlink"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"fstat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"link"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"mkdir"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"chdir"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"dup"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"getpid"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"sbrk"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"sleep"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"uptime"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+entry<span class="token punctuation">(</span><span class="token string">"symlink"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">// kernel/syscall.c</span>
+<span class="token comment">// Prototypes for the functions that handle system calls.</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_fork</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_exit</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_wait</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_pipe</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_read</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_kill</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_exec</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_fstat</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_chdir</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_dup</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_getpid</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_sbrk</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_sleep</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_uptime</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_open</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_write</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_mknod</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_unlink</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_link</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_mkdir</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_close</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">extern</span> uint64 <span class="token function">sys_symlink</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// An array mapping syscall numbers from syscall.h</span>
+<span class="token comment">// to the function that handles the system call.</span>
+<span class="token keyword">static</span> <span class="token function">uint64</span> <span class="token punctuation">(</span><span class="token operator">*</span>syscalls<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+<span class="token punctuation">[</span>SYS_fork<span class="token punctuation">]</span>    sys_fork<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_exit<span class="token punctuation">]</span>    sys_exit<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_wait<span class="token punctuation">]</span>    sys_wait<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_pipe<span class="token punctuation">]</span>    sys_pipe<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_read<span class="token punctuation">]</span>    sys_read<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_kill<span class="token punctuation">]</span>    sys_kill<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_exec<span class="token punctuation">]</span>    sys_exec<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_fstat<span class="token punctuation">]</span>   sys_fstat<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_chdir<span class="token punctuation">]</span>   sys_chdir<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_dup<span class="token punctuation">]</span>     sys_dup<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_getpid<span class="token punctuation">]</span>  sys_getpid<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_sbrk<span class="token punctuation">]</span>    sys_sbrk<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_sleep<span class="token punctuation">]</span>   sys_sleep<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_uptime<span class="token punctuation">]</span>  sys_uptime<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_open<span class="token punctuation">]</span>    sys_open<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_write<span class="token punctuation">]</span>   sys_write<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_mknod<span class="token punctuation">]</span>   sys_mknod<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_unlink<span class="token punctuation">]</span>  sys_unlink<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_link<span class="token punctuation">]</span>    sys_link<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_mkdir<span class="token punctuation">]</span>   sys_mkdir<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_close<span class="token punctuation">]</span>   sys_close<span class="token punctuation">,</span>
+<span class="token punctuation">[</span>SYS_symlink<span class="token punctuation">]</span> sys_symlink<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>③<code>sys_symlink</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：在<code>kernel/sysfile.c</code>下创建核心函数<code>sys_symlink</code></p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> writei的作用是向inode写入数据</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 代码可参考sys_unlink</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> sys_symlink需要写在create函数之后，否则会报错</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">uint64
+<span class="token function">sys_symlink</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">char</span> sym_link<span class="token punctuation">[</span>MAXPATH<span class="token punctuation">]</span><span class="token punctuation">,</span> target_file<span class="token punctuation">[</span>MAXPATH<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token operator">*</span>ip<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> target_file<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> sym_link<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token function">begin_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">//创建链接文件</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ip <span class="token operator">=</span> <span class="token function">create</span><span class="token punctuation">(</span>sym_link<span class="token punctuation">,</span> T_SYMLINK<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 将目标文件的路径保存到符号链接的inode中</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">writei</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>target_file<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> target_file<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> target_file<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">uint64
+<span class="token function">sys_unlink</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token operator">*</span>ip<span class="token punctuation">,</span> <span class="token operator">*</span>dp<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">dirent</span> de<span class="token punctuation">;</span>
+  <span class="token keyword">char</span> name<span class="token punctuation">[</span>DIRSIZ<span class="token punctuation">]</span><span class="token punctuation">,</span> path<span class="token punctuation">[</span>MAXPATH<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  uint off<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> path<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token function">begin_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>dp <span class="token operator">=</span> <span class="token function">nameiparent</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">ilock</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Cannot unlink "." or "..".</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">namecmp</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">"."</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token function">namecmp</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token string">".."</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">goto</span> bad<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ip <span class="token operator">=</span> <span class="token function">dirlookup</span><span class="token punctuation">(</span>dp<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token operator">&amp;</span>off<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">goto</span> bad<span class="token punctuation">;</span>
+  <span class="token function">ilock</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>nlink <span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"unlink: nlink &lt; 1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_DIR <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">isdirempty</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">goto</span> bad<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">memset</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>de<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>de<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">writei</span><span class="token punctuation">(</span>dp<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>uint64<span class="token punctuation">)</span><span class="token operator">&amp;</span>de<span class="token punctuation">,</span> off<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>de<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>de<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token function">panic</span><span class="token punctuation">(</span><span class="token string">"unlink: writei"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_DIR<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    dp<span class="token operator">-&gt;</span>nlink<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token function">iupdate</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">iunlockput</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  ip<span class="token operator">-&gt;</span>nlink<span class="token operator">--</span><span class="token punctuation">;</span>
+  <span class="token function">iupdate</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+bad<span class="token operator">:</span>
+  <span class="token function">iunlockput</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>④<code>sys_open</code></strong></p>
+<blockquote>
+<p><strong>概述</strong>：在<code>kernel/fcntl.h</code>中补全<code>O_NOFOLLOW</code>的定义，并且<strong>根据要求</strong>修改<code>sys_open</code>逻辑</p>
+</blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如果打开的链接，其链接的文件也是符号链接，则必须递归地跟踪它，直到到达非链接文件</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 链接形成循环，则必须返回错误代码，可以通过设置最大链接深度近似达到这一点</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 传递给open的标志是使用按位OR运算符组合的，因此新标志不应与任何现有标志重叠</div>
+<blockquote>
+<p>只有在<code>O_NOFOLLOW</code>设置的情况下，才考虑对符号链接进行<strong>递归跟踪</strong></p>
+</blockquote>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_RDONLY</span>  <span class="token expression"><span class="token number">0x000</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_WRONLY</span>  <span class="token expression"><span class="token number">0x001</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_RDWR</span>    <span class="token expression"><span class="token number">0x002</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_CREATE</span>  <span class="token expression"><span class="token number">0x200</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_TRUNC</span>   <span class="token expression"><span class="token number">0x400</span></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">O_NOFOLLOW</span> <span class="token expression"><span class="token number">0x004</span></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">uint64
+<span class="token function">sys_open</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> path<span class="token punctuation">[</span>MAXPATH<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> fd<span class="token punctuation">,</span> omode<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">file</span> <span class="token operator">*</span>f<span class="token punctuation">;</span>
+  <span class="token keyword">struct</span> <span class="token class-name">inode</span> <span class="token operator">*</span>ip<span class="token punctuation">;</span>
+  <span class="token keyword">int</span> n<span class="token punctuation">;</span>
+
+  <span class="token function">argint</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>omode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>n <span class="token operator">=</span> <span class="token function">argstr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> path<span class="token punctuation">,</span> MAXPATH<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+
+  <span class="token function">begin_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_CREATE<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ip <span class="token operator">=</span> <span class="token function">create</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> T_FILE<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ip <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ip <span class="token operator">=</span> <span class="token function">namei</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">ilock</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_DIR <span class="token operator">&amp;&amp;</span> omode <span class="token operator">!=</span> O_RDONLY<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_SYMLINK <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_NOFOLLOW<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> depth <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">//只要当前文件还是符号链接且没有超过递归深度，就往下读取</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_SYMLINK<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">++</span>depth <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">//读取链接文件存放的目标文件路径</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">readi</span><span class="token punctuation">(</span>ip<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">(</span>uint64<span class="token punctuation">)</span>path<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>MAXPATH<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">//注意这里要解锁，因为需要修改ip</span>
+      <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">//将ip设置为读取到的文件路径的inode</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>ip <span class="token operator">=</span> <span class="token function">namei</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">//上锁</span>
+      <span class="token function">ilock</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_DEVICE <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>major <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> ip<span class="token operator">-&gt;</span>major <span class="token operator">&gt;=</span> NDEV<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>f <span class="token operator">=</span> <span class="token function">filealloc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token punctuation">(</span>fd <span class="token operator">=</span> <span class="token function">fdalloc</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+      <span class="token function">fileclose</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">iunlockput</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span>ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_DEVICE<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    f<span class="token operator">-&gt;</span>type <span class="token operator">=</span> FD_DEVICE<span class="token punctuation">;</span>
+    f<span class="token operator">-&gt;</span>major <span class="token operator">=</span> ip<span class="token operator">-&gt;</span>major<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    f<span class="token operator">-&gt;</span>type <span class="token operator">=</span> FD_INODE<span class="token punctuation">;</span>
+    f<span class="token operator">-&gt;</span>off <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  f<span class="token operator">-&gt;</span>ip <span class="token operator">=</span> ip<span class="token punctuation">;</span>
+  f<span class="token operator">-&gt;</span>readable <span class="token operator">=</span> <span class="token operator">!</span><span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_WRONLY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  f<span class="token operator">-&gt;</span>writable <span class="token operator">=</span> <span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_WRONLY<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_RDWR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>omode <span class="token operator">&amp;</span> O_TRUNC<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> ip<span class="token operator">-&gt;</span>type <span class="token operator">==</span> T_FILE<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">itrunc</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">iunlock</span><span class="token punctuation">(</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">end_op</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> fd<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Paopaozi</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2024/03/18/mit6-1810-shi-yan-jiu/">http://example.com/2024/03/18/mit6-1810-shi-yan-jiu/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Paopaozi</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                                    <span class="chip bg-color">操作系统</span>
+                                </a>
+                            
+                                <a href="/tags/MIT6-1810/">
+                                    <span class="chip bg-color">MIT6.1810</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/03/18/mit6-1810-shi-yan-qi/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/40.webp" class="responsive-img" alt="MIT6.1810实验（七）">
+                        
+                        <span class="card-title">MIT6.1810实验（七）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            中断
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-03-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="post-category">
+                                    项目实战
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                    <a href="/tags/MIT6-1810/">
+                        <span class="chip bg-color">MIT6.1810</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/03/06/mit6-1810-shi-yan-si/">
+                    <div class="card-image">
+                        
+                        <img src="/medias/featureimages/40.webp" class="responsive-img" alt="MIT6.1810实验（四）">
+                        
+                        <span class="card-title">MIT6.1810实验（四）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            陷阱处理机制
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-03-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/" class="post-category">
+                                    项目实战
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">
+                        <span class="chip bg-color">操作系统</span>
+                    </a>
+                    
+                    <a href="/tags/MIT6-1810/">
+                        <span class="chip bg-color">MIT6.1810</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+<!-- 代码语言 -->
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+<!-- 代码块复制 -->
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/libs/codeBlock/clipboard.min.js"></script>
+<!-- 代码块收缩 -->
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script> 
+<!-- 代码块折行 -->
+<style type="text/css">code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }</style>
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2024</span>
+            
+            <span id="year">2023</span>
+            <a href="/about" target="_blank">Paopaozi</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2023";
+                    var startMonth = "2";
+                    var startDate = "22";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/paopaoziye" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1781206070@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1781206070" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1781206070" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+<script src="/js/cursor.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body>
+
+</html>

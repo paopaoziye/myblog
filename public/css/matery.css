@@ -2213,3 +2213,11 @@ footer .copy-right {
   margin-top: 0px;    /* 调整列表项之间的上方间距 */
   margin-bottom: 0px; /* 调整列表项之间的下方间距 */
 }
+/* 强制居中所有表格 */
+table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    width: 50% !important;  /* 可以根据需要调整宽度 */
+  }
+  

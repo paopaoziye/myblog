@@ -518,6 +518,7 @@ int* b = &amp;a；<span aria-hidden="true" class="line-numbers-rows"><span></spa
 <blockquote>
 <p><strong><code>==</code>与<code>!=</code><strong>：可以用于</strong>任意两个指针</strong>，判断两个指针<strong>是否相同</strong></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 当两个指针同为空指针、指向同一个对象或者指向同一个对象的下一位置，两者相等</div>
 <blockquote>
 <p><strong>大小比较</strong>：只能用于<strong>同一个数组</strong>内的元素</p>
 </blockquote>
@@ -553,44 +554,37 @@ result = oper_func[1](i,j);
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 将函数中与数据类型相关的操作替换为一系列等价的函数，需要使用哪类数据类型的对应操作，传递对应的函数指针</div>
 <div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 将传递给函数以及回调函数的数据类型采用*void，用于接收不同数据类型的指针</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 在使用这些数据的指针时，必须要强制转换为正确的数据类型</div>
-<pre class="line-numbers language-none"><code class="language-none">/*比较函数的整数版本
-int compare_ints(void const *a,void const *b)
-{
-	if(*(int *)a = *(int *)b)
-		return 0;
-	else
-		return 1;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/*比较函数的整数版本*/</span>
+<span class="token keyword">int</span> <span class="token function">compare_ints</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span>a<span class="token punctuation">,</span><span class="token keyword">void</span> <span class="token keyword">const</span> <span class="token operator">*</span>b<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span>a <span class="token operator">=</span> <span class="token operator">*</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span><span class="token punctuation">)</span>b<span class="token punctuation">)</span>
+		<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token keyword">else</span>
+		<span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="2-函数"><a href="#2-函数" class="headerlink" title="2.函数"></a>2.函数</h3><h4 id="2-1格式"><a href="#2-1格式" class="headerlink" title="2.1格式"></a>2.1格式</h4><p><strong>①源文件</strong></p>
 <blockquote>
-<p><strong>概述</strong>：由<strong>返回类型</strong>、<strong>函数名</strong>、<strong>参数列表</strong>和<strong>函数主体</strong>组成</p>
+<p><strong>组成</strong>：由<strong>返回类型</strong>、<strong>函数名</strong>、<strong>参数列表</strong>和<strong>函数主体</strong>组成</p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数可以没有返回值，这是返回类型为void</div>
-<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数中的形参是实参的一个副本，修改形参不会影响实参，如果想要修改实参，需要传递实参的地址</div>
-<pre class="line-numbers language-none"><code class="language-none">返回类型 函数名（形参类型1 形参名1，...形参类型n 形参名n）
-{
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数的参数列表是用逗号隔开的形参列表，函数可以没有返回值/参数，标为void，甚至可以没有statement</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 这种函数可以达到存根的目的,即为尚未编写的代码“占好位置”，可以保持程序在结构上的完整性</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 函数的返回值不能是数组和函数类型，但可以返回其指针</div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">返回类型 函数名<span class="token punctuation">(</span>形参类型<span class="token number">1</span> 形参名<span class="token number">1</span><span class="token punctuation">,</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>形参类型n 形参名n<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
 	statement；
-    return expression；
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">return</span> expression；
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>黑盒函数</strong>：利用<code>static</code>关键字修饰<strong>函数内置数据和函数</strong>，使其变为<strong>函数文件私有</strong>，<strong>外界不能访问</strong></p>
+</blockquote>
 <blockquote>
 <p><strong><code>return</code>语句</strong>：用于<strong>返回结果</strong>并表明此处是函数的<strong>退出点</strong>，可以出现在<strong>函数主体</strong>的<strong>任意位置</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 如果函数主体的最后一条语句不是return语句，则该语句之后为函数的隐式退出点</div>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> return语句返回的值用于初始化函数调用的结果</div>
+<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 若函数主体的最后一条语句不是return，则该语句之后为函数的隐式退出点，若返回类型为void，会自动添加return</div>
 <div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 若函数的返回类型不为void，则需要在每个可能的退出点将值返回，其函数主体最后一条语句必为return语句</div>
 
-<blockquote>
-<p><strong>类型</strong>、<strong>形参</strong>和<strong>statement</strong>都<strong>不是必须</strong>的，因此<strong>最简单的函数</strong>如下</p>
-</blockquote>
-<div class="uk-alert uk-alert-success"><i class="fa fa-check-circle"></i> 这种函数可以达到存根的目的,即为尚未编写的代码“占好位置”，可以保持程序在结构上的完整性</div>
-<pre class="line-numbers language-none"><code class="language-none">void function （void）
-{
-
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><strong>②函数声明</strong></p>
+<p><strong>②声明</strong></p>
 <blockquote>
 <p><strong>格式</strong>：<code>返回类型 函数名(形参类型n 形参名n);</code></p>
 </blockquote>
@@ -600,16 +594,19 @@ int compare_ints(void const *a,void const *b)
 <blockquote>
 <p><code>char</code>和<code>short</code>被转换为<code>int</code>，<code>float</code>被转化为<code>double</code>，且默认返回一个<strong>整型</strong></p>
 </blockquote>
-<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 函数原型不要写在代码块中，因为代码块中的函数原型有代码块作用域，可能会覆盖原来的函数声明</div>
+<div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 函数声明不要写在代码块中，因为代码块中的函数原型有其代码块作用域，会覆盖原来的函数声明</div>
 
 
-<p><strong>③黑盒</strong></p>
+<p><strong>③调用</strong></p>
 <blockquote>
-<p>利用<code>static</code>关键字修饰<strong>函数内置数据和函数</strong>，使其变为<strong>函数文件私有</strong>，<strong>外界不能访问</strong></p>
+<p><strong>格式</strong>：<code>[函数名](实参1,实参2...)</code>，其中实参需要<strong>与形参一一对应</strong>，两者<strong>类型相同</strong>或者<strong>可以相互转换</strong></p>
 </blockquote>
+<div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 函数被调用后，先定义并用对应的实参初始化形参，定义顺序未知，随即将控制权交给函数</div>
+<div class="uk-alert uk-alert-warning"><i class="fa fa-exclamation-circle"></i> 形参是实参的一个副本，修改形参不会影响实参，如果想要修改实参，需要传递实参的指针</div>
+
 <h4 id="2-递归函数"><a href="#2-递归函数" class="headerlink" title="2.递归函数"></a>2.递归函数</h4><p><strong>①定义</strong></p>
 <blockquote>
-<p>直接或者间接<strong>调用自身</strong>的函数，当递归函数<strong>不再满足某个条件</strong>时，便<strong>停止</strong>调用自身</p>
+<p><strong>概述</strong>：直接或者间接<strong>调用自身</strong>的函数，当递归函数<strong>不再满足某个条件</strong>时，便<strong>停止</strong>调用自身</p>
 </blockquote>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 递归函数需要设置限制条件，且每次递归调用之后就越接近该限制条件</div>
 <div class="uk-alert uk-alert-danger"><i class="fas fa-exclamation-triangle"></i> 递归的计算代价非常大，如果可以使用循环等解决问题，不要使用递归</div>
@@ -617,14 +614,14 @@ int compare_ints(void const *a,void const *b)
 <blockquote>
 <p>输入<code>value</code>为<code>4267</code></p>
 </blockquote>
-<pre class="line-numbers language-none"><code class="language-none">binary_to_ascii(unsigned int value)
-{
-	unsigned int a;
-	a = value/10;
-	if(a!=0)
-		binary_to_ascii(a)
-	putchar(value%10+‘0)’;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">binary_to_ascii</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	<span class="token keyword">unsigned</span> <span class="token keyword">int</span> a<span class="token punctuation">;</span>
+	a <span class="token operator">=</span> value<span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token operator">!=</span><span class="token number">0</span><span class="token punctuation">)</span>
+		<span class="token function">binary_to_ascii</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+	<span class="token function">putchar</span><span class="token punctuation">(</span>value<span class="token operator">%</span><span class="token number">10</span><span class="token operator">+</span>‘<span class="token number">0</span><span class="token punctuation">)</span>’<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>③实现过程</strong></p>
 <div class="uk-alert uk-alert-list"><i class="fas fa-list-ul"></i> 每次函数调用，都会创建一个栈帧，存放临时变量和返回地址等，并压入程序栈中，直到函数调用结束才会弹出</div>
 <blockquote>
@@ -1207,18 +1204,18 @@ struct B
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-san/">
+                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-yi/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（三）">
+                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（一）">
                         
-                        <span class="card-title">C语言学习笔记（三）</span>
+                        <span class="card-title">C语言学习笔记（一）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            预处理器
+                            C语言基础
                         
                     </div>
                     <div class="publish-info">
@@ -1256,21 +1253,21 @@ struct B
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/12/10/c-yu-yan-xue-xi-bi-ji-er/">
+                <a href="/2023/12/10/git-ji-qi-ying-yong/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/0.webp" class="responsive-img" alt="C语言学习笔记（二）">
+                        <img src="/medias/featureimages/22.webp" class="responsive-img" alt="Git及其应用">
                         
-                        <span class="card-title">C语言学习笔记（二）</span>
+                        <span class="card-title">Git及其应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            指针
+                            git和github
                         
                     </div>
                     <div class="publish-info">
@@ -1281,24 +1278,23 @@ struct B
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-category">
-                                    编程语言
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E9%93%BE/" class="post-category">
+                                    工具链
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/C%E8%AF%AD%E8%A8%80/">
-                        <span class="chip bg-color">C语言</span>
+                    <a href="/tags/%E4%BB%A3%E7%A0%81%E5%B7%A5%E5%85%B7/">
+                        <span class="chip bg-color">代码工具</span>
                     </a>
                     
-                    <a href="/tags/%E3%80%8AC%E5%92%8C%E6%8C%87%E9%92%88%E3%80%8B/">
-                        <span class="chip bg-color">《C和指针》</span>
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>
@@ -1447,7 +1443,7 @@ struct B
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2023</span>
+                <span id="year">2023-2024</span>
             
             <span id="year">2023</span>
             <a href="/about" target="_blank">Paopaozi</a>
