@@ -21,7 +21,7 @@ keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/18.webp
 date:
-summary: Hexo博客框架搭建、个性化和文章写法
+summary: HEXO博客搭建全流程
 ---
 
 # Hexo

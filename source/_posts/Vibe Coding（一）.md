@@ -1,5 +1,5 @@
 ---
-title: Cpp学习笔记（一）
+title: Vibe Coding（一）
 seo_title: seo名称
 toc: true
 indent: true
@@ -14,17 +14,27 @@ bottom_meta: false
 sidebar:
   - toc
 tag:
-  - 《C++ primer》
-  - Cpp
+  - AI
+  - Vibe Coding        
 categories: 编程语言
 keywords: 文章关键词
 updated: ''
-img: /medias/featureimages/11.webp
 date:
-summary: Cpp基础
+img: /medias/featureimages/4.webp
+summary: Vibe Coding
 ---
-# 编程语言
-## Cpp学习笔记
-### Cpp学习笔记（一）
+# AI工具使用
+## Vibe Coding
+### Vibe Coding（一）
 #### 1.引言
+**①简介**
+>**概述**：
+{%list%}
 
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
