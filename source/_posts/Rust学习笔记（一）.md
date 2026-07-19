@@ -19,7 +19,7 @@ tag:
 categories: 编程语言
 keywords: 文章关键词
 updated: ''
-img: /medias/featureimages/11.webp
+img: /medias/featureimages/30.webp
 date:
 summary: Rust基础
 ---
