@@ -1,5 +1,6 @@
 ---
 title: IIC协议（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -14,12 +15,12 @@ sidebar:
   - toc
 tag:
   - 串行协议
-categories: IIC
-keywords: IIC协议（一）, 串行协议, IIC
+categories: CAN
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/29.webp
-date: 2026-07-27 17:50:36
-summary: IIC协议简介
+date:
+summary: 简单介绍
 ---
 # 串行协议
 ## IIC协议

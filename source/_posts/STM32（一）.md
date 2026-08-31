@@ -1,5 +1,6 @@
 ---
 title: STM32（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - STM32
   - 单片机
 categories: MCU
-keywords: STM32（一）, STM32, 单片机, MCU
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/27.webp
-date: 2026-06-30 13:55:14
+date:
 summary: 空白工程构建
 ---
 # 单片机

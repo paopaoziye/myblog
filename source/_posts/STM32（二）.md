@@ -1,5 +1,6 @@
 ---
 title: STM32（二）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -15,10 +16,10 @@ sidebar:
 tag:
   - STM32
 categories: MCU
-keywords: STM32（二）, STM32, MCU
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/27.webp
-date: 2026-06-30 13:55:14
+date:
 summary: 串行通信
 ---
 # 单片机

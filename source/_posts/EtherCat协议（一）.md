@@ -1,5 +1,6 @@
 ---
-title: EtherCAT协议（一）
+title: EtherCat协议（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -14,12 +15,12 @@ sidebar:
   - toc
 tag:
   - 串行协议
-categories: EtherCAT
-keywords: EtherCAT协议（一）, 串行协议, EtherCAT
+categories: EtherCat
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/29.webp
-date: 2026-06-30 13:55:14
-summary: EtherCAT协议简介
+date:
+summary: 简单介绍
 ---
 # 串行协议
 ## EtherCat协议

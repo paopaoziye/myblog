@@ -1,5 +1,6 @@
 ---
 title: Zephyr源码阅读（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: Zephyr源码阅读（一）, RTOS, Zephyr
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/37.webp
-date: 2026-06-30 13:55:14
+date:
 summary: Zephyr移植
 ---
 # RTOS
@@ -298,20 +299,20 @@ int main(void)
 # CMakeLists.txt
 cmake_minimum_required(VERSION 3.20.0)
 
-# 找到并加载 Zephyr 构建系统
+// 找到并加载 Zephyr 构建系统
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
-# 定义工程名称
+// 定义工程名称
 project(led_demo)
 
-# 将 src/main.c 加入编译
+//将 src/main.c 加入编译
 target_sources(app PRIVATE
     src/main.c
 )
 ```
 ```kconfig
 # prj.conf
-# 启用 GPIO 子系统
+//启用 GPIO 子系统
 CONFIG_GPIO=y
 ```
 **④编译与烧写**
@@ -375,3 +376,4 @@ $_TARGETNAME configure -event gdb-detach {
     resume
 }
 ```
+

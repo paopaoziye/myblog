@@ -1,5 +1,6 @@
 ---
 title: Zephyr源码阅读（二）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: Zephyr源码阅读（二）, RTOS, Zephyr
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/37.webp
-date: 2026-07-21 22:45:51
+date:
 summary: 启动流程
 ---
 # RTOS
@@ -85,7 +86,7 @@ KEEP(*(._bindesc_entry.*))
 
 _vector_end = .;
 ```
-```arm-gas
+```nasm
 ; 位于zephyr/arch/arm/core/cortex_m/vector_table.S
 #include <zephyr/toolchain.h>
 #include <zephyr/linker/sections.h>
@@ -128,7 +129,7 @@ MPU栈保护会在栈中预留一段保护区域以检测栈溢出，栈填充�
 >`Zephyr`内核状态尚未建立，`ISR`若调用内核`API`或触发调度会有风险
 
 >`.bss`段还没有清零，`.data`段还没有复制，`ISR`使用的**全局变量**可能无效
-```arm-gas
+```nasm
 ; 位于zephyr/arch/arm/core/cortex_m/reset.S
 ; 在 .text._reset_section 中定义函数符号 z_arm_reset
 SECTION_SUBSEC_FUNC(TEXT,_reset_section,z_arm_reset)

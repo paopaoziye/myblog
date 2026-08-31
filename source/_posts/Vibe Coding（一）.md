@@ -1,5 +1,6 @@
 ---
 title: Vibe Coding（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -14,11 +15,11 @@ sidebar:
   - toc
 tag:
   - AI
-  - Vibe Coding
-categories: AI工具
-keywords: Vibe Coding（一）, AI, Vibe Coding, AI工具
+  - Vibe Coding        
+categories: 编程语言
+keywords: 文章关键词
 updated: ''
-date: 2026-06-30 13:55:14
+date:
 img: /medias/featureimages/4.webp
 summary: Vibe Coding
 ---

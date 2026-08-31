@@ -1,5 +1,6 @@
 ---
 title: ARM体系架构（二）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -14,12 +15,12 @@ sidebar:
   - toc
 tag:
   - ARM体系架构
-categories: 处理器架构
-keywords: ARM体系架构（二）, ARM体系架构, 处理器架构
+categories: 编程语言
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/20.webp
-date: 2026-08-20 11:29:30
-summary: ARM指令系统
+date:
+summary: Arm指令系统
 ---
 # 处理器架构
 ## ARM体系架构
@@ -104,7 +105,7 @@ summary: ARM指令系统
 地址偏移量通常以字节为单位，其取值范围、可用寄存器和移位方式受具体指令及指令编码限制
 {%endwarning%}
 
-```arm-gas
+```nasm
 ;基址寻址：直接将基址寄存器中的值作为内存地址
 LDR R0, [R1]                ; R0 = memory[R1]
 

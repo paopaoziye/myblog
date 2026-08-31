@@ -70,6 +70,13 @@
     }
 }
 
+/* Keep inline code aligned with the surrounding text baseline. */
+#articleContent code:not(pre code) {
+    position: static !important;
+    top: auto !important;
+    vertical-align: baseline;
+}
+
 /* Keep the TOC in its own column on wide desktop screens. */
 @media only screen and (min-width: 1560px) {
     .post-container {

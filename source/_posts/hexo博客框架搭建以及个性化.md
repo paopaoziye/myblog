@@ -1,5 +1,6 @@
 ---
 title: Hexo个人博客搭建
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - Hexo
   - 静态博客框架
 categories: 工作流
-keywords: Hexo个人博客搭建, Hexo, 静态博客框架, 工作流
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/18.webp
-date: 2023-11-07 17:33:24
+date:
 summary: HEXO博客搭建全流程
 ---
 

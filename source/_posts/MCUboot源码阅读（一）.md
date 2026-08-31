@@ -1,5 +1,6 @@
 ---
 title: MCUboot源码阅读（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -15,10 +16,10 @@ sidebar:
 tag:
   - BootLoader
 categories: BootLoader
-keywords: MCUboot源码阅读（一）, BootLoader
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/13.webp
-date: 2026-06-30 13:55:14
+date:
 summary: MCUboot源码阅读
 ---
 # BootLoader

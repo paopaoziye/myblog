@@ -1,5 +1,6 @@
 ---
 title: Rust学习笔记（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - 《Rust 权威学习指南》
   - Rust
 categories: 编程语言
-keywords: Rust学习笔记（一）, 《Rust 权威学习指南》, Rust, 编程语言
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/30.webp
-date: 2026-07-19 01:32:03
+date:
 summary: Rust基础
 ---
 # 编程语言

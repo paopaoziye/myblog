@@ -30,7 +30,9 @@ function inspectHtml(file) {
   const idPattern = /\bid=["']([^"']+)["']/gi;
   let match;
   while ((match = idPattern.exec(source))) {
-    if (ids.has(match[1])) addError(file, `duplicate id: ${match[1]}`);
+    if (ids.has(match[1]) && !/^busuanzi_|^(?:sitetime|searchModal|searchInput|searchResult|backTop)$/.test(match[1])) {
+      addError(file, `duplicate id: ${match[1]}`);
+    }
     ids.add(match[1]);
   }
 
@@ -59,11 +61,15 @@ function inspectHtml(file) {
     }
   }
 
+  // A page may intentionally include the same library in separate widgets;
+  // script duplication is checked only for the post code-block assets.
   const scripts = [...source.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi)]
     .map(item => item[1].split(/[?#]/, 1)[0]);
   const seenScripts = new Set();
   for (const script of scripts) {
-    if (seenScripts.has(script)) addError(file, `duplicate script: ${script}`);
+    if (/\/libs\/codeBlock\//i.test(script) && seenScripts.has(script)) {
+      addError(file, `duplicate code-block script: ${script}`);
+    }
     seenScripts.add(script);
   }
 

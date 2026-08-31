@@ -1,5 +1,6 @@
 ---
 title: FreeRTOS源码阅读（三）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,11 +17,11 @@ tag:
   - RTOS
   - FreeRTOS
 categories: RTOS
-keywords: FreeRTOS源码阅读（三）, RTOS, FreeRTOS
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/38.webp
-date: 2026-06-30 13:55:14
-summary: 任务系统（二）
+date:
+summary: 任务系统
 ---
 # FreeRTOS
 ## FreeRTOS源码阅读（三）

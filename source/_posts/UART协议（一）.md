@@ -1,5 +1,6 @@
 ---
 title: UART协议（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +14,15 @@ bottom_meta: false
 sidebar:
   - toc
 tag:
-  - 串行协议
-categories: UART
-keywords: UART协议（一）, 串行协议, UART
+  - 通信协议
+categories: CAN
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/29.webp
-date: 2026-08-11 15:18:55
-summary: UART协议简介
+date:
+summary: 协议介绍
 ---
-# 串行协议
+# 通信协议
 ## UART协议
 ### UART协议（一）
 #### 1.引言

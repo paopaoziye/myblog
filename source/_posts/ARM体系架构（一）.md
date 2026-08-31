@@ -1,5 +1,6 @@
 ---
-title: ARM体系架构（一）
+title: Arm体系架构（一）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,13 +14,13 @@ bottom_meta: false
 sidebar:
   - toc
 tag:
-  - ARM体系架构
-categories: 处理器架构
-keywords: ARM体系架构（一）, ARM体系架构, 处理器架构
+  - Arm体系架构
+categories: 编程语言
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/20.webp
-date: 2026-08-19 21:42:53
-summary: ARM体系架构简介
+date:
+summary: Arm体系架构简介
 ---
 # 处理器架构
 ## Arm体系架构
@@ -36,12 +37,11 @@ Arm主要提供A、R和M三类架构Profile，分别面向应用处理器、实�
 {%endright%}
 >每种系列又有`Armv7`、`Armv8`、`Armv9`等不同版本，如`Armv8-A`、`Armv8-R`和`Armv8-M`等
 
->通常`R-Profile`和`M-Profile`只有`MPU`，只提供**内存区域保护**而不能提供**虚拟地址到物理地址的转换**
+>`R-Profile`和`M-Profile`通常使用`MPU`，只提供**内存区域保护**而不能提供**虚拟地址到物理地址的转换**
 {%warning%}
 Cortex-A/R/M是Arm公司依据相应架构Profile设计的处理器核系列，属于架构规范的具体处理器核实现
 {%endwarning%}
 >比如`Cortex-M33`实现了`Armv8-M`、`Cortex-A53/A72`实现了`Armv8-A`、`Cortex-R52`实现了`Armv8-R`
-
 
 **②执行状态**
 >**概述**：`Arm`主要定义了`AArch32`和`AArch64`两种执行状态，支持哪种状态取决于**架构`Profile`**和**处理器**
@@ -192,7 +192,7 @@ R9在一些平台可能用于保存平台专用数据，除非明确知道目标
 AAPCS32规定SP始终应保持4字节对齐，并在公共函数调用边界保持8字节对齐
 {%endwrong%}
 >**公共函数调用边界**指调用者把参数准备好并执行调用，被调用函数刚开始执行的那个交界位置
-```arm-gas
+```nasm
 .syntax unified
 .cpu cortex-m3
 .thumb
@@ -284,7 +284,7 @@ X18在一些平台可能用于保存平台专用数据，除非明确知道目�
 {%wrong%}
 AAPCS64规定通过SP访问内存以及进入公共函数接口时，SP必须保持16字节对齐
 {%endwrong%}
-```arm-gas
+```nasm
 .arch armv8-a
 
 .text

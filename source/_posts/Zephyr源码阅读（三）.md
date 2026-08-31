@@ -1,5 +1,6 @@
 ---
 title: Zephyr源码阅读（三）
+seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -16,10 +17,10 @@ tag:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: Zephyr源码阅读（三）, RTOS, Zephyr
+keywords: 文章关键词
 updated: ''
 img: /medias/featureimages/37.webp
-date: 2026-07-27 16:02:44
+date:
 summary: 内存模块初始化
 ---
 # RTOS

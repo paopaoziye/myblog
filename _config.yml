@@ -161,8 +161,8 @@ live2d:
     width: 145
     height: 315
   mobile:
-    show: true # 是否在移动设备上显示
-    scale: 0.5 # 移动设备上的缩放       
+    show: false # 是否在移动设备上显示
+    scale: 0.5 # 移动设备上的缩放
   react:
     opacityDefault: 0.7
     opacityOnHover: 0.8
