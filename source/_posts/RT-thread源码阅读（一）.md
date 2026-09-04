@@ -1,6 +1,5 @@
 ---
 title: RT-thread源码阅读（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - RTT
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - RT-Thread
+  - RTOS
+  - 启动流程
+  - 源码阅读
 updated: ''
 img: /medias/featureimages/22.webp
-date:
-summary: RTthread
+date: 2026-06-30 13:55:14
+summary: RT-Thread 启动流程与系统初始化
 ---
 # RTOS
 ## RT-thread源码阅读
@@ -40,59 +43,14 @@ Smart版本需要运行在支持MMU的硬件上，可以实现多进程并将其
 {%endwarning%}
 **②环境配置**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 **③简易工程**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 #### 2.启动流程
 **①简介**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 **②文件提取**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 
 **③后续处理**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 

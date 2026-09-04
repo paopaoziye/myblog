@@ -1,6 +1,5 @@
 ---
 title: Cpp学习笔记（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 《C++ primer》
   - Cpp
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - C++
+  - Cpp
+  - 基础语法
+  - C++ Primer
 updated: ''
 img: /medias/featureimages/11.webp
-date:
-summary: Cpp基础
+date: 2023-11-07 17:33:24
+summary: C++ 基础概念与常用语法
 ---
 # 编程语言
 ## Cpp学习笔记

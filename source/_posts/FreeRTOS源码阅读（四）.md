@@ -1,6 +1,5 @@
 ---
 title: FreeRTOS源码阅读（四）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - FreeRTOS
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - FreeRTOS
+  - 队列
+  - 生产者
+  - 消费者
+  - 优先级反转
 updated: ''
 img: /medias/featureimages/38.webp
-date:
-summary: 队列
+date: 2026-06-30 13:55:14
+summary: FreeRTOS 队列与优先级反转
 ---
 # FreeRTOS
 ## FreeRTOS源码阅读（四）

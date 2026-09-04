@@ -1,6 +1,5 @@
 ---
 title: RISC-V体系架构（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
-  - ARM体系架构
-categories: 编程语言
-keywords: 文章关键词
+tags:
+  - RISC-V体系架构
+categories: 处理器架构
+keywords:
+  - RISC-V
+  - 处理器架构
+  - 寄存器模型
+  - 指令系统
 updated: ''
 img: /medias/featureimages/16.webp
-date:
-summary: RISC-V体系架构简介
+date: 2026-07-27 16:07:18
+summary: RISC-V 寄存器模型、指令系统与架构
 ---
 # 处理器架构
 ## RISC-V体系架构
@@ -146,48 +149,12 @@ RISC-V的CSR按照访问权限划分为不同特权级，且使用12位地址空
 #### 3.指令系统
 **①引言**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 ```
 
 
 ```
 **②**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 **③**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 

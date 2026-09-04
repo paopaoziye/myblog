@@ -1,6 +1,5 @@
 ---
 title: ARM体系架构（四）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - ARM体系架构
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - ARM
+  - M-profile
+  - 异常
+  - 中断
 updated: ''
 img: /medias/featureimages/20.webp
-date:
-summary: M-pofile的异常处理机制
+date: 2026-08-19 09:20:11
+summary: Arm M-profile 异常与中断机制
 ---
 # 处理器架构
 ## ARM体系架构

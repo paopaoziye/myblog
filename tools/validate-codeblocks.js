@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const { Prism } = require('../scripts/prism-custom');
+const { Prism, isRegionTreeText, isMemoryMapText } = require('../scripts/prism-custom');
 
 const postsDir = path.resolve(__dirname, '../source/_posts');
 const allowed = new Set([
   '', 'text', 'plaintext', 'none',
   'c', 'cpp', 'rust', 'js', 'javascript', 'html', 'markup', 'css',
   'bash', 'shell', 'yaml', 'json',
-  'nasm', 'arm-gas', 'riscv', 'devicetree', 'kconfig',
+  'nasm', 'arm', 'arm-gas', 'riscv', 'devicetree', 'kconfig', 'region-tree', 'memory-map', 'region', 'regiontree',
   'cmake', 'makefile', 'ld', 'linker-script', 'tcl'
 ]);
 const forbidden = new Set(['asm', 'dts', 'cmakelist']);
@@ -55,7 +55,9 @@ const grammarSamples = {
   'arm-gas': '.syntax unified\n_start:\n  mov r0, #1 @ load value',
   riscv: '.section .text\n_start:\n  li a0, 1 # load value',
   devicetree: '/dts-v1/;\n&uart1 { status = "okay"; };',
-  kconfig: 'config GPIO\n  bool "GPIO support"\n  default y'
+  kconfig: 'config GPIO\n  bool "GPIO support"\n  default y',
+  'region-tree': 'Region\n│\n├── 地址属性\n│   └── Base / Limit\n└── 内存属性\n    └── Cacheable',
+  'memory-map': '0xFFFF_FFFF  ┌──────────────┐\n             │ System Region │\n0xE000_0000  ├──────────────┤\n             │ SRAM         │\n0x2000_0000  └──────────────┘'
 };
 
 for (const [language, sample] of Object.entries(grammarSamples)) {
@@ -68,10 +70,38 @@ for (const [language, sample] of Object.entries(grammarSamples)) {
   if (!rendered.includes('<span class="token ')) {
     errors.push(`custom grammar produced no token markup: ${language}`);
   }
+  if (language === 'region-tree') {
+    for (const token of ['region-title', 'region-property', 'region-value']) {
+      if (!rendered.includes(`token ${token}`)) {
+        errors.push(`region-tree grammar produced no ${token} markup`);
+      }
+    }
+    const plainText = rendered.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    if (plainText !== sample) errors.push('region-tree grammar changed source text');
+  }
+  if (language === 'memory-map') {
+    for (const token of ['address', 'memory-border', 'region-name']) {
+      if (!rendered.includes(`token ${token}`)) {
+        errors.push(`memory-map grammar produced no ${token} markup`);
+      }
+    }
+    const plainText = rendered.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    if (plainText !== sample) errors.push('memory-map grammar changed source text');
+  }
 }
 
-for (const alias of ['armgas', 'riscv-asm', 'dts']) {
+for (const alias of ['armgas', 'riscv-asm', 'dts', 'region', 'regiontree']) {
   if (!Prism.languages[alias]) errors.push(`custom alias is not registered: ${alias}`);
+}
+
+const regionTextSample = grammarSamples['region-tree'];
+if (!isRegionTreeText(regionTextSample)) errors.push('region-tree text classifier rejected a valid Region tree');
+for (const sample of [
+  'PSTATE\n│\n├── NZCV\n└── DAIF',
+  'Region appears in ordinary prose.',
+  'root\n├── child\n└── child'
+]) {
+  if (isRegionTreeText(sample)) errors.push(`region-tree text classifier accepted plain text: ${sample.split('\n', 1)[0]}`);
 }
 
 if (errors.length) {

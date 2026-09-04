@@ -1,6 +1,5 @@
 ---
 title: Modbus协议（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 串行协议
 categories: Modbus
-keywords: 文章关键词
+keywords:
+  - Modbus
+  - 工业通信
+  - 通信协议
+  - 报文
 updated: ''
 img: /medias/featureimages/29.webp
-date:
-summary: 简单介绍
+date: 2026-06-30 13:55:14
+summary: Modbus 工业通信协议与报文交互
 ---
 # 串行协议
 ## Modbus协议
@@ -39,15 +42,6 @@ Modbus是严格的主从架构，从站只有接收到属于自己地址的请�
 {%endwarning%}
 **②数据类型**
 >**概述**：`Modbus`将设备内部的所有数据分为**线圈状态**
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 数字量输入、数字量输出1、模拟量输入和模拟量输出16
 Modbus 把设备内部的所有数据，极其精简地分为了四种类型（这也是编程时最常打交道的部分）：
 
@@ -60,13 +54,4 @@ Modbus 把设备内部的所有数据，极其精简地分为了四种类型（�
 保持寄存器 (Holding Registers)：16 位数据，可读可写。比如你设定设备需要达到的目标转速。
 **③通信协议**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 设备地址、功能码（访问哪一类寄存器、读写、数量）、数据和校验码

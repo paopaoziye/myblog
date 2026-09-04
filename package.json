@@ -6,9 +6,11 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server",
+    "server": "node tools/server-preflight.js",
+    "validate:metadata": "node tools/validate-post-metadata.js",
     "validate:codeblocks": "node tools/validate-codeblocks.js",
-    "validate:site": "node tools/validate-generated-site.js"
+    "validate:site": "node tools/validate-generated-site.js",
+    "verify": "npm run validate:metadata && npm run validate:codeblocks && npm run clean && npm run build && npm run validate:site"
   },
   "hexo": {
     "version": "5.4.2"

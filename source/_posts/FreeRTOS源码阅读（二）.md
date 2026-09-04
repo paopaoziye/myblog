@@ -1,6 +1,5 @@
 ---
 title: FreeRTOS源码阅读（二）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - FreeRTOS
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - FreeRTOS
+  - 任务
+  - 列表
+  - 任务创建
+  - 任务调度
 updated: ''
 img: /medias/featureimages/38.webp
-date:
-summary: 任务系统
+date: 2026-06-30 13:55:14
+summary: FreeRTOS 任务列表、创建与调度
 ---
 # FreeRTOS
 ## FreeRTOS源码阅读（二）

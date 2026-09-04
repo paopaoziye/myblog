@@ -1,6 +1,5 @@
 ---
 title: C语言学习笔记（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - C语言
   - 《C和指针》        
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - C语言
+  - 编译流程
+  - 程序内存布局
+  - 内存
 updated: ''
-date:
+date: 2023-11-07 17:33:24
 img: /medias/featureimages/0.webp
-summary: C语言基础
+summary: C 语言编译流程与程序内存布局
 ---
 # 编程语言
 ## C语言学习笔记
@@ -187,12 +190,3 @@ void foo() { // 强符号
 #### 2.程序内存布局
 **①引言**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}

@@ -4,8 +4,12 @@ const fs = require('fs');
 const path = require('path');
 
 const publicDir = path.resolve(__dirname, '../public');
+const summaryLimit = [...'M-profile的内存管理机制，主要围绕Armv8-M'].length;
 const errors = [];
 const htmlFiles = [];
+let regionTreeBlocks = 0;
+let memoryMapBlocks = 0;
+
 
 function addError(file, message) {
   errors.push(`${path.relative(publicDir, file)}: ${message}`);
@@ -26,6 +30,28 @@ function resolveLocalReference(file, value) {
 
 function inspectHtml(file) {
   const source = fs.readFileSync(file, 'utf8');
+  const codeBlocks = [...source.matchAll(/<pre\b[^>]*class="[^"]*language-([^" ]+)[^"]*"[^>]*>[\s\S]*?<\/pre>/gi)];
+  for (const block of codeBlocks) {
+    const language = block[1].toLowerCase();
+    const content = block[0];
+    if (language === 'region-tree') {
+      regionTreeBlocks++;
+      for (const token of ['region-title', 'region-property', 'region-value']) {
+        if (!content.includes(`token ${token}`)) addError(file, `Region tree is missing ${token} token`);
+      }
+    } else if (language === 'memory-map') {
+      memoryMapBlocks++;
+      for (const token of ['address', 'memory-border', 'region-name']) {
+        if (!content.includes(`token ${token}`)) addError(file, `memory map is missing ${token} token`);
+      }
+    } else if (language === 'text' && /token (?:region-title|region-property|region-value|address|memory-border|region-name)/.test(content)) {
+      addError(file, 'ordinary text contains specialized diagram tokens');
+    }
+  }
+  const description = source.match(/<meta name="description" content="([^"]*)"/i);
+  if (description && [...description[1]].length > summaryLimit) {
+    addError(file, `description exceeds ${summaryLimit} characters`);
+  }
   const ids = new Set();
   const idPattern = /\bid=["']([^"']+)["']/gi;
   let match;
@@ -93,6 +119,8 @@ function walk(directory) {
 
 walk(publicDir);
 if (!htmlFiles.length) errors.push('no generated HTML files found');
+if (!regionTreeBlocks) errors.push('no generated Region tree blocks found');
+if (!memoryMapBlocks) errors.push('no generated memory map blocks found');
 if (!fs.existsSync(path.join(publicDir, 'search.xml'))) errors.push('missing generated search.xml');
 
 const siteUrl = 'https://paopaoziye.github.io';

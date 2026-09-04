@@ -1,6 +1,5 @@
 ---
 title: FreeRTOS源码阅读（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - FreeRTOS
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - FreeRTOS
+  - RTOS
+  - 系统移植
+  - 内存管理
+  - 堆分配
 updated: ''
 img: /medias/featureimages/38.webp
-date:
-summary: 系统移植和内存管理
+date: 2026-06-30 13:55:14
+summary: FreeRTOS 系统移植与内存管理
 ---
 # FreeRTOS
 ## FreeRTOS源码阅读（一）

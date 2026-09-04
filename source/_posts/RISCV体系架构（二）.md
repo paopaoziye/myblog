@@ -1,6 +1,5 @@
 ---
 title: RISC-V体系架构（二）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
-  - ARM体系架构
-categories: 编程语言
-keywords: 文章关键词
+tags:
+  - RISC-V体系架构
+categories: 处理器架构
+keywords:
+  - RISC-V
+  - 指令系统
+  - ISA
+  - 处理器架构
 updated: ''
 img: /medias/featureimages/16.webp
-date:
-summary: RISC-V体系架构简介
+date: 2026-08-31 00:00:00
+summary: RISC-V 指令编码与执行机制
 ---
 # 处理器架构
 ## RISC-V体系架构
@@ -28,50 +31,14 @@ summary: RISC-V体系架构简介
 #### 1.指令系统
 **①引言**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
-```
+```text
 
 
 ```
 **②**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 **③**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 CSR
 CPU运行状态
 中断状态

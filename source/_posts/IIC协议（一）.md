@@ -1,6 +1,5 @@
 ---
 title: IIC协议（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 串行协议
-categories: CAN
-keywords: 文章关键词
+categories: 通信协议
+keywords:
+  - I2C
+  - IIC
+  - 串行通信
+  - 通信协议
 updated: ''
 img: /medias/featureimages/29.webp
-date:
-summary: 简单介绍
+date: 2026-07-27 17:50:36
+summary: I2C 总线组成、信号线与通信过程
 ---
 # 串行协议
 ## IIC协议
@@ -28,12 +31,3 @@ summary: 简单介绍
 #### 1.引言
 **①简介**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}

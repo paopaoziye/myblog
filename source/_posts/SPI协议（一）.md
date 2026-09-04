@@ -1,6 +1,5 @@
 ---
 title: SPI协议（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 串行协议
-categories: CAN
-keywords: 文章关键词
+categories: 通信协议
+keywords:
+  - SPI
+  - 串行通信
+  - 通信协议
+  - 时序
 updated: ''
 img: /medias/featureimages/29.webp
-date:
-summary: 简单介绍
+date: 2026-07-27 17:47:22
+summary: SPI 总线通信模式、时序与数据传输
 ---
 # 串行协议
 ## SPI协议
@@ -28,12 +31,3 @@ summary: 简单介绍
 #### 1.引言
 **①简介**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}

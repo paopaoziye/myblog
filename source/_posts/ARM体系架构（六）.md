@@ -1,6 +1,5 @@
 ---
 title: ARM体系架构（六）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - ARM体系架构
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - ARM
+  - Armv8-A
+  - AArch64
+  - 执行模型
 updated: ''
 img: /medias/featureimages/20.webp
-date:
-summary: AArch64的执行模型，主要围绕Armv8-A
+date: 2026-08-31 00:00:00
+summary: Armv8-A AArch64 执行模型与异常级别
 ---
 # 处理器架构
 ## ARM体系架构
@@ -75,15 +78,6 @@ PSTATE包含很多独立的状态字段，可以通过不同的名字或者Syste
 >
 
 >
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 ```text
 PSTATE
 │

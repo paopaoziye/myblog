@@ -1,6 +1,5 @@
 ---
 title: Zephyr源码阅读（二）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - Zephyr
+  - 启动流程
+  - ARM Cortex-M
+  - CMake
+  - 链接脚本
 updated: ''
 img: /medias/featureimages/37.webp
-date:
-summary: 启动流程
+date: 2026-07-21 22:45:51
+summary: Zephyr ARM 启动流程与链接脚本
 ---
 # RTOS
 ## Zephyr源码阅读（二）

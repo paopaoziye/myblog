@@ -11,13 +11,13 @@ pin: false           # 是否首页置顶
 top_meta: false      # 是否显示顶部信息
 bottom_meta: false   # 是否显示尾部信息
 sidebar: [toc]
-tag:
+tags:
   - 标签一
   - 标签二
 categories: 分组
 keywords:
 date: {{date}}
 updated: ""
-summary: 
+summary:
 img: /medias/featureimages/0.webp
 ---

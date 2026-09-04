@@ -1,6 +1,5 @@
 ---
 title: Hexo个人博客搭建
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - Hexo
   - 静态博客框架
 categories: 工作流
-keywords: 文章关键词
+keywords:
+  - Hexo
+  - 博客部署
+  - npm
+  - GitHub Pages
+  - 主题个性化
 updated: ''
 img: /medias/featureimages/18.webp
-date:
-summary: HEXO博客搭建全流程
+date: 2023-11-07 17:33:24
+summary: Hexo 环境配置、部署与主题个性化
 ---
 
 # Hexo
@@ -269,7 +273,6 @@ hexo.extend.tag.register('wrong', function(args, content){
 >在**博客根目录**下`scaffolds`文件夹下新增/修改`post.md`文件，即可修改**默认样式**，**详细样式**如下
 ```yaml
 title: 文章名称
-seo_title: seo名称
 toc: true            # 是否生成目录
 indent: true         # 是否首行缩进
 comments: true       # 是否允许评论
@@ -280,11 +283,10 @@ pin: false           # 是否首页置顶
 top_meta: false      # 是否显示顶部信息
 bottom_meta: false   # 是否显示尾部信息
 sidebar: [toc]
-tag:
+tags:
   - 标签一
   - 标签二
 categories: 分组
-keywords: 文章关键词
 date: 2021-13-13 00:00
 updated: 2021-13-13 00:00
 description: 文章摘要

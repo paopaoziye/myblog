@@ -1,6 +1,5 @@
 ---
 title: UART协议（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 通信协议
-categories: CAN
-keywords: 文章关键词
+categories: 通信协议
+keywords:
+  - UART
+  - 串行通信
+  - 异步通信
+  - 通信协议
 updated: ''
 img: /medias/featureimages/29.webp
-date:
-summary: 协议介绍
+date: 2026-08-11 15:18:55
+summary: UART 异步通信、帧格式与波特率
 ---
 # 通信协议
 ## UART协议
@@ -47,22 +50,10 @@ UART通信速率有限、缺少多设备管理机制且抗干扰能力较弱，�
 通常采用8N1配置，即8位数据、无校验和1位停止
 {%endlist%}
 >
-{%right%}
-
-{%endright%}
 {%warning%}
 通信双方必须配置一致，包括波特率、数据位、校验位和停止位等，否则可能导致乱码、校验错误或帧错误
 {%endwarning%}
 **③应用协议帧**
 >
-{%list%}
-
-{%endlist%}
 >
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 #### 2.

@@ -1,6 +1,5 @@
 ---
 title: Arm体系架构（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - Arm体系架构
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - Arm
+  - 处理器架构
+  - 寄存器模型
+  - 过程调用标准
 updated: ''
 img: /medias/featureimages/20.webp
-date:
-summary: Arm体系架构简介
+date: 2026-08-19 21:42:53
+summary: Arm 寄存器模型、处理器模式与过程调用标准
 ---
 # 处理器架构
 ## Arm体系架构

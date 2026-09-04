@@ -1,6 +1,5 @@
 ---
 title: ARM体系架构（三）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - ARM体系架构
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - ARM
+  - A32
+  - T32
+  - ARM指令
 updated: ''
 img: /medias/featureimages/20.webp
-date:
-summary: A32/T32常用指令
+date: 2026-08-20 11:30:35
+summary: ARM A32/T32 常用指令
 ---
 # 处理器架构
 ## ARM体系架构

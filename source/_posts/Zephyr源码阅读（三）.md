@@ -1,6 +1,5 @@
 ---
 title: Zephyr源码阅读（三）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - Zephyr
+  - 内存模块
+  - 初始化
+  - 源码阅读
 updated: ''
 img: /medias/featureimages/37.webp
-date:
-summary: 内存模块初始化
+date: 2026-07-27 16:02:44
+summary: Zephyr 内存模块初始化与实现
 ---
 # RTOS
 ## Zephyr源码阅读（三）
@@ -29,15 +32,6 @@ summary: 内存模块初始化
 #### 简介
 **①引言**
 >**概述**：`z_cstart`
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 ```c
 /* 位于 */
 SYS_INIT_NAMED(statics_init_pre, statics_init, PRE_KERNEL_1, CONFIG_KERNEL_INIT_PRIORITY_OBJECTS);

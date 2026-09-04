@@ -1,6 +1,5 @@
 ---
 title: CAN协议（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 串行协议
 categories: CAN
-keywords: 文章关键词
+keywords:
+  - CAN
+  - 通信协议
+  - 总线仲裁
+  - 通信帧
+  - 错误处理
 updated: ''
 img: /medias/featureimages/29.webp
-date:
-summary: 简单介绍
+date: 2026-06-30 13:55:14
+summary: CAN 总线、帧格式与仲裁
 ---
 # 串行协议
 ## CAN协议
@@ -69,33 +73,12 @@ CAN控制器使用发送错误计数器TEC和接收错误计数器REC判断节�
 {%list%}
 数据帧主要用于发送实际数据，远程
 {%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 
 **②经典CAN**
 >**概述**：经典`CAN`也称`CAN CC`，可分为`CAN 2.0A`和`CAN 2.0B`，分别支持`11/29`位**标识符**
 {%list%}
 经典CAN单帧最多携带8字节数据，常见最高位速率为1Mbit/s
 {%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 
 **③CAN FD**
 >**概述**：`CAN FD`
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}

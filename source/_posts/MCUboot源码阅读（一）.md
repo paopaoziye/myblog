@@ -1,6 +1,5 @@
 ---
 title: MCUboot源码阅读（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,18 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - BootLoader
 categories: BootLoader
-keywords: 文章关键词
+keywords:
+  - MCUboot
+  - BootLoader
+  - 安全启动
+  - 源码阅读
 updated: ''
 img: /medias/featureimages/13.webp
-date:
-summary: MCUboot源码阅读
+date: 2026-06-30 13:55:14
+summary: MCUboot 启动流程与安全启动基础
 ---
 # BootLoader
 ## MCUboot源码阅读
@@ -28,12 +31,6 @@ summary: MCUboot源码阅读
 #### 1.引言
 **①简介**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
 {%warning%}
 
 {%endwarning%}

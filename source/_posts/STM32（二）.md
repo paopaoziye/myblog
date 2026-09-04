@@ -1,6 +1,5 @@
 ---
 title: STM32（二）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - STM32
 categories: MCU
-keywords: 文章关键词
+keywords:
+  - STM32
+  - UART
+  - I2C
+  - SPI
+  - 软件I2C
 updated: ''
 img: /medias/featureimages/27.webp
-date:
-summary: 串行通信
+date: 2026-06-30 13:55:14
+summary: STM32 的 UART、I2C、SPI 与软件 I2C
 ---
 # 单片机
 ## STM32
@@ -643,15 +647,6 @@ void My_SI2C_Init(SI2C_TypeDef *SI2C){
 ```
 **②信号模拟**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 ```c
 /* 模拟起始信号：SDA在SCL高电平期间产生下降沿 */
 //SCL----

@@ -62,11 +62,13 @@ $(function () {
         itemSelector: '.article'
     });
 
-    AOS.init({
-        easing: 'ease-in-out-sine',
-        duration: 700,
-        delay: 100
-    });
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        AOS.init({
+            easing: 'ease-in-out-sine',
+            duration: 700,
+            delay: 100
+        });
+    }
 
     /*文章内容详情的一些初始化特性*/
     let articleInit = function () {
@@ -158,14 +160,15 @@ $(function () {
 		$('.nav-item.nav-show').removeClass('nav-show');
 	})
 	
-    $('.m-nav-item>a').on('click',function(){
-            if ($(this).next('ul').css('display') == "none") {
-                $('.m-nav-item').children('ul').slideUp(300);
+    $('.m-nav-item>.mobile-menu-toggle').on('click',function(){
+            let expanded = $(this).attr('aria-expanded') === 'true';
+            $('.m-nav-item').children('ul').slideUp(300);
+            $('.m-nav-item>.mobile-menu-toggle').attr('aria-expanded', 'false');
+            $('.m-nav-item.m-nav-show').removeClass('m-nav-show');
+            if (!expanded) {
                 $(this).next('ul').slideDown(100);
-                $(this).parent('li').addClass('m-nav-show').siblings('li').removeClass('m-nav-show');
-            }else{
-                $(this).next('ul').slideUp(100);
-                $('.m-nav-item.m-nav-show').removeClass('m-nav-show');
+                $(this).attr('aria-expanded', 'true');
+                $(this).parent('li').addClass('m-nav-show');
             }
     });
 

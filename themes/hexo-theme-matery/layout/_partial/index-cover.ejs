@@ -52,12 +52,12 @@ var coverPostsCount = coverPosts.length;
 
 <div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
     <% if (coverPostsCount > 0 && theme.cover.showPrevNext) { %>
-        <div id="prev-cover" class="left waves-effect carousel-control">
-            <i class="icon fa fa-angle-left"></i>
-        </div>
-        <div id="next-cover" class="right waves-effect carousel-control">
-            <i class="icon fa fa-angle-right"></i>
-        </div>
+        <button type="button" id="prev-cover" class="left waves-effect carousel-control" aria-label="上一张封面">
+            <i class="icon fa fa-angle-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" id="next-cover" class="right waves-effect carousel-control" aria-label="下一张封面">
+            <i class="icon fa fa-angle-right" aria-hidden="true"></i>
+        </button>
     <% } %>
 
     <div class="carousel-item red white-text bg-cover about-cover">

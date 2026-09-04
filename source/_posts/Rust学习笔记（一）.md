@@ -1,6 +1,5 @@
 ---
 title: Rust学习笔记（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - 《Rust 权威学习指南》
   - Rust
 categories: 编程语言
-keywords: 文章关键词
+keywords:
+  - Rust
+  - rustup
+  - Cargo
+  - rustfmt
+  - Clippy
 updated: ''
 img: /medias/featureimages/30.webp
-date:
-summary: Rust基础
+date: 2026-07-19 01:32:03
+summary: Rust 工具链、项目创建与代码检查
 ---
 # 编程语言
 ## Rust学习笔记

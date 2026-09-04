@@ -42,7 +42,7 @@ configRoot = (configRoot === null || configRoot === undefined || configRoot === 
 			<%- (config.language === 'zh-CN' && menuMap.has(key)) ? menuMap.get(key) : key %>
 		</a>
           <% } else { %>
-		<a href="javascript:;">
+		<button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-submenu-<%= key %>">
 			<% if (theme.menu[key].icon && theme.menu[key].icon.length > 0) { %>
 				<i class="fa-fw <%- theme.menu[key].icon %>"></i>
 			<% } else { %>
@@ -50,8 +50,8 @@ configRoot = (configRoot === null || configRoot === undefined || configRoot === 
 			<% } %>
 			<%- (config.language === 'zh-CN' && menuMap.has(key)) ? menuMap.get(key) : key %>
 			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
-		</a>
-            <ul <%if(theme.navMenu&&theme.navMenu.bgColor){%> style="background: <%-theme.navMenu.bgColor%>;"<%}%> >
+            </button>
+            <ul id="mobile-submenu-<%= key %>" <%if(theme.navMenu&&theme.navMenu.bgColor){%> style="background: <%-theme.navMenu.bgColor%>;"<%}%> >
               <% for(let childrenLink of theme.menu[key].children){ %>
                 <li>
 

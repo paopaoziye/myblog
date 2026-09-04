@@ -1,6 +1,5 @@
 ---
 title: Zephyr源码阅读（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,20 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - RTOS
   - Zephyr
 categories: RTOS
-keywords: 文章关键词
+keywords:
+  - Zephyr
+  - RTOS
+  - west
+  - Zephyr SDK
+  - 系统移植
 updated: ''
 img: /medias/featureimages/37.webp
-date:
-summary: Zephyr移植
+date: 2026-06-30 13:55:14
+summary: Zephyr 环境、west 与 SDK 安装
 ---
 # RTOS
 ## Zephyr源码阅读（一）

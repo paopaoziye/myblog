@@ -1,6 +1,5 @@
 ---
 title: STM32（四）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,14 +12,17 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - STM32
 categories: MCU
-keywords: 文章关键词
+keywords:
+  - STM32
+  - HAL
+  - 工程构建
 updated: ''
 img: /medias/featureimages/27.webp
-date:
-summary: HAL库
+date: 2026-06-30 13:55:14
+summary: STM32 HAL 库工程构建与使用
 ---
 # 单片机
 ## STM32

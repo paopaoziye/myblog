@@ -79,12 +79,53 @@ const kconfig = {
   punctuation: /[(){}:,]/
 };
 
+const memoryMap = {
+  address: { pattern: /(^|\n)[ \t]*0x[\da-f]+(?:_[\da-f]+)*\b/im, lookbehind: true },
+  'memory-border': { pattern: /[┌┐├┤└┘│─]/ },
+  'region-name': { pattern: /\b(?:System Region|External Device|External RAM|Peripheral|SRAM|Code)\b/ }
+};
+
+const regionTree = {
+  'region-title': {
+    pattern: /\b(?:Region|Subregion)\b|(?:地址属性|保护属性|内存属性)/
+  },
+  'region-value': {
+    pattern: /\b(?:Normal|Device(?:-nGnRnE|-nGnRE|-nGRE|-GRE)?|Strongly-ordered|Non-cacheable|Cacheable|Write-(?:Through|Back)|Read Only|Read\/Write|Executable|Enable|Disable|Inner Shareable|Outer Shareable|Non-shareable|Privileged Only|Non-privileged allowed)\b/
+  },
+  'region-property': {
+    pattern: /\b(?:Base|Limit|Privileged|Unprivileged|Read|Write|Execute|XN|Memory Type|Cache Attribute|Shareability|AttrIndx|RBAR|RLAR|MAIR(?:0|1)?|Access Permission)\b/
+  },
+  number: { pattern: /\b(?:0x[\da-f]+|\d+(?:\.\d+)?)\b/i, alias: 'number' },
+  operator: /\//,
+  'tree-glyph': { pattern: /[│├└─]/ }
+};
+
+function isRegionTreeText(source) {
+  const lines = String(source || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  if (!lines.length || !/^(?:Region|Subregion)$/.test(lines[0])) return false;
+  const glyphLines = lines.filter(line => /[│├└─]/.test(line));
+  if (glyphLines.length < 2) return false;
+  return lines.some(line => /(?:地址属性|保护属性|内存属性|Base|Limit|Memory Type|Cache Attribute|Shareability|Normal|Device|Cacheable)/.test(line));
+}
+
+function isMemoryMapText(source) {
+  const lines = String(source || '').split(/\r?\n/).map(line => line.trimEnd()).filter(line => line.trim());
+  const addressLines = lines.filter(line => /^0x[\da-f]+(?:_[\da-f]+)*\s+/.test(line));
+  const borderLines = lines.filter(line => /[┌┐├┤└┘]/.test(line));
+  const regionNames = lines.filter(line => /(?:System Region|External Device|External RAM|Peripheral|SRAM|Code)/.test(line));
+  return addressLines.length >= 3 && borderLines.length >= 3 && regionNames.length >= 3;
+}
+
 Prism.languages['arm-gas'] = armGas;
 Prism.languages.armgas = armGas;
+Prism.languages['region-tree'] = regionTree;
+Prism.languages['memory-map'] = memoryMap;
+Prism.languages.region = regionTree;
+Prism.languages.regiontree = regionTree;
 Prism.languages.riscv = riscv;
 Prism.languages['riscv-asm'] = riscv;
 Prism.languages.devicetree = devicetree;
 Prism.languages.dts = devicetree;
 Prism.languages.kconfig = kconfig;
 
-module.exports = { Prism, armGas, riscv, devicetree, kconfig };
+module.exports = { Prism, armGas, riscv, devicetree, kconfig, regionTree, memoryMap, isRegionTreeText, isMemoryMapText };

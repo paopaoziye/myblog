@@ -1,6 +1,5 @@
 ---
 title: STM32（一）
-seo_title: seo名称
 toc: true
 indent: true
 top: false
@@ -13,15 +12,19 @@ top_meta: false
 bottom_meta: false
 sidebar:
   - toc
-tag:
+tags:
   - STM32
   - 单片机
 categories: MCU
-keywords: 文章关键词
+keywords:
+  - STM32
+  - 标准库
+  - 工程构建
+  - 编译器配置
 updated: ''
 img: /medias/featureimages/27.webp
-date:
-summary: 空白工程构建
+date: 2026-06-30 13:55:14
+summary: STM32 标准库空白工程构建
 ---
 # 单片机
 ## STM32
@@ -47,9 +50,6 @@ FWLIB存放标准库，MYLIB存放自定义外设库，CMSIS存放内核与底�
 >`CMSIS`主要用于存放`Cortex-M4`内核通用文件、芯片特定头文件以及`GCC`启动文件等
 
 >`USER`通常用于存放`main.c`、**中断服务函数**文件以及**系统配置**文件等
-{%right%}
-
-{%endright%}
 {%warning%}
 不同编译环境需要的startup_stm32f40_41xxx.s是不同的，Linux/Windows需要选择gcc_ride7/arm下的
 {%endwarning%}
@@ -119,18 +119,6 @@ int main(void){
 ```
 **④Linux下编译**
 >概述：在**工程根目录下**新建
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 ```
 /* Entry Point */
 ENTRY(Reset_Handler)
@@ -299,35 +287,8 @@ clean:
 #### 2.HAL库工程
 **①引言**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 **②文件提取**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
 #### 3.STM32CubeMX
 **①资料下载**
 >**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
