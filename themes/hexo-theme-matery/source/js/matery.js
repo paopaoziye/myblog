@@ -62,13 +62,11 @@ $(function () {
         itemSelector: '.article'
     });
 
-    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        AOS.init({
-            easing: 'ease-in-out-sine',
-            duration: 700,
-            delay: 100
-        });
-    }
+    AOS.init({
+        easing: 'ease-in-out-sine',
+        duration: 700,
+        delay: 100
+    });
 
     /*文章内容详情的一些初始化特性*/
     let articleInit = function () {

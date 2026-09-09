@@ -99,6 +99,31 @@ function inspectHtml(file) {
     seenScripts.add(script);
   }
 
+  const effectsScripts = scripts.filter(script => /\/js\/effects\.js$/i.test(script));
+  if (effectsScripts.length > 1) addError(file, `expected at most one effects manager script, found ${effectsScripts.length}`);
+  for (const legacyScript of [
+    /\/js\/cursor\.js$/i,
+    /\/libs\/others\/clicklove\.js$/i,
+    /\/libs\/background\/(?:canvas-nest|ribbon(?:-refresh|-dynamic)?(?:\.min)?)\.js$/i,
+    /\/live2dw\/lib\/L2Dwidget\.min\.js(?:[?#].*)?$/i
+  ]) {
+    if (scripts.some(script => legacyScript.test(script))) addError(file, 'decorative effect bypasses the effects manager');
+  }
+  const effectsTag = source.match(/<script\b[^>]*\bsrc=["'][^"']*\/js\/effects\.js["'][^>]*>/i);
+  const effectsBootstrap = source.match(/<script>\s*window\.MateryEffects\.init\(\{/i);
+  if (!effectsBootstrap) addError(file, 'missing effects manager bootstrap');
+  else if (!effectsTag || effectsTag.index > effectsBootstrap.index) addError(file, 'effects manager loads after its bootstrap');
+  if (/<script>\s*L2Dwidget\.init\(/i.test(source)) addError(file, 'Live2D is initialized outside the effects manager');
+
+  const configuredAssets = [...source.matchAll(/\bsrc:\s*["'](\/[^"']+)["']/g)]
+    .map(item => item[1].split(/[?#]/, 1)[0]);
+  for (const asset of configuredAssets) {
+    if (/\/(?:js\/cursor|libs\/(?:others\/clicklove|background\/(?:canvas-nest|ribbon))|live2dw\/lib\/L2Dwidget)/i.test(asset) &&
+        !fs.existsSync(path.join(publicDir, asset.replace(/^\/+/, '')))) {
+      addError(file, `configured effects asset does not resolve: ${asset}`);
+    }
+  }
+
   for (const required of ['rel="canonical"', 'property="og:title"', 'name="twitter:card"']) {
     if (!source.includes(required)) addError(file, `missing ${required}`);
   }

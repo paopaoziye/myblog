@@ -1,5 +1,22 @@
 <!DOCTYPE HTML>
 <html lang="<%= config.language %>">
+<%
+function inlineJson(value) {
+    return JSON.stringify(value).replace(/</g, '\\u003c');
+}
+var live2dBootstrap = { enabled: false };
+if (config.live2d && config.live2d.enable) {
+    var live2dMarkup = live2d();
+    var live2dMatch = live2dMarkup.match(/<script src="([^"]+)"><\/script><script>L2Dwidget\.init\((\{[\s\S]*\})\);<\/script>/);
+    if (live2dMatch) {
+        live2dBootstrap = {
+            enabled: true,
+            src: live2dMatch[1],
+            options: JSON.parse(live2dMatch[2])
+        };
+    }
+}
+%>
 <%- partial('_partial/head') %>
 
 <% if (theme.background.enable) { %>
@@ -20,13 +37,11 @@
     <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.aos) %>"></script>
     <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.scrollProgress) %>"></script>
     <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.lightgallery) %>"></script>
+    <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.effects) %>"></script>
     <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.matery) %>"></script>
 
     <%- partial('_partial/baidu-analytics') %>
     <%- partial('_partial/baidu-push') %>
-    <% if (theme.clicklove.enable) { %>
-    <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.clicklove) %>" async="async"></script>
-    <% } %>
     <% if (theme.busuanziStatistics && theme.busuanziStatistics.enable) { %>
     <script async src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.busuanzi) %>"></script>
     <% } %>
@@ -87,27 +102,65 @@
 	        <a title="兔小巢" href="https://support.qq.com/products/<%- theme.tuxiaochao.productId %>"><img src="/medias/contact.png" alt="兔小巢"></a>
 	    </div>
 	<%}%>
-    <% if (theme.canvas_nest.enable) { %>
-    <script type="text/javascript" color="<%- theme.canvas_nest.color %>"
-        pointColor="<%- theme.canvas_nest.pointColor %>" opacity='<%- theme.canvas_nest.opacity %>'
-        zIndex="<%- theme.canvas_nest.zIndex %>" count="<%- theme.canvas_nest.count %>"
-        src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.canvas_nest) %>"></script>
-    <% } %>
-
-    <% if (theme.ribbon.enable) { %>
     <% var ribbonSrc = theme.ribbon.clickChange ? theme.libs.js.ribbon : theme.libs.js.ribbonRefresh; %>
-    <script type="text/javascript" size="<%- theme.ribbon.size %>" alpha='<%- theme.ribbon.alpha %>'
-        zIndex="<%- theme.ribbon.zIndex %>" src="<%- theme.jsDelivr.url %><%- url_for(ribbonSrc) %>" async="async"></script>
-    <% } %>
-
-    <% if (theme.ribbon_dynamic.enable) { %>
-    <script type="text/javascript" src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.ribbon_dynamic) %>" async="async"></script>
-    <% } %>
+    <script>
+        window.MateryEffects.init({
+            effects: [
+                {
+                    name: 'clicklove',
+                    enabled: <%= Boolean(theme.clicklove.enable) %>,
+                    policy: 'desktop',
+                    src: <%- inlineJson((theme.jsDelivr.url || '') + url_for(theme.libs.js.clicklove)) %>,
+                    options: { maxHearts: 32 }
+                },
+                {
+                    name: 'canvasNest',
+                    enabled: <%= Boolean(theme.canvas_nest.enable) %>,
+                    policy: 'desktop',
+                    src: <%- inlineJson((theme.jsDelivr.url || '') + url_for(theme.libs.js.canvas_nest)) %>,
+                    options: {
+                        color: <%- inlineJson(String(theme.canvas_nest.color)) %>,
+                        opacity: <%= Number(theme.canvas_nest.opacity) %>,
+                        zIndex: <%= Number(theme.canvas_nest.zIndex) %>,
+                        count: <%= Number(theme.canvas_nest.count) %>,
+                        fps: 30
+                    }
+                },
+                {
+                    name: 'ribbon',
+                    enabled: <%= Boolean(theme.ribbon.enable) %>,
+                    policy: 'desktop',
+                    src: <%- inlineJson((theme.jsDelivr.url || '') + url_for(ribbonSrc)) %>,
+                    options: {
+                        size: <%= Number(theme.ribbon.size) %>,
+                        alpha: <%= Number(theme.ribbon.alpha) %>,
+                        zIndex: <%= Number(theme.ribbon.zIndex) %>,
+                        clickChange: <%= Boolean(theme.ribbon.clickChange) %>
+                    }
+                },
+                {
+                    name: 'ribbonDynamic',
+                    enabled: <%= Boolean(theme.ribbon_dynamic.enable) %>,
+                    policy: 'desktop',
+                    src: <%- inlineJson((theme.jsDelivr.url || '') + url_for(theme.libs.js.ribbon_dynamic)) %>,
+                    options: { fps: 30 }
+                },
+                {
+                    name: 'cursor',
+                    enabled: true,
+                    policy: 'desktop',
+                    src: <%- inlineJson(url_for('/js/cursor.js')) %>,
+                    options: { maxParticles: 80 }
+                }
+            ],
+            typed: window.materyTypedConfig || null,
+            live2d: <%- inlineJson(live2dBootstrap) %>
+        });
+    </script>
 
     <% if (theme.instantpage.enable) { %>
     <script src="<%- theme.jsDelivr.url %><%- url_for(theme.libs.js.instantpage) %>" type="module"></script>
     <% } %>
-<script src="/js/cursor.js"></script>
 </body>
 
 </html>

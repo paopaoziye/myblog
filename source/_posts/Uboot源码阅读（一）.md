@@ -30,15 +30,17 @@ summary: U-Boot 启动流程源码阅读
 ### U-Boot源码阅读（一）
 #### 1.引言
 **①简介**
->**概述**：一个常见的嵌入式平台`Bootloader`，主要用于负责**初始化必要硬件**、加载`Linux`**内核和设备树等**并最终启动`Linux`内核
-
-U-Boot 负责将 Linux 所需的 Kernel、DTB、initramfs 等镜像加载到内存，设置 bootargs 和必要的 CPU/硬件状态，然后跳转到 Kernel entry；
+>**概述**：一个用于启动`Linux`内核的`Bootloader`主要用于负责**初始化必要硬件**、加载`Linux`**内核**、**设备树**和**根文件系统**等
 {%list%}
-由于刚上电时DDR还不能用，片内SRAM又太小，放不下完整U-Boot，很多平台上的U-Boot通常分为SPL和U-Boot proper两个阶段
+由于刚上电时DDR未初始化，片内SRAM空间不足以容纳完整U-Boot，U-Boot通常分为SPL和U-Boot proper两个阶段
 {%endlist%}
->`SPL`：精简版`U-Boot`，通常被`BootROM`中的程序加载到**片内**`SRAM`，主要负责**初始化**`DDR`等关键硬件，然后加载完整`U-Boot`
+>`SPL`：精简版`U-Boot`，通常被`BootROM`加载到**片内**`SRAM`，主要负责**初始化**`DDR`等关键硬件，然后加载完整`U-Boot`
 
 >`U-Boot proper`：完整的`U-Boot`，负责`MMC`、**网络**、**文件系统**和**环境变量**等功能，并最终加载`Linux Kernel`、`DTB`等
+{%right%}
+可以在U-Boot提示自动启动前按键打断该过程进入其Shell，提供命令行用于调试、烧写、升级
+{%endright%}
+
 ```
 基本硬件初始化；
 DRAM 初始化后的系统初始化；
@@ -69,9 +71,7 @@ SPL
 U-Boot proper
 由于片内SRAM非常小，且DDR尚未初始化，所以需要SPL，SPL 是精简版 U-Boot，主要负责初始化 DDR，并加载完整的 U-Boot
 Bootloader 最核心的动作之一就是“从存储器搬到 RAM”
-{%right%}
-提供命令行用于调试、烧写、升级
-{%endright%}
+
 {%warning%}
 
 {%endwarning%}
