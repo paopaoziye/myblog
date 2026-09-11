@@ -13,8 +13,8 @@ bottom_meta: false
 sidebar:
   - toc
 tags:
-  - 串行协议
-categories: CAN
+  - CAN
+categories: 通信协议
 keywords:
   - CAN
   - 通信协议

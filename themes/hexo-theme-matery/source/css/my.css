@@ -6,6 +6,33 @@
     cursor: url("/medias/mouse/Hand.cur"),auto!important;
 }
 
+/* Keep homepage article-card images at a consistent 16:9 ratio. */
+#articles .card-image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+}
+
+#articles .card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* On wide desktops, widen the three-column grid so 220px images remain 16:9. */
+@media only screen and (min-width: 1400px) {
+    #articles {
+        max-width: 1245px;
+    }
+
+    #articles .card-image {
+        height: 220px;
+        aspect-ratio: auto;
+    }
+}
+
 /* Keep the article, its background, and the previous/next cards aligned. */
 @media only screen and (min-width: 768px) {
     #artDetail {

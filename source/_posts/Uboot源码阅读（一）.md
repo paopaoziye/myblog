@@ -21,7 +21,7 @@ keywords:
   - BootLoader
   - 启动流程
 updated: ''
-img: /medias/featureimages/39.webp
+img: /medias/featureimages/32.webp
 date: 2026-09-03 00:00:00
 summary: U-Boot 启动流程源码阅读
 ---
@@ -38,7 +38,7 @@ summary: U-Boot 启动流程源码阅读
 
 >`U-Boot proper`：完整的`U-Boot`，负责`MMC`、**网络**、**文件系统**和**环境变量**等功能，并最终加载`Linux Kernel`、`DTB`等
 {%right%}
-可以在U-Boot提示自动启动前按键打断该过程进入其Shell，提供命令行用于调试、烧写、升级
+可以在U-Boot提示自动启动前按键打断该过程进入其Shell，可修改启动配置并进行调试、烧写和升级
 {%endright%}
 
 ```
