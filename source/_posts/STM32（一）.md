@@ -31,7 +31,7 @@ summary: STM32 标准库空白工程构建
 ### STM32（一）
 #### 1.标准库工程
 **①引言**
->**概述**：标准库`SPL`是官方提供的**C语言函数封装库**，通过**结构体和宏定义**封装了底层的硬件寄存器
+>**概述**：标准库`SPL`是官方早期提供的**外设驱动库**，通过较轻量的函数接口对寄存器操作进行封装，在简化外设配置与控制的同时，仍然保持了与底层硬件较为直接的对应关系
 {%list%}
 芯片型号为STM32F407VET6，采用Cortex-M4架构，主频为168MHz，搭载了512KB的Flash和192KB的SRAM
 {%endlist%}
@@ -54,7 +54,7 @@ FWLIB存放标准库，MYLIB存放自定义外设库，CMSIS存放内核与底�
 不同编译环境需要的startup_stm32f40_41xxx.s是不同的，Linux/Windows需要选择gcc_ride7/arm下的
 {%endwarning%}
 
-```shell
+```tree
 STM32F407VET6_SPL_Project/
 ├── FWLIB/                            
 │   ├── inc/                         # /Libraries/STM32F4xx_StdPeriph_Driver/inc所有文件
@@ -286,9 +286,27 @@ clean:
 
 #### 2.HAL库工程
 **①引言**
->**概述**：
+>**概述**：`HAL`库是STM32官方提供的一套
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
 **②文件提取**
 >**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
 #### 3.STM32CubeMX
 **①资料下载**
 >**概述**：

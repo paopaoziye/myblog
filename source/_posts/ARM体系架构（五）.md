@@ -50,11 +50,11 @@ ARM规定整体地址空间框架及部分系统资源地址，具体Flash、SRA
 {%wrong%}
 统一地址空间描述的是处理器的寻址模型，并不意味着整个地址范围都对应实际实现的存储器或外设
 {%endwrong%}
-```text
-0xFFFF_FFFF  ┌──────────────────────────────┐   System Region
-             │                              │   作用：核心系统资源
-             │        System Region         │   典型对象：Vendor_SYS, NVIC, SCB, SysTick
-             │                              │
+```map
+0xFFFF_FFFF  ┌──────────────────────────────┐   
+             │                              │   System Region
+             │        System Region         │   作用：核心系统资源
+             │                              │   典型对象：Vendor_SYS, NVIC, SCB, SysTick
 0xE000_0000  ├──────────────────────────────┤
              │                              │   External Device
              │       External Device        │   作用：典型片外 MMIO 设备
@@ -135,20 +135,6 @@ Armv8-M明确规定Normal Non-cacheable memory locations始终按Outer Shareable
 带Cache且存在其他Bus Master时，需要进行缓存维护或将相关区域设为Non-cacheable，避免数据不一致
 {%endwrong%}
 
-**④内存访问流程**
->**概述**：
-{%list%}
-
-{%endlist%}
-{%right%}
-
-{%endright%}
-{%warning%}
-
-{%endwarning%}
-{%wrong%}
-
-{%endwrong%}
 #### 2.内存保护单元
 **①简介**
 >**概述**：也称为`MPU`，将**地址空间**划分成若干`Region`并规定**访问权限**、**执行权限**和**内存属性**，阻止**非法访问**并**隔离不同软件区域**
@@ -174,7 +160,7 @@ MPU主要约束Cortex-M自身经过MPU的访存，不直接保护DMA等独立Bus
 {%wrong%}
 当访问违反Region的访问权限或执行权限时，会触发MemManage Fault，无法正常处理时还可能升级为HardFault
 {%endwrong%}
-```text
+```tree
 Region
 │
 ├── 地址属性
@@ -201,9 +187,8 @@ Region
         ├── Inner Shareable
         └── Outer Shareable
 ```
-
 **②核心寄存器**
->**概述**：以`Armv8-M`为例，`MPU`主要包含`MPU_TYPE`、`MPU_CTRL`、`MPU_RNR`、`MPU_RBAR`、`MPU_RLAR`以及`MPU_MAIR0/1`等寄存器
+>**概述**：以`Armv8-M`为例，`MPU`主要有`MPU_TYPE`、`MPU_CTRL`、`MPU_RNR`、`MPU_RBAR`、`MPU_RLAR`以及`MPU_MAIR0/1`
 {%list%}
 MPU_TYPE/CTRL负责整体能力与控制，RNR/RBAR/RLAR负责定义Region，MAIR负责定义Region使用的内存属性
 {%endlist%}

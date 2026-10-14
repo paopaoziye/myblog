@@ -1,6 +1,7 @@
 'use strict';
 
 const Prism = require('prismjs');
+const HexoPrism = require(require.resolve('prismjs', { paths: [require.resolve('hexo-util')] }));
 
 const armGas = {
   comment: [
@@ -79,10 +80,33 @@ const kconfig = {
   punctuation: /[(){}:,]/
 };
 
-const memoryMap = {
-  address: { pattern: /(^|\n)[ \t]*0x[\da-f]+(?:_[\da-f]+)*\b/im, lookbehind: true },
+const mapGrammar = {
+  address: { pattern: /(^|\n)[ \t]*(?:0x[\da-f]+(?:_[\da-f]+)*|High Address|Low Address)\b/im, lookbehind: true },
   'memory-border': { pattern: /[┌┐├┤└┘│─]/ },
-  'region-name': { pattern: /\b(?:System Region|External Device|External RAM|Peripheral|SRAM|Code)\b/ }
+  'region-name': { pattern: /\b(?:System Region|External Device|External RAM|Peripheral|SRAM|Code|Stack|Heap|mmap|Shared Libraries)\b|\.(?:bss|data|rodata|text)\b/ }
+};
+
+const tree = {
+  'tree-comment': { pattern: /#.*/, greedy: true, alias: 'comment' },
+  'tree-root': { pattern: /^[^\n│├└─#]*[^\s│├└─#][^\n│├└─#]*(?=\s*#|\s*$)/m },
+  'tree-node-1': { pattern: /(^|\n[ \t│]{0,3}[├└]─+\s*)[^\s│├└─#][^\n#]*?(?=\s*#|\s*$)/m, lookbehind: true },
+  'tree-node-2': { pattern: /(^|\n[ \t│]{4,7}[├└]─+\s*)[^\s│├└─#][^\n#]*?(?=\s*#|\s*$)/m, lookbehind: true },
+  'tree-node-3': { pattern: /(^|\n[ \t│]{8,11}[├└]─+\s*)[^\s│├└─#][^\n#]*?(?=\s*#|\s*$)/m, lookbehind: true },
+  'tree-node-4': { pattern: /(^|\n[ \t│]{12,15}[├└]─+\s*)[^\s│├└─#][^\n#]*?(?=\s*#|\s*$)/m, lookbehind: true },
+  'tree-node-deep': { pattern: /(^|\n[ \t│]{16,}[├└]─+\s*)[^\s│├└─#][^\n#]*?(?=\s*#|\s*$)/m, lookbehind: true },
+  'tree-glyph': { pattern: /[│├└─]/ }
+};
+
+const uboot = {
+  comment: { pattern: /#.*/, greedy: true },
+  string: { pattern: /"(?:\\.|[^"\\\r\n])*"/, greedy: true },
+  command: { pattern: /\b(?:mmc|load|setenv|booti)\b/, alias: 'keyword' },
+  subcommand: { pattern: /\b(?:dev|rescan)\b/, alias: 'function' },
+  variable: { pattern: /\$\{[a-z_][\w]*\}/i, alias: 'variable' },
+  filename: { pattern: /\b(?:Image|board\.dtb|initramfs\.img)\b/, alias: 'property' },
+  number: /\b(?:0x[\da-f]+|\d+)\b/i,
+  operator: /:/,
+  punctuation: /[(),]/
 };
 
 const regionTree = {
@@ -108,18 +132,40 @@ function isRegionTreeText(source) {
   return lines.some(line => /(?:地址属性|保护属性|内存属性|Base|Limit|Memory Type|Cache Attribute|Shareability|Normal|Device|Cacheable)/.test(line));
 }
 
-function isMemoryMapText(source) {
+function isMapText(source) {
   const lines = String(source || '').split(/\r?\n/).map(line => line.trimEnd()).filter(line => line.trim());
   const addressLines = lines.filter(line => /^0x[\da-f]+(?:_[\da-f]+)*\s+/.test(line));
+  const addressLabels = lines.filter(line => /^(?:High|Low) Address\b/.test(line));
   const borderLines = lines.filter(line => /[┌┐├┤└┘]/.test(line));
-  const regionNames = lines.filter(line => /(?:System Region|External Device|External RAM|Peripheral|SRAM|Code)/.test(line));
-  return addressLines.length >= 3 && borderLines.length >= 3 && regionNames.length >= 3;
+  const regionNames = lines.filter(line => /(?:System Region|External Device|External RAM|Peripheral|SRAM|Code|\bStack\b|\bHeap\b|\bmmap\b|Shared Libraries|\.(?:bss|data|rodata|text)\b)/.test(line));
+  return borderLines.length >= 3 && regionNames.length >= 3 && (addressLines.length >= 3 || addressLabels.length >= 2);
 }
 
+for (const prism of [Prism, HexoPrism]) {
+  prism.languages['arm-gas'] = armGas;
+  prism.languages.armgas = armGas;
+  prism.languages['region-tree'] = regionTree;
+  prism.languages.map = mapGrammar;
+  prism.languages.tree = tree;
+  prism.languages.uboot = uboot;
+  prism.languages['u-boot'] = uboot;
+  prism.languages.region = regionTree;
+  prism.languages.regiontree = regionTree;
+  prism.languages.riscv = riscv;
+  prism.languages['riscv-asm'] = riscv;
+  prism.languages.devicetree = devicetree;
+  prism.languages.dts = devicetree;
+  prism.languages.kconfig = kconfig;
+}
+
+/* Keep the root instance registrations below for direct tooling imports. */
 Prism.languages['arm-gas'] = armGas;
 Prism.languages.armgas = armGas;
 Prism.languages['region-tree'] = regionTree;
-Prism.languages['memory-map'] = memoryMap;
+Prism.languages.map = mapGrammar;
+Prism.languages.tree = tree;
+Prism.languages.uboot = uboot;
+Prism.languages['u-boot'] = uboot;
 Prism.languages.region = regionTree;
 Prism.languages.regiontree = regionTree;
 Prism.languages.riscv = riscv;
@@ -128,4 +174,4 @@ Prism.languages.devicetree = devicetree;
 Prism.languages.dts = devicetree;
 Prism.languages.kconfig = kconfig;
 
-module.exports = { Prism, armGas, riscv, devicetree, kconfig, regionTree, memoryMap, isRegionTreeText, isMemoryMapText };
+module.exports = { Prism, armGas, riscv, devicetree, kconfig, regionTree, mapGrammar, tree, uboot, isRegionTreeText, isMapText };

@@ -29,5 +29,49 @@ summary: 变量
 # 编程语言
 ## C语言学习笔记
 ### C语言学习笔记（二）
+**①引言**
+>**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
+**②引言**
+>**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
+**③引言**
+>**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
+**④引言**
+>**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
 
 

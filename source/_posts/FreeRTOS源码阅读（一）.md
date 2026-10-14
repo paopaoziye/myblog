@@ -17,6 +17,10 @@ tags:
   - FreeRTOS
 categories: RTOS
 keywords:
+  - FreeRTOS
+  - RTOS
+  - 裸机开发
+  - 移植
 updated: ''
 img: /medias/featureimages/38.webp
 date: 2026-06-30 13:55:14

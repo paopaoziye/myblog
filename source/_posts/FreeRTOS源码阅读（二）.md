@@ -19,6 +19,10 @@ updated: ''
 img: /medias/featureimages/38.webp
 date: 2026-09-08 11:07:54
 keywords:
+  - FreeRTOS
+  - 内存管理
+  - heap_4
+  - 动态内存分配
 summary: FreeRTOS内存管理，主要围绕heap_4.c
 ---
 # RTOS

@@ -7,8 +7,9 @@ const publicDir = path.resolve(__dirname, '../public');
 const summaryLimit = [...'M-profile的内存管理机制，主要围绕Armv8-M'].length;
 const errors = [];
 const htmlFiles = [];
-let regionTreeBlocks = 0;
-let memoryMapBlocks = 0;
+let mapBlocks = 0;
+let treeBlocks = 0;
+let ubootBlocks = 0;
 
 
 function addError(file, message) {
@@ -35,16 +36,25 @@ function inspectHtml(file) {
     const language = block[1].toLowerCase();
     const content = block[0];
     if (language === 'region-tree') {
-      regionTreeBlocks++;
       for (const token of ['region-title', 'region-property', 'region-value']) {
         if (!content.includes(`token ${token}`)) addError(file, `Region tree is missing ${token} token`);
       }
-    } else if (language === 'memory-map') {
-      memoryMapBlocks++;
+    } else if (language === 'map') {
+      mapBlocks++;
       for (const token of ['address', 'memory-border', 'region-name']) {
-        if (!content.includes(`token ${token}`)) addError(file, `memory map is missing ${token} token`);
+        if (!content.includes(`token ${token}`)) addError(file, `map block is missing ${token} token`);
       }
-    } else if (language === 'text' && /token (?:region-title|region-property|region-value|address|memory-border|region-name)/.test(content)) {
+    } else if (language === 'tree') {
+      treeBlocks++;
+      for (const token of ['tree-root', 'tree-node-1', 'tree-node-2', 'tree-glyph']) {
+        if (!content.includes(`token ${token}`)) addError(file, `tree block is missing ${token} token`);
+      }
+    } else if (language === 'uboot') {
+      ubootBlocks++;
+      for (const token of ['comment', 'command', 'variable', 'string']) {
+        if (!content.includes(`token ${token}`)) addError(file, `U-Boot block is missing ${token} token`);
+      }
+    } else if (language === 'text' && /token (?:region-title|region-property|region-value|address|memory-border|region-name|tree-root|tree-node|tree-comment|tree-glyph|command|variable)/.test(content)) {
       addError(file, 'ordinary text contains specialized diagram tokens');
     }
   }
@@ -144,8 +154,9 @@ function walk(directory) {
 
 walk(publicDir);
 if (!htmlFiles.length) errors.push('no generated HTML files found');
-if (!regionTreeBlocks) errors.push('no generated Region tree blocks found');
-if (!memoryMapBlocks) errors.push('no generated memory map blocks found');
+if (!mapBlocks) errors.push('no generated map blocks found');
+if (!treeBlocks) errors.push('no generated tree blocks found');
+if (!ubootBlocks) errors.push('no generated U-Boot blocks found');
 if (!fs.existsSync(path.join(publicDir, 'search.xml'))) errors.push('missing generated search.xml');
 
 const siteUrl = 'https://paopaoziye.github.io';

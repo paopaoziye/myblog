@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const { Prism, isRegionTreeText, isMemoryMapText } = require('../scripts/prism-custom');
+const { Prism, isRegionTreeText, isMapText } = require('../scripts/prism-custom');
 
 const postsDir = path.resolve(__dirname, '../source/_posts');
 const allowed = new Set([
   '', 'text', 'plaintext', 'none',
   'c', 'cpp', 'rust', 'js', 'javascript', 'html', 'markup', 'css',
   'bash', 'shell', 'yaml', 'json',
-  'nasm', 'arm', 'arm-gas', 'riscv', 'devicetree', 'kconfig', 'region-tree', 'memory-map', 'region', 'regiontree',
+  'nasm', 'arm', 'arm-gas', 'riscv', 'devicetree', 'kconfig', 'region-tree', 'map', 'tree', 'uboot', 'region', 'regiontree',
   'cmake', 'makefile', 'ld', 'linker-script', 'tcl'
 ]);
 const forbidden = new Set(['asm', 'dts', 'cmakelist']);
@@ -57,7 +57,9 @@ const grammarSamples = {
   devicetree: '/dts-v1/;\n&uart1 { status = "okay"; };',
   kconfig: 'config GPIO\n  bool "GPIO support"\n  default y',
   'region-tree': 'Region\n│\n├── 地址属性\n│   └── Base / Limit\n└── 内存属性\n    └── Cacheable',
-  'memory-map': '0xFFFF_FFFF  ┌──────────────┐\n             │ System Region │\n0xE000_0000  ├──────────────┤\n             │ SRAM         │\n0x2000_0000  └──────────────┘'
+  map: '0xFFFF_FFFF  ┌──────────────┐\n             │ System Region │\n0xE000_0000  ├──────────────┤\n             │ SRAM         │\n0x2000_0000  └──────────────┘\nHigh Address  ┌──────────────────────┐\n              │                 Stack │\n              │      mmap / Shared Libraries │\n              │                  .bss │\nLow Address   └──────────────────────┘',
+  tree: 'MMC0\n│\n├─ Partition 1\n│    ├─ Image           # Linux Kernel 镜像\n│    ├─ board.dtb       # 设备树文件\n│    └─ initramfs.img   # 启动早期使用的内存根文件系统\n│\n└─ Partition 2\n     └─ RootFS          # 最终根文件系统\n├─ Folder\n│    ├─ Sub\n│    │    ├─ Deep 3\n│    │    │    ├─ Deep 4',
+  uboot: '# load kernel\nload mmc 0:1 ${kernel_addr_r} Image\nsetenv bootargs "console=ttyS0,115200 root=/dev/mmcblk0p2 rw rootwait"\nbooti ${kernel_addr_r} ${ramdisk_addr_r}:${filesize} ${fdt_addr_r}'
 };
 
 for (const [language, sample] of Object.entries(grammarSamples)) {
@@ -79,18 +81,32 @@ for (const [language, sample] of Object.entries(grammarSamples)) {
     const plainText = rendered.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     if (plainText !== sample) errors.push('region-tree grammar changed source text');
   }
-  if (language === 'memory-map') {
+  if (language === 'map') {
     for (const token of ['address', 'memory-border', 'region-name']) {
       if (!rendered.includes(`token ${token}`)) {
-        errors.push(`memory-map grammar produced no ${token} markup`);
+        errors.push(`map grammar produced no ${token} markup`);
       }
     }
     const plainText = rendered.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
-    if (plainText !== sample) errors.push('memory-map grammar changed source text');
+    if (plainText !== sample) errors.push('map grammar changed source text');
+  }
+  if (language === 'tree') {
+    for (const token of ['tree-root', 'tree-node-1', 'tree-node-2', 'tree-node-3', 'tree-node-4', 'tree-comment', 'tree-glyph']) {
+      if (!rendered.includes(`token ${token}`)) errors.push(`tree grammar produced no ${token} markup`);
+    }
+  }
+  if (language === 'uboot') {
+    for (const token of ['comment', 'command', 'variable', 'string']) {
+      if (!rendered.includes(`token ${token}`)) errors.push(`uboot grammar produced no ${token} markup`);
+    }
+  }
+  if (['tree', 'uboot'].includes(language)) {
+    const plainText = rendered.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    if (plainText !== sample) errors.push(`${language} grammar changed source text`);
   }
 }
 
-for (const alias of ['armgas', 'riscv-asm', 'dts', 'region', 'regiontree']) {
+for (const alias of ['armgas', 'riscv-asm', 'dts', 'region', 'regiontree', 'u-boot']) {
   if (!Prism.languages[alias]) errors.push(`custom alias is not registered: ${alias}`);
 }
 
@@ -102,6 +118,16 @@ for (const sample of [
   'root\n├── child\n└── child'
 ]) {
   if (isRegionTreeText(sample)) errors.push(`region-tree text classifier accepted plain text: ${sample.split('\n', 1)[0]}`);
+}
+
+const mapTextSample = grammarSamples.map;
+if (!isMapText(mapTextSample)) errors.push('map text classifier rejected a valid memory map');
+for (const sample of [
+  'Stack\n├── child',
+  'Heap provides dynamic memory allocation.',
+  'High Address\n│\nLow Address'
+]) {
+  if (isMapText(sample)) errors.push(`map text classifier accepted plain text: ${sample.split('\n', 1)[0]}`);
 }
 
 if (errors.length) {
