@@ -260,6 +260,34 @@ xSemaphoreTake的底层实现为xQueueSemaphoreTake，xSemaphoreGive的底层实
  * pdFALSE  对象不允许本次释放
  */
 #define xSemaphoreGive( xSemaphore )    xQueueGenericSend( ( QueueHandle_t ) ( xSemaphore ), NULL, semGIVE_BLOCK_TIME, queueSEND_TO_BACK )
+
+/*
+ * 函数功能：
+ * 从中断无等待获取二值或计数信号量，不可用于互斥锁
+ *
+ * 参数：
+ * xSemaphore                 输入，信号量或互斥锁句柄，允许的对象类型见接口契约
+ * pxHigherPriorityTaskWoken  输入输出，调用前通常初始化为 pdFALSE；唤醒更高优先级任务时置 pdTRUE，中断退出前据此请求切换
+ *
+ * 返回值：
+ * pdTRUE   成功获取信号量
+ * pdFALSE  信号量计数为零
+ */
+#define xSemaphoreTakeFromISR( xSemaphore, pxHigherPriorityTaskWoken )    xQueueReceiveFromISR( ( QueueHandle_t ) ( xSemaphore ), NULL, ( pxHigherPriorityTaskWoken ) )
+
+/*
+ * 函数功能：
+ * 从中断释放二值或计数信号量，不可用于互斥锁
+ *
+ * 参数：
+ * xSemaphore                 输入，信号量或互斥锁句柄，允许的对象类型见接口契约
+ * pxHigherPriorityTaskWoken  输入输出，调用前通常初始化为 pdFALSE；唤醒更高优先级任务时置 pdTRUE，中断退出前据此请求切换
+ *
+ * 返回值：
+ * pdTRUE   成功增加二值或计数信号量的计数
+ * pdFALSE  计数已达到最大值
+ */
+#define xSemaphoreGiveFromISR( xSemaphore, pxHigherPriorityTaskWoken )    xQueueGiveFromISR( ( QueueHandle_t ) ( xSemaphore ), ( pxHigherPriorityTaskWoken ) )
 ```
 ```c
 /*
@@ -736,22 +764,23 @@ PCP和ICPP不仅能够缓解优先级反转，还能预防死锁与链式阻塞�
 >`PCP`和`ICPP`均需预先明确任务与资源的访问关系，增加设计和维护成本，且可能引入不必要的**资源阻塞**或**优先级提升**
 
 **④优先级继承**
->**概述**：任务获取互斥量**失败时**，会调用`xTaskPriorityInherit`
+>**概述**：任务成功获取互斥量时，会通过`pvTaskIncrementMutexHeldCount`记录持有者，**阻塞等待时**则调用`xTaskPriorityInherit`
 {%list%}
-
+当互斥量持有者的当前有效优先级低于等待任务的优先级时，xTaskPriorityInherit会触发优先级继承，提升其当前有效优先级
 {%endlist%}
+>`xTaskPriorityInherit`通过更新`xEventListItem`、`uxPriority`以及`xStateListItem`**所在就绪列表**提升互斥量持有者的**当前有效优先级**
 {%right%}
-
+当持有者调用xSemaphoreGive释放互斥量时，会在prvCopyDataToQueue中调用xTaskPriorityDisinherit，在必要时恢复其优先级
 {%endright%}
 {%warning%}
-
+互斥量等待超时后，会根据剩余等待任务与持有者的基础优先级重新计算目标优先级，并在其仅只持有一个互斥量的条件下调整
 {%endwarning%}
+{%wrong%}
+FreeRTOS采用简化的优先级继承机制，无法精确判断任务剩余互斥量的继承需求，因此通常在其全部释放后才恢复基础优先级
+{%endwrong%}
 ```c
-/*
- * 任务控制块
- * 每个任务都有一个 TCB，用于保存栈、链表节点、优先级及可选功能的数据
- */
-typedef struct tskTaskControlBlock       
+/* 任务控制块中与优先级继承相关的成员节选 */
+typedef struct tskTaskControlBlock
 {
     // configUSE_MUTEXES 为 1 时，保存优先级继承所需的基础优先级和互斥量持有数
     #if ( configUSE_MUTEXES == 1 )
@@ -811,7 +840,6 @@ BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder )
     // 互斥量有任务持有者时
     if( pxMutexHolder != NULL )
     {
-
         // 只有持有者的有效优先级低于当前等待者时才需提升
         if( pxMutexHolderTCB->uxPriority < pxCurrentTCB->uxPriority )
         {
@@ -834,8 +862,10 @@ BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder )
 
                 // 将持有者的有效优先级提高到当前任务的优先级
                 pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
+
                 // 将持有者加入新优先级的就绪链表
                 prvAddTaskToReadyList( pxMutexHolderTCB );
+
                 // configNUMBER_OF_CORES 大于 1 时，多核处理继承后的任务运行状态及跨核让出
                 #if ( configNUMBER_OF_CORES > 1 )
                 {
@@ -872,27 +902,336 @@ BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder )
     return xReturn;
 }
 ```
+```c
+/*
+ * 函数功能：
+ * 在持有者释放最后一个互斥量时恢复其基础优先级
+ *
+ * 参数：
+ * pxMutexHolder  必须为当前任务的互斥量持有者句柄
+ *
+ * 返回值：
+ * pdTRUE   恢复优先级后需要进行一次调度
+ * pdFALSE  未发生需要调度的优先级恢复
+ */
+BaseType_t xTaskPriorityDisinherit( TaskHandle_t const pxMutexHolder )
+{
+    // 将持有者句柄作为要更新的 TCB
+    TCB_t * const pxTCB = pxMutexHolder;
+    // 记录恢复基础优先级后是否需要重新调度
+    BaseType_t xReturn = pdFALSE;
 
-**⑤优先级恢复**
->**概述**：
+    // 互斥量有任务持有者时
+    if( pxMutexHolder != NULL )
+    {
+        // 去继承只允许互斥量持有者自身在释放路径调用，并要求持有计数非零
+        configASSERT( pxTCB == pxCurrentTCB );
+        // 确认当前任务至少持有一个互斥量
+        configASSERT( pxTCB->uxMutexesHeld );
+        // 减少当前任务持有的互斥量数量
+        ( pxTCB->uxMutexesHeld )--;
+
+        // 当前有效优先级与基础优先级不同才存在可撤销的继承
+        if( pxTCB->uxPriority != pxTCB->uxBasePriority )
+        {
+            // 只在最后一个互斥量释放后恢复基础优先级
+            if( pxTCB->uxMutexesHeld == ( UBaseType_t ) 0 )
+            {
+                // 将任务移出旧优先级的就绪链表，并检查链表是否已空
+                if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+                {
+                    // 清除该优先级在就绪记录中的标记
+                    portRESET_READY_PRIORITY( pxTCB->uxPriority, uxTopReadyPriority );
+                }
+
+                // 将有效优先级恢复为基础优先级
+                pxTCB->uxPriority = pxTCB->uxBasePriority;
+
+                // 按恢复后的基础优先级更新事件节点的排序值
+                listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) pxTCB->uxPriority );
+
+                // 按基础优先级重新加入就绪链表
+                prvAddTaskToReadyList( pxTCB );
+
+                // configNUMBER_OF_CORES 大于 1 时，多核下优先级恢复还需协调正在其他核心运行的任务
+                #if ( configNUMBER_OF_CORES > 1 )
+                {
+                    // 持有者正在某核运行时请求该核重新评估降级后的调度选择
+                    if( taskTASK_IS_RUNNING( pxTCB ) == pdTRUE )
+                    {
+                        // 请求运行该任务的核心重新选择任务
+                        prvYieldCore( pxTCB->xTaskRunState );
+                    }
+                }
+                #endif
+
+                // 优先级确已下降，调用者需要执行一次让出检查
+                xReturn = pdTRUE;
+            }
+        }
+    }
+
+    // 返回优先级恢复后是否需要重新调度
+    return xReturn;
+}
+```
+```c
+/*
+ * 函数功能：
+ * 查询仍在等待获取互斥量的任务中的最高优先级，供获取超时后调整持有任务的优先级
+ *
+ * 参数：
+ * pxQueue  输入，互斥量对应的队列控制块
+ *
+ * 返回值：
+ * 等待任务中的最高优先级；列表为空时为 tskIDLE_PRIORITY
+ */
+static UBaseType_t prvGetHighestPriorityOfWaitToReceiveList( const Queue_t * const pxQueue )
+{
+    // 保存接收等待列表中的最高任务优先级
+    UBaseType_t uxHighestPriorityOfWaitingTasks;
+
+    // 还有任务在等待获取，可以从列表第一项算出最高优先级
+    if( listCURRENT_LIST_LENGTH( &( pxQueue->xTasksWaitingToReceive ) ) > 0U )
+    {
+        // 第一项保存的是 configMAX_PRIORITIES 减任务优先级，再减一次就能得到该任务的优先级
+        uxHighestPriorityOfWaitingTasks = ( UBaseType_t ) ( ( UBaseType_t ) configMAX_PRIORITIES - ( UBaseType_t ) listGET_ITEM_VALUE_OF_HEAD_ENTRY( &( pxQueue->xTasksWaitingToReceive ) ) );
+    }
+    else
+    {
+        // 没有剩余等待任务，以空闲任务优先级作为调整时的最低参考值
+        uxHighestPriorityOfWaitingTasks = tskIDLE_PRIORITY;
+    }
+
+    return uxHighestPriorityOfWaitingTasks;
+}
+```
+```c
+/*
+ * 函数功能：
+ * 当等待互斥量的任务超时时，按剩余等待者优先级修正持有者的继承优先级
+ *
+ * 参数：
+ * pxMutexHolder                 互斥量持有者的任务句柄
+ * uxHighestPriorityWaitingTask  该互斥量仍在等待的最高优先级
+ *
+ * 返回值：
+ * 无返回值
+ */
+void vTaskPriorityDisinheritAfterTimeout( TaskHandle_t const pxMutexHolder,
+                                            UBaseType_t uxHighestPriorityWaitingTask )
+{
+    // 指向需要根据剩余等待者重算继承优先级的 TCB
+    TCB_t * const pxTCB = pxMutexHolder;
+    // 分别保存降级前优先级和本次应采用的目标优先级
+    UBaseType_t uxPriorityUsedOnEntry, uxPriorityToUse;
+    // 用于检查持有者是否仅持有一个互斥量
+    const UBaseType_t uxOnlyOneMutexHeld = ( UBaseType_t ) 1;
+
+    // 只有存在任务持有者时才可调整其继承状态
+    if( pxMutexHolder != NULL )
+    {
+        // 持有者必须至少拥有一个互斥量，才能执行超时触发的去继承
+        configASSERT( pxTCB->uxMutexesHeld );
+
+        // 目标值取基础优先级与剩余最高等待优先级中的较大者
+        if( pxTCB->uxBasePriority < uxHighestPriorityWaitingTask )
+        {
+            // 将目标优先级设为剩余等待者的最高优先级
+            uxPriorityToUse = uxHighestPriorityWaitingTask;
+        }
+        else
+        {
+            // 将目标优先级设为持有者的基础优先级
+            uxPriorityToUse = pxTCB->uxBasePriority;
+        }
+
+        // 只在当前有效优先级与重算结果不同时执行降级
+        if( pxTCB->uxPriority != uxPriorityToUse )
+        {
+            // 持有者只持有一个互斥量时
+            if( pxTCB->uxMutexesHeld == uxOnlyOneMutexHeld )
+            {
+                // 超时任务不能通过等待自己持有的互斥量继承自身优先级
+                configASSERT( pxTCB != pxCurrentTCB );
+
+                // 保存调整前的优先级，供迁移就绪链表时使用
+                uxPriorityUsedOnEntry = pxTCB->uxPriority;
+                // 采用重新计算后的有效优先级
+                pxTCB->uxPriority = uxPriorityToUse;
+
+                // 事件链表项未被特殊用途占用时同步更新反向优先级排序值
+                if( ( listGET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ) ) & taskEVENT_LIST_ITEM_VALUE_IN_USE ) == ( ( TickType_t ) 0U ) )
+                {
+                    // 按调整后的优先级更新事件节点的排序值
+                    listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxPriorityToUse );
+                }
+
+                // 只有就绪任务需要从旧优先级链表迁移到新优先级链表
+                if( listIS_CONTAINED_WITHIN( &( pxReadyTasksLists[ uxPriorityUsedOnEntry ] ), &( pxTCB->xStateListItem ) ) != pdFALSE )
+                {
+                    // 将任务移出旧优先级的就绪链表，并检查链表是否已空
+                    if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+                    {
+                        // 清除旧优先级在就绪记录中的标记
+                        portRESET_READY_PRIORITY( uxPriorityUsedOnEntry, uxTopReadyPriority );
+                    }
+
+                    // 按重算后的优先级重新加入就绪链表
+                    prvAddTaskToReadyList( pxTCB );
+
+                    // configNUMBER_OF_CORES 大于 1 时，多核下就绪任务降级后，要求运行该任务的核心重新调度
+                    #if ( configNUMBER_OF_CORES > 1 )
+                    {
+                        // 若降级任务仍在某核运行，请求该核重新评估调度选择
+                        if( taskTASK_IS_RUNNING( pxTCB ) == pdTRUE )
+                        {
+                            // 请求运行该任务的核心重新选择任务
+                            prvYieldCore( pxTCB->xTaskRunState );
+                        }
+                    }
+                    #endif
+                }
+            }
+        }
+    }
+}
+```
+**⑤递归互斥量**
+>**概述**：`FreeRTOS`提供`xSemaphoreTakeRecursive`和`xSemaphoreGiveRecursive`实现**递归互斥量的获取与释放**，详细如下所示
 {%list%}
-
+递归互斥量通过记录持有任务和递归计数，允许同一任务重复获取，每次释放时计数减1，直到计数归零才真正释放互斥量
 {%endlist%}
 {%right%}
-
+递归互斥量使嵌套函数能够独立管理加锁与解锁，无需协调各层持锁状态，降低代码耦合并避免重复加锁导致死锁
 {%endright%}
 {%warning%}
-
+递归互斥量必须由持有任务通过专用接口释放，且获取与释放次数必须一致，否则可能导致资源长期被占用
 {%endwarning%}
+```c
+/*
+ * 函数功能：
+ * 获取递归互斥锁，同一任务可重复获取，每次成功获取都需匹配一次递归释放
+ *
+ * 参数：
+ * xMutex      输入，递归互斥锁句柄
+ * xBlockTime  输入，获取对象的最长等待时间，单位 tick，0 表示立即尝试
+ *
+ * 返回值：
+ * pdTRUE   成功取得信号量或相应互斥锁
+ * pdFALSE  等待结束时仍未取得对象
+ */
+#define xSemaphoreTakeRecursive( xMutex, xBlockTime )    xQueueTakeMutexRecursive( ( xMutex ), ( xBlockTime ) )
+/*
+ * 函数功能：
+ * 释放一次递归持有，仅最外层释放后其他任务才能取得
+ *
+ * 参数：
+ * xMutex  输入，递归互斥锁句柄
+ *
+ * 返回值：
+ * pdTRUE   成功释放信号量或相应层次的互斥锁持有
+ * pdFALSE  对象不允许本次释放
+ */
+#define xSemaphoreGiveRecursive( xMutex )    xQueueGiveMutexRecursive( ( xMutex ) )
+```
+```c
+/*
+ * 函数功能：
+ * 获取递归互斥量；当前任务已经持有时再次获取，只增加获取次数
+ *
+ * 参数：
+ * xMutex        输入，递归互斥量句柄
+ * xTicksToWait  输入，第一次获取需要等待时，最多等待的 tick 数
+ *
+ * 返回值：
+ * pdPASS        成功获取并增加递归计数
+ * pdFAIL        在等待期限内未获取互斥量
+ */
+BaseType_t xQueueTakeMutexRecursive( QueueHandle_t xMutex,
+                                        TickType_t xTicksToWait )
+{
+    // 保存这次递归获取是否成功
+    BaseType_t xReturn;
+    // 通过互斥量句柄访问内部控制块
+    Queue_t * const pxMutex = ( Queue_t * ) xMutex;
 
-**⑥嵌套互斥量**
->**概述**：
-{%list%}
+    // 断言递归互斥量句柄有效
+    configASSERT( pxMutex );
 
-{%endlist%}
-{%right%}
+    // 当前任务已经持有互斥量，可以直接增加重复获取次数，不必再次等待
+    if( pxMutex->u.xSemaphore.xMutexHolder == xTaskGetCurrentTaskHandle() )
+    {
+        // 同一任务再次获取，只把重复获取次数加一
+        ( pxMutex->u.xSemaphore.uxRecursiveCallCount )++;
 
-{%endright%}
-{%warning%}
+        // 加一后不能变成 0，否则计数已经溢出
+        configASSERT( pxMutex->u.xSemaphore.uxRecursiveCallCount );
 
-{%endwarning%}
+        xReturn = pdPASS;
+    }
+    else
+    {
+        // 当前任务尚未持有互斥量，按 xTicksToWait 指定的时间尝试获取
+        xReturn = xQueueSemaphoreTake( pxMutex, xTicksToWait );
+
+        // 获取结果不是 pdFAIL，才增加这次成功获取的计数
+        if( xReturn != pdFAIL )
+        {
+            // 获取成功，记下第一次获取
+            ( pxMutex->u.xSemaphore.uxRecursiveCallCount )++;
+
+            // 加一后不能变成 0，否则计数已经溢出
+            configASSERT( pxMutex->u.xSemaphore.uxRecursiveCallCount );
+        }
+
+    }
+
+    return xReturn;
+}
+```
+```c
+/*
+ * 函数功能：
+ * 当前持有任务将获取次数减一；减到 0 时，互斥量才真正释放
+ *
+ * 参数：
+ * xMutex  输入，递归互斥量句柄
+ *
+ * 返回值：
+ * pdPASS  当前任务是持有者并完成一次释放
+ * pdFAIL  当前任务不是持有者
+ */
+BaseType_t xQueueGiveMutexRecursive( QueueHandle_t xMutex )
+{
+    // 保存这次递归释放是否成功
+    BaseType_t xReturn;
+    // 通过互斥量句柄访问内部控制块
+    Queue_t * const pxMutex = ( Queue_t * ) xMutex;
+
+    // 断言递归互斥量句柄有效
+    configASSERT( pxMutex );
+
+    // 只有当前持有任务才能释放自己的递归获取次数
+    if( pxMutex->u.xSemaphore.xMutexHolder == xTaskGetCurrentTaskHandle() )
+    {
+        // 重复获取次数减一；只要还没减到 0，互斥量就继续由当前任务持有
+        ( pxMutex->u.xSemaphore.uxRecursiveCallCount )--;
+
+        // 重复获取次数已减到 0，需要真正释放互斥量
+        if( pxMutex->u.xSemaphore.uxRecursiveCallCount == ( UBaseType_t ) 0 )
+        {
+            // 不等待地释放互斥量，同时按需要处理此前临时提高的任务优先级
+            ( void ) xQueueGenericSend( pxMutex, NULL, queueMUTEX_GIVE_BLOCK_TIME, queueSEND_TO_BACK );
+        }
+
+        xReturn = pdPASS;
+    }
+    else
+    {
+        xReturn = pdFAIL;
+    }
+
+    return xReturn;
+}
+```

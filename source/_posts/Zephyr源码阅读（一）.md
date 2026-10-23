@@ -25,21 +25,22 @@ keywords:
 updated: ''
 img: /medias/featureimages/37.webp
 date: 2026-06-30 13:55:14
-summary: Zephyr 环境、west 与 SDK 安装
+summary: Zephyr环境配置与点灯工程
 ---
 # RTOS
-## Zephyr源码阅读（一）
-### Zephyr简介
+## Zephyr源码阅读
+### Zephyr源码阅读（一）
+#### Zephyr入门
 **①简介**
->**概述**：由`Linux`基金会托管的开源`RTOS`，可以在[官方仓库](github.com/zephyrproject-rtos/zephyr)获取其源码，**代码架构**如下所示
+>**概述**：一个由`Linux`基金会托管的**开源实时操作系统**，可以在[官方仓库](github.com/zephyrproject-rtos/zephyr)获取其**系统源码**，其目录结构如下所示
 {%list%}
-Zephyr采用类似Linux的Kconfig配置系统，支持模块化开发，并且包含丰富的组件如蓝牙和Wi-Fi等
+Zephyr采用模块化架构，通过Kconfig配置系统、Devicetree描述硬件资源，并结合CMake和west构建工程，支持多种处理器架构
 {%endlist%}
 {%right%}
-Zephyr采用统一的驱动接口以及设备树，并且代码高度抽象，便于代码移植
+Zephyr通过统一设备模型和驱动接口屏蔽硬件差异，利用设备树管理外设，使应用程序能够在不同芯片和开发板之间复用与移植
 {%endright%}
 {%warning%}
-由于其复杂的抽象层，Zephyr的RAM/Flash占用通常比FreeRTOS等简单实时操作系统高
+相较于FreeRTOS，Zephyr依赖Kconfig和Devicetree等多层配置机制，构建流程和驱动框架更复杂，资源开销也更高
 {%endwarning%}
 ```shell
 zephyrproject/
@@ -62,17 +63,16 @@ zephyrproject/
     ├── tests/           # 官方测试用例，用于验证内核和各功能模块
     └── ...
 ```
-![Zephyr架构](/image/Zephyr_1.png)
 **②环境配置**
->**概述**：以`Ubuntu 24.04`为例构建`Zephyr 4.4.0`的开发环境，`SDK`版本为`1.0.1`，如下所示
+>**概述**：以`Ubuntu 24.04`为基础搭建`Zephyr 4.4.0`开发环境，安装`Zephyr SDK 1.0.1`及相关依赖，具体步骤如下
 {%list%}
-West是Zephyr官方提供的元工具，用于统一管理源码、构建、烧录和调试整个Zephyr工程
+west是Zephyr官方提供的可扩展项目管理工具，用于初始化工作区、管理源码及模块依赖，并统一进行工程构建、烧录和调试等
 {%endlist%}
 {%right%}
-使用虚拟环境可以使得每个Zephyr工作区有自己的Python环境，不会污染Ubuntu系统环境
+虚拟环境可以为每个Zephyr工作区提供独立的Python运行环境，避免不同项目之间的依赖冲突，同时不影响Ubuntu系统环境
 {%endright%}
 {%warning%}
-每次进入zephyrproject文件夹下进行开发时都需要使用source .venv/bin/activate重新激活虚拟环境
+每次进入zephyrproject文件夹下进行开发时都需要使用source .venv/bin/activate重新激活虚拟环境，修改对应的环境变量
 {%endwarning%}
 ```shell
 # 更新系统

@@ -30,29 +30,32 @@ summary: Rust 工具链、项目创建与代码检查
 # 编程语言
 ## Rust学习笔记
 ### Rust学习笔记（一）
-#### 1.引言
-**①简介**
->**概述**：`Rust`是一门强调**运行效率**、**内存安全**和**并发安全**的编程语言，主要面向系统级开发
+#### Hello World
+**①引言**
+>**概述**：`Rust`是一门注重**运行效率**、**内存安全**与**并发安全**的**编译型**、**静态类型**的通用编程语言，适合系统级开发
 {%list%}
-RUST的主要特性为所有权，即每个值只能有一个所有者，所有者离开作用域后，内存自动释放
+Rust通过所有权、借用及生命周期等机制，在编译阶段约束数据的访问与共享，防止悬垂引用、重复释放及数据竞争等问题
 {%endlist%}
 {%right%}
-Rust的所有权机制通过规定数据的归属、转移和释放方式，在没有垃圾回收器的情况下保证内存安全
+Rust 的核心设计思想是将资源管理与访问约束融入语言规则和类型系统，使潜在的内存安全问题尽可能在编译阶段被发现
 {%endright%}
 {%warning%}
-Rust的学习曲线陡峭，编译速度较慢，且经常会出现代码逻辑没有明显问题，但无法编译通过的情况
+Rust的学习曲线较陡、编译耗时较长，且即使代码逻辑看似正确，也可能因不满足所有权、借用及生命周期等规则而无法通过编译
 {%endwarning%}
-![所有权机制](/image/Rust_1.png)
+{%wrong%}
+Rust的编译期检查无法消除逻辑错误、死锁及所有并发问题，且某些场景可能需要使用unsafe，需要由开发者自行保证其安全性
+{%endwrong%}
+
 **②环境配置**
->**概述**：以`Ubuntu 24.04`为例构建`Rust`的开发环境，主要就是安装`rustc`、`cargo`和`rustup`
+>**概述**：本小节以`Ubuntu 24.04`为例，通过`rustup`安装和管理`Rust`工具链，主要包括`rustc`、`cargo`和`rustup`，如下所示
 {%list%}
-rustup是Rust的工具链管理器，负责安装、更新和切换不同版本的 Rust，以及添加交叉编译目标和组件
+rustup为工具链管理器，负责安装、更新和切换不同版本的Rust工具链，并支持添加交叉编译目标及开发组件
 {%endlist%}
 {%right%}
-cargo是Rust的项目管理工具，负责创建项目、管理依赖、编译、运行、测试和发布等
+cargo是Rust的项目构建与包管理工具，负责项目创建、依赖管理、代码编译、程序运行、自动化测试及软件包发布等开发流程
 {%endright%}
 {%warning%}
-rustc是Rust的编译器，但是日常主要使用cargo，它会自动调用rustc完成编译
+rustc是Rust的编译器，负责将源代码编译为目标程序，日常开发通常通过cargo统一管理构建流程，由其自动调用rustc完成编译
 {%endwarning%}
 ```shell
 # 安装依赖
@@ -60,6 +63,7 @@ sudo apt update
 sudo apt install -y \
     build-essential \
     curl \
+    ca-certificates \
     git \
     pkg-config \
     libssl-dev
@@ -67,45 +71,50 @@ sudo apt install -y \
 # 使用 rustup 安装 Rust，出现选项时选择 1 表明安装稳定版 Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# 让环境变量生效
+# 让环境变量生效，默认情况下 Rust 的工具位于 ~/.cargo/bin/
 source "$HOME/.cargo/env" 
 ```
 **③Hello world**
->**概述**：运行如下命令创建并编译`Hello world`工程，其**目录结构**如下所示
+>**概述**：运行如下命令通过`Cargo`**创建**、**检查**、**编译**并**运行**`Hello World`工程，该工程**主要目录结构**如下所示
 {%list%}
-Cargo.toml是项目配置文件，用于记录项目名称、版本和依赖等信息
+Cargo.toml是Rust项目的配置文件，用于记录项目名称、语言版本及依赖关系等信息，为Cargo的项目构建与依赖管理提供依据
 {%endlist%}
 {%right%}
-cargo check会完成语法检查、类型检查、借用检查和依赖分析，比cargo build快很多，适合频繁使用
+cargo check会完成语法检查、类型检查、借用检查和依赖分析但不会进行代码生成与链接，比cargo build快很多，适合频繁使用
 {%endright%}
->除此之外还有`cargo fmt`、`cargo clippy`和`cargo test`可用于**格式化**、**静态检查**和**代码验证**
+>除此之外，`Cargo`还提供还有`cargo fmt`、`cargo clippy`和`cargo test`等工具，分别用于**格式化**、**静态检查**和**代码验证**
 {%warning%}
-cargo build生成的是调试版本，cargo build --release生成的是优化版本，后者性能更好但编译更耗时
+cargo build默认生成便于调试的开发版本，可以添加--release参数生成经过编译优化的发布版，后者性能更好但编译更耗时
 {%endwarning%}
 ```shell
-# 创建新项目
+# 创建并进入项目
 cargo new hello_rust
 cd hello_rust
 
-# 格式化检查代码格式是否符合 rustfmt 规范，但不会自动修改文件
-# -- 表示把后面的参数传给 Clippy/Rust 编译器
-# 如果需要自动格式化则运行 cargo fmt
+# 检查代码格式，不修改源文件
 cargo fmt --check
 
-# 快速检查语法、类型、所有权和借用等问题
-cargo check 
+# 自动格式化源代码
+cargo fmt
 
-# 静态检查，检查潜在错误和不推荐的代码写法
-# -D warnings表示将所有警告提升为错误
+# 快速检查代码及依赖，不生成可执行程序
+cargo check
+
+# 静态分析，检查潜在问题和不推荐的写法
+# -- 表示将后续参数传递给 Clippy 使用的编译器
+# -D warnings 表示将所有警告视为错误
 cargo clippy -- -D warnings
 
-#  编译并运行项目中的测试代码（需要自己编写）
+# 编译并执行测试用例
 cargo test
 
-# 编译项目
+# 编译调试版本
 cargo build
 
-# 运行项目
+# 编译优化版本
+cargo build --release
+
+# 编译并运行程序
 cargo run
 ```
 ```shell
@@ -119,4 +128,32 @@ fn main() {
     println!("Hello, world!");
 }
 ```
+**④编译流程**
+>**概述**：`Cargo`会在特定时刻调用`rustc`完成**源代码分析**、**类型与借用检查**、**代码生成**及**链接**等过程，最终生成可执行程序
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
+{%wrong%}
+
+{%endwrong%}
+**⑤**
+>**概述**：
+{%list%}
+
+{%endlist%}
+{%right%}
+
+{%endright%}
+{%warning%}
+
+{%endwarning%}
+{%wrong%}
+
+{%endwrong%}
 
