@@ -131,7 +131,7 @@ fn main() {
 **④编译流程**
 >**概述**：`Cargo`会在特定时刻调用`rustc`完成**源代码分析**、**类型与借用检查**、**代码生成**及**链接**等过程，最终生成可执行程序
 {%list%}
-
+运行cargo build时，Cargo会读取Cargo.toml
 {%endlist%}
 {%right%}
 
